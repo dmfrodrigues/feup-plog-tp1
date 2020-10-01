@@ -19,3 +19,7 @@
 |  17 | [Talpa](https://nestorgames.com/#talpa_detail)                              <img src="https://nestorgames.com/gameimages/talpa_nestorgames.jpg" width="100px"/>                                                                                 | Square. Start in checkers distribution, you capture your adversary pieces, and win if there is a free path between your two sides.                                                              |   | ✖ | Too simple, little competition     |
 |  18 | [Three Dragons](https://boardgamegeek.com/boardgame/306972/three-dragons)   <img src="https://cf.geekdo-images.com/imagepage/img/WUXtI626OeepDv4EqUq0CzHZ9aM=/fit-in/900x600/filters:no_upscale():strip_icc()/pic5407136.jpg" width="100px"/>   | Square. Revamp of ancient games, custodial game.                                                                                                                                                |   | ✖ | Too complex and not interesting    |
 |  19 | [Tumbleweed](https://boardgamegeek.com/boardgame/318702/tumbleweed)         <img src="https://cf.geekdo-images.com/imagepage/img/EcSzV6muJEdpT7OYsUp8E1Kmgr4=/fit-in/900x600/filters:no_upscale():strip_icc()/pic5637800.png" width="100px"/>   | Hexagon. Didn't even understand the rules.                                                                                                                                                      |   | ✖ |                                    |
+
+Possible order of preference:
+
+- 7, 5, 3, 15, 4
