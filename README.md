@@ -1,10 +1,10 @@
-# PLOG Project 1
+# Glaisher
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ![test](https://github.com/dmfrodrigues/feup-sope-proj2/workflows/test/badge.svg)
 
-- **Project name:** ...
+- **Project name:** Glaisher
 - **Short description:** Board game implemented in PROLOG
 - **Environment:** SICStus PROLOG
 - **Tools:** PROLOG
@@ -14,3 +14,7 @@
 - **Group members:**
     - [Breno Accioly de Barros Pimentel](https://github.com/BrenoAccioly) (<up201800170@fe.up.pt>)
     - [Diogo Miguel Ferreira Rodrigues](https://github.com/dmfrodrigues) (<diogo.rodrigues@fe.up.pt>/<up201806429@fe.up.pt>)
+
+## The game
+
+The game is called [Glaisher](https://nestorgames.com/#glaisher_detail). You can check on the rules [here](https://nestorgames.com/rulebooks/GLAISHER_EN.pdf).
