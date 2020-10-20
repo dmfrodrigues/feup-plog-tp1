@@ -55,10 +55,27 @@ board_is_valid_position(I, J) :-
 
 /**
  * board_update(+I, +J, +N)
- * 
- * 
  */
 board_update(I, J, N) :-
     board_is_valid_position(I, J),
     retract(board(I, J, _)),
     assert(board(I, J, N)).
+
+/**
+ * turn(-T)
+ * 
+ * Returns the player that is playing the current turn:
+ * +1 for player 1, -1 for player 2
+ */
+:- dynamic turn/1.
+
+end_turn :-
+    turn(T),
+    (
+        (T =:= +1, P is 1),
+        (T =:= -1, P is 2)
+    ),
+    format("Player ~d ended turn\n", [P]),
+    T1 is -T,
+    retract(turn(_)),
+    assert(turn(T1)).
