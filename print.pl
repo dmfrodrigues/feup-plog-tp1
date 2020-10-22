@@ -57,7 +57,12 @@ printBottomBoard(N) :-
 	printVoidRight(R),
 	printBottomBoard(N1).
 
-printBoard :-
+/**
+ * display_game(+T)
+ * 
+ * Display the game from the perspective of player T.
+ */
+display_game(_) :-
 	printTopBoard(0),
 	printMiddleBoard,
 	printBottomBoard(5).

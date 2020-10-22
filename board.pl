@@ -65,17 +65,17 @@ board_update(I, J, N) :-
  * turn(-T)
  * 
  * Returns the player that is playing the current turn:
- * +1 for player 1, -1 for player 2
+ * 1 for player 1, 2 for player 2
  */
 :- dynamic turn/1.
 
-end_turn :-
+start_turn :-
     turn(T),
-    (
-        (T =:= +1, P is 1),
-        (T =:= -1, P is 2)
-    ),
+    format("Turn ~d\n", [T]).
+
+end_turn :-
+    turn(P),
     format("Player ~d ended turn\n", [P]),
-    T1 is -T,
+    (P =:= 1 -> P1 is 2 ; P1 is 1),
     retract(turn(_)),
-    assert(turn(T1)).
+    assert(turn(P1)).

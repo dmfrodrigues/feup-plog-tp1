@@ -52,7 +52,12 @@ board_create_line(I, Left, Right) :-
     Left1 is Left+1,
     board_create_line(I, Left1, Right).
 
-board_create_fill :-
+/**
+ * initial()
+ * 
+ * Sets up initial board.
+ */
+initial :-
     format("Creating and filling board\n", []),
     board_create,
     board_update(0, 1,  6),
