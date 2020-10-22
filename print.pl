@@ -16,14 +16,22 @@ printVoidLeft(N) :-
 	format('~*c', [N1, 35]).
 	
 printVoidRight(N) :-
+	(integer(N) -> format("|", []) ; true),
 	N1 is (5 - N)*2,
-	format('|~*c ~n', [N1, 35]).
+	format("~*c ~n", [N1, 35]).
 
 printBorderTop(N, Length) :-
 	N1 is N - 0.5,
-	Length1 is Length * 4,
+	Length1 is Length * 4 - 1,
 	printVoidLeft(N1),
 	format('~*s', [Length1, '/ \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\']),
+	printVoidRight(N1).
+
+printBorderBottom(N, Length) :-
+	N1 is N + 0.5,
+	Length1 is (Length+1) * 4 - 1,
+	printVoidLeft(N1),
+	format('~*s', [Length1, '\\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ /']),
 	printVoidRight(N1).
 
 printTopBoard(4).
@@ -51,7 +59,7 @@ printBottomBoard(N) :-
 	R is 8 mod N,
 	Length is 5 + R,
 	J is 9 - Length,
-	printBorderTop(R, Length),
+	printBorderBottom(R, Length),
 	printVoidLeft(R),
 	printRow(N, J, Length),
 	printVoidRight(R),
