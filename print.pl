@@ -1,70 +1,70 @@
-printCell(I, J) :-
+print_cell(I, J) :-
 	board(I, J, V),
 	((V >= 0) -> format('| ~d ', [V]); format('|~d ', [V])).
 
-printRow(I, J, Length) :- I < 5 , J > Length - 1.
+print_row(I, J, Length) :- I < 5 , J > Length - 1.
 
-printRow(_, J, _) :- J > 8.
+print_row(_, J, _) :- J > 8.
 
-printRow(I, J, Length) :-
-	printCell(I, J),
+print_row(I, J, Length) :-
+	print_cell(I, J),
 	NJ is J + 1,
-	printRow(I, NJ, Length).
+	print_row(I, NJ, Length).
 
-printVoidLeft(N) :-
+print_void_left(N) :-
 	N1 is (5 - N)*2,
 	format('~*c', [N1, 35]).
 	
-printVoidRight(N) :-
+print_void_right(N) :-
 	(integer(N) -> format("|", []) ; true),
 	N1 is (5 - N)*2,
 	format("~*c ~n", [N1, 35]).
 
-printBorderTop(N, Length) :-
+print_border_top(N, Length) :-
 	N1 is N - 0.5,
 	Length1 is Length * 4 - 1,
-	printVoidLeft(N1),
+	print_void_left(N1),
 	format('~*s', [Length1, '/ \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\']),
-	printVoidRight(N1).
+	print_void_right(N1).
 
-printBorderBottom(N, Length) :-
+print_border_bottom(N, Length) :-
 	N1 is N - 0.5,
 	Length1 is Length * 4 - 1,
-	printVoidLeft(N1),
+	print_void_left(N1),
 	format('~*s', [Length1, '\\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ /']),
-	printVoidRight(N1).
+	print_void_right(N1).
 
-printTopBoard(4).
-printTopBoard(N) :-
+print_top_rows(4).
+print_top_rows(N) :-
 	N < 4,
 	N1 is N + 1,
 	R is N mod 5,
 	Length is 5 + N,
-	printBorderTop(N, Length),
-	printVoidLeft(R),
-	printRow(N, 0, Length),
-	printVoidRight(R),
-	printTopBoard(N1).
+	print_border_top(N, Length),
+	print_void_left(R),
+	print_row(N, 0, Length),
+	print_void_right(R),
+	print_top_rows(N1).
 
-printMiddleBoard :-
-	printBorderTop(4, 9),
-	printVoidLeft(4),
-	printRow(4, 0, 9),
-	printVoidRight(4),
-	printBorderBottom(4, 9).
+print_middle_row :-
+	print_border_top(4, 9),
+	print_void_left(4),
+	print_row(4, 0, 9),
+	print_void_right(4),
+	print_border_bottom(4, 9).
 
-printBottomBoard(9).
-printBottomBoard(N) :-
+print_bottom_rows(9).
+print_bottom_rows(N) :-
 	N < 9,
 	N1 is N + 1,
 	R is 8 mod N,
 	Length is 5 + R,
 	J is 9 - Length,
-	printVoidLeft(R),
-	printRow(N, J, Length),
-	printVoidRight(R),
-	printBorderBottom(R, Length),
-	printBottomBoard(N1).
+	print_void_left(R),
+	print_row(N, J, Length),
+	print_void_right(R),
+	print_border_bottom(R, Length),
+	print_bottom_rows(N1).
 
 /**
  * display_game(+T)
@@ -72,6 +72,6 @@ printBottomBoard(N) :-
  * Display the game from the perspective of player T.
  */
 display_game(_) :-
-	printTopBoard(0),
-	printMiddleBoard,
-	printBottomBoard(5).
+	print_top_rows(0),
+	print_middle_row,
+	print_bottom_rows(5).
