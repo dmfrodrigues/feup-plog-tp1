@@ -28,8 +28,8 @@ printBorderTop(N, Length) :-
 	printVoidRight(N1).
 
 printBorderBottom(N, Length) :-
-	N1 is N + 0.5,
-	Length1 is (Length+1) * 4 - 1,
+	N1 is N - 0.5,
+	Length1 is Length * 4 - 1,
 	printVoidLeft(N1),
 	format('~*s', [Length1, '\\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ /']),
 	printVoidRight(N1).
@@ -50,7 +50,8 @@ printMiddleBoard :-
 	printBorderTop(4, 9),
 	printVoidLeft(4),
 	printRow(4, 0, 9),
-	printVoidRight(4).
+	printVoidRight(4),
+	printBorderBottom(4, 9).
 
 printBottomBoard(9).
 printBottomBoard(N) :-
@@ -59,10 +60,10 @@ printBottomBoard(N) :-
 	R is 8 mod N,
 	Length is 5 + R,
 	J is 9 - Length,
-	printBorderBottom(R, Length),
 	printVoidLeft(R),
 	printRow(N, J, Length),
 	printVoidRight(R),
+	printBorderBottom(R, Length),
 	printBottomBoard(N1).
 
 /**
