@@ -1,4 +1,25 @@
 /**
+ * list_sublist(+L, +I, +J, -R)
+ * 
+ * Gets sublist L[I:J) and returns to R.
+ */
+list_sublist(   _ , I, I, [   ]) :- !.
+list_sublist([X|L], 0, J, [X|R]) :-            J1 is J-1, list_sublist(L,  0, J1, R), !.
+list_sublist([_|L], I, J,    R ) :- I1 is I-1, J1 is J-1, list_sublist(L, I1, J1, R).
+
+/**
+ * string_substring(+S, +I, +J, -RS)
+ * 
+ * Gets substring S[I:J) and returns to R.
+ */
+string_substring(S, I, J, R) :-
+	list_sublist(S, I, J, R), !.
+string_substring(S, I, J, R) :-
+	string_to_list(S, L),
+	list_sublist(L, I, J, RL),
+	string_to_list(R, RL).
+
+/**
  * print_cell(+I, +J)
  * 
  * Prints cell in (I, J) position. 
@@ -27,7 +48,7 @@ print_row(Board, I, J, Length) :-
  * Prints left void space with size N. 
  */
 print_void_left(N) :-
-	N1 is (5 - N)*2,
+	N1 is round((5 - N)*2),
 	format('~*c', [N1, 35]).
 
 /**
@@ -37,7 +58,7 @@ print_void_left(N) :-
  */
 print_void_right(N) :-
 	(integer(N) -> format("|", []) ; true),
-	N1 is (5 - N)*2,
+	N1 is round((5 - N)*2),
 	format("~*c ~n", [N1, 35]).
 
 /**
@@ -49,7 +70,8 @@ print_border_top(N, Length) :-
 	N1 is N - 0.5,
 	Length1 is Length * 4 - 1,
 	print_void_left(N1),
-	format('~*s', [Length1, '/ \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\']),
+	string_substring("/ \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\", 0, Length1, S),
+	format('~s', [S]),
 	print_void_right(N1).
 
 /**
@@ -61,7 +83,8 @@ print_border_bottom(N, Length) :-
 	N1 is N - 0.5,
 	Length1 is Length * 4 - 1,
 	print_void_left(N1),
-	format('~*s', [Length1, '\\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ /']),
+	string_substring("\\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ /", 0, Length1, S),
+	format('~s', [S]),
 	print_void_right(N1).
 
 /**
