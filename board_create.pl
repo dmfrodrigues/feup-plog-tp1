@@ -1,16 +1,7 @@
 :- reconsult('board.pl').
 
 :- use_module(library(lists)).
-
-/**
- * list_create(+X, +N, -List)
- * 
- * Create list with size N and filled with X,
- * and return it in List.
- */
-list_create(X, N, List)  :- 
-    length(List, N), 
-    maplist(=(X), List).
+:- reconsult('utils.pl').
 
 
 /**
