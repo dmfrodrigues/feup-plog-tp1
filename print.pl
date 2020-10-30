@@ -3,23 +3,23 @@
  * 
  * Prints cell in (I, J) position. 
  */
-print_cell(I, J) :-
-	board(I, J, V),
+print_cell(Board, I, J) :-
+	board(Board, I, J, V),
 	((V >= 0) -> format('| ~d ', [V]); format('|~d ', [V])).
 
 /**
- * print_row(+I, +J; +Length)
+ * print_row(+Board, +I, +J; +Length)
  * 
  * Prints row I starting in J with length Length. 
  */
-print_row(I, J, Length) :- I < 5 , J > Length - 1.
+print_row(_, I, J, Length) :- I < 5 , J > Length - 1.
 
-print_row(_, J, _) :- J > 8.
+print_row(_, _, J, _) :- J > 8.
 
-print_row(I, J, Length) :-
-	print_cell(I, J),
+print_row(Board, I, J, Length) :-
+	print_cell(Board, I, J),
 	NJ is J + 1,
-	print_row(I, NJ, Length).
+	print_row(Board, I, NJ, Length).
 
 /**
  * print_void_left(+N)
@@ -65,58 +65,58 @@ print_border_bottom(N, Length) :-
 	print_void_right(N1).
 
 /**
- * print_top_rows(+N)
+ * print_top_rows(+Board, +N)
  * 
  * Prints upper rows of the board, starting in row N. 
  */
-print_top_rows(4).
-print_top_rows(N) :-
+print_top_rows(_, 4).
+print_top_rows(Board, N) :-
 	N < 4,
 	N1 is N + 1,
 	R is N mod 5,
 	Length is 5 + N,
 	print_border_top(N, Length),
 	print_void_left(R),
-	print_row(N, 0, Length),
+	print_row(Board, N, 0, Length),
 	print_void_right(R),
-	print_top_rows(N1).
+	print_top_rows(Board, N1).
 	
 /**
- * print_middle_row()
+ * print_middle_row(+Board)
  * 
  * Prints board middle row. 
  */
-print_middle_row :-
+print_middle_row(Board) :-
 	print_border_top(4, 9),
 	print_void_left(4),
-	print_row(4, 0, 9),
+	print_row(Board, 4, 0, 9),
 	print_void_right(4),
 	print_border_bottom(4, 9).
 
 /**
- * print_bottom_rows(+N)
+ * print_bottom_rows(+Board, +N)
  * 
  * Prints lower rows of the board, starting in row N. 
  */
-print_bottom_rows(9).
-print_bottom_rows(N) :-
+print_bottom_rows(_, 9).
+print_bottom_rows(Board, N) :-
 	N < 9,
 	N1 is N + 1,
 	R is 8 mod N,
 	Length is 5 + R,
 	J is 9 - Length,
 	print_void_left(R),
-	print_row(N, J, Length),
+	print_row(Board, N, J, Length),
 	print_void_right(R),
 	print_border_bottom(R, Length),
-	print_bottom_rows(N1).
+	print_bottom_rows(Board, N1).
 
 /**
- * display_game(+T)
+ * display_game(+Board, +T)
  * 
  * Display the game from the perspective of player T.
  */
-display_game(_) :-
-	print_top_rows(0),
-	print_middle_row,
-	print_bottom_rows(5).
+display_game(Board, _) :-
+	print_top_rows(Board, 0),
+	print_middle_row(Board),
+	print_bottom_rows(Board, 5).

@@ -1,5 +1,7 @@
+:- use_module(library(lists)).
+
 /**
- * board(+I, +J, -N).
+ * board(+Board, +I, +J, -N).
  *
  * Returns number N of pieces in cell (I, J).
  *
@@ -42,24 +44,42 @@
  * |     8 |XXX|XXX|XXX|XXX|   |   |   |   |   |
  *
  */
-:- dynamic board/3.
+board(Board, I, J, N) :-
+    board_is_valid_position(Board, I, J),
+    I1 is I+1, nth1(I1, Board, Row),
+    J1 is J+1, nth1(J1, Row, N).
+    
 
 /**
- * board_is_valid_position(+I, +J)
+ * board_is_valid_position(+Board, +I, +J)
  * 
  * Checks if (I, J) is a valid board position
  */
-board_is_valid_position(I, J) :-
+board_is_valid_position(_, I, J) :-
     (I =< 4, 0   =< J, J =< 4+I);
     (4  < I, I-4 =< J, J =< 8  ).
 
 /**
- * board_update(+I, +J, +N)
+ * board_update(+Board, +I, +J, +N, -NewBoard)
+ * 
+ * Updates the value of Board in cell (I,J) to value N,
+ * and returns the new board in NewBoard.
  */
-board_update(I, J, N) :-
-    board_is_valid_position(I, J),
-    retract(board(I, J, _)),
-    assert(board(I, J, N)).
+board_update(Board, I, J, N, NewBoard) :-
+    board_is_valid_position(Board, I, J),
+    board_update_recursive(Board, I, J, N, NewBoard).
+
+/**
+ * board_update_recursive(+Board, +I, +J, +N, -NewBoard)
+ * 
+ * Updates the value of Board in cell (I,J) to value N,
+ * and returns the new board in NewBoard. Calls recursively,
+ * and due to implementation decision the Board that is passed
+ * to this predicate may not be consistent.
+ */
+board_update_recursive([[_|Row]|Board], 0, 0, N, [[N|Row   ]|Board   ]) :- !.                                                                               % Got to the right cell
+board_update_recursive([[X|Row]|Board], 0, J, N, [[X|NewRow]|Board   ]) :- J1 is J-1, board_update_recursive([Row|Board], 0, J1, N, [NewRow|Board]), !.     % Got to the right row, searching the right column
+board_update_recursive([   Row |Board], I, J, N, [      Row |NewBoard]) :- I1 is I-1, board_update_recursive(Board, I1, J, N, NewBoard), !.                 % Searching the right row
 
 /**
  * turn(-T)

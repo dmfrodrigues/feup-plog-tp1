@@ -1,3 +1,5 @@
 :-
     reconsult('../board_create.pl'),
-    board_create_fill.
+    reconsult('../print.pl'),
+    initial(Board),
+    display_game(Board, 1).
