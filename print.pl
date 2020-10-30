@@ -1,7 +1,7 @@
 :- reconsult('utils.pl').
 
 /**
- * print_cell(+I, +J)
+ * print_cell(+Board, +I, +J)
  * 
  * Prints cell in (I, J) position. 
  */
@@ -10,7 +10,7 @@ print_cell(Board, I, J) :-
 	((V >= 0) -> format('| ~d ', [V]); format('|~d ', [V])).
 
 /**
- * print_row(+Board, +I, +J; +Length)
+ * print_row(+Board, +I, +J, +Length)
  * 
  * Prints row I starting in J with length Length. 
  */
