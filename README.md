@@ -82,8 +82,18 @@ Although the physical board game comes with 75 pieces, the gameplay is not limit
 
 ## Game state visualization
 
-The game once have been initializated with `initial()` can be vizualized with `display_game(+T)`, which uses `print_top_rows(+N)`, `print_middle_row(+N)` and `print_bottom_rows(+N)` predicates. These uses `print_row(+I)`, to print a specific row *I*, and `print_cell(+I, +J)`, to print a specific cell *(I, J)*, alongside helper predicates to format the border, such as `print_void_left(+N)`, `print_void_right(+N)`, `print_border_top(+N, +Length)` and `print_border_bottom(+N, +Length)`.
+Once initialized with `initial(-Board)`, the game board can be visualized with `display_game(+Board, +T)`, which uses predicates `print_top_rows(+Board, +N)`, `print_middle_row(+Board, +N)` and `print_bottom_rows(+Board, +N)`. These use `print_row(+Board, +I, +J, +Length)`, to print a specific row *I*, and `print_cell(+Board, +I, +J)`, to print a specific cell *(I, J)*, alongside helper predicates to format the border, such as `print_void_left(+N)`, `print_void_right(+N)`, `print_border_top(+N, +Length)` and `print_border_bottom(+N, +Length)`.
 
 Initial state
 
 <img src="img/in_game_initial_board.png" width="300">
+
+
+Intermediate state
+
+<img src="img/in_game_intermediate_board.png" width="300">
+
+
+Final state
+
+<img src="img/in_game_final_board.png" width="300">
