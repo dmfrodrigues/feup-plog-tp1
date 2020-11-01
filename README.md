@@ -87,3 +87,13 @@ Once initialized with `initial(-Board)`, the game board can be visualized with `
 Initial state
 
 <img src="img/in_game_initial_board.png" width="300">
+
+
+Intermediate state
+
+<img src="img/in_game_intermediate_board.png" width="300">
+
+
+Final state
+
+<img src="img/in_game_final_board.png" width="300">
