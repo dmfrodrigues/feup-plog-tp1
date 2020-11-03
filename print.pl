@@ -39,7 +39,7 @@ print_void_left(N) :-
  */
 print_void_right(N) :-
 	(integer(N) -> format("|", []) ; true),
-	N1 is round((5 - N)*2),
+	N1 is round((5 - N)*2)+7,
 	format("~*c ~n", [N1, 35]).
 
 /**
@@ -50,6 +50,7 @@ print_void_right(N) :-
 print_border_top(N, Length) :-
 	N1 is N - 0.5,
 	Length1 is Length * 4 - 1,
+	format("    |", []),
 	print_void_left(N1),
 	string_substring("/ \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\", 0, Length1, S),
 	format('~s', [S]),
@@ -63,6 +64,7 @@ print_border_top(N, Length) :-
 print_border_bottom(N, Length) :-
 	N1 is N - 0.5,
 	Length1 is Length * 4 - 1,
+	format("    |", []),
 	print_void_left(N1),
 	string_substring("\\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ /", 0, Length1, S),
 	format('~s', [S]),
@@ -80,6 +82,7 @@ print_top_rows(Board, N) :-
 	R is N mod 5,
 	Length is 5 + N,
 	print_border_top(N, Length),
+	format("i=~d |", [N]),
 	print_void_left(R),
 	print_row(Board, N, 0, Length),
 	print_void_right(R),
@@ -92,6 +95,7 @@ print_top_rows(Board, N) :-
  */
 print_middle_row(Board) :-
 	print_border_top(4, 9),
+	format("i=~d |", [4]),
 	print_void_left(4),
 	print_row(Board, 4, 0, 9),
 	print_void_right(4),
@@ -109,6 +113,7 @@ print_bottom_rows(Board, N) :-
 	R is 8 mod N,
 	Length is 5 + R,
 	J is 9 - Length,
+	format("i=~d |", [N]),
 	print_void_left(R),
 	print_row(Board, N, J, Length),
 	print_void_right(R),
@@ -124,12 +129,23 @@ print_player(1) :- format('Player 1 turn (red/positive):\n').
 print_player(2) :- format('Player 2 turn (yellow/negative):\n').
 
 /**
+ * print_column_indexes
+ * 
+ * Print column indexes
+ */
+print_column_indexes :-
+	format("                  j=0 j=1 j=2 j=3 j=4 j=5 j=6 j=7 j=8\n", []),
+	format("                   /   /   /   /   /   /   /   /   / \n", []),
+	format("    +------------------------------------------------\n", []).
+
+/**
  * display_game(+GameState)
  * 
  * Display the game from the perspective of player P.
  */
 display_game(gamestate(Board, P)) :-
 	print_player(P),
+	print_column_indexes,
 	print_top_rows(Board, 0),
 	print_middle_row(Board),
 	print_bottom_rows(Board, 5).
