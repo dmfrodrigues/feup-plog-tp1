@@ -7,7 +7,7 @@
  */
 print_cell(Board, I, J) :-
 	board(Board, I, J, V),
-	((V >= 0) -> format('| ~d ', [V]); format('|~d ', [V])).
+	((V >= 0) -> format('│ ~d ', [V]); format('│~d ', [V])).
 
 /**
  * print_row(+Board, +I, +J, +Length)
@@ -29,8 +29,8 @@ print_row(Board, I, J, Length) :-
  * Prints left void space with size N. 
  */
 print_void_left(N) :-
-	N1 is round((5 - N)*2),
-	format('~*c', [N1, 35]).
+	N1 is round((5 - N)*2)-2,
+	format('~*c', [N1, 32]).
 
 /**
  * print_void_right(+N)
@@ -38,9 +38,9 @@ print_void_left(N) :-
  * Prints right void space with size N. 
  */
 print_void_right(N) :-
-	(integer(N) -> format("|", []) ; true),
+	(integer(N) -> format("│", []) ; true),
 	N1 is round((5 - N)*2)+7,
-	format("~*c ~n", [N1, 35]).
+	format("~*c║~n", [N1, 32]).
 
 /**
  * print_border_top(+N, +Length)
@@ -50,9 +50,9 @@ print_void_right(N) :-
 print_border_top(N, Length) :-
 	N1 is N - 0.5,
 	Length1 is Length * 4 - 1,
-	format("    |", []),
+	format("    ║", []),
 	print_void_left(N1),
-	string_substring("/ \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\", 0, Length1, S),
+	string_substring("╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲", 0, Length1, S),
 	format('~s', [S]),
 	print_void_right(N1).
 
@@ -64,9 +64,9 @@ print_border_top(N, Length) :-
 print_border_bottom(N, Length) :-
 	N1 is N - 0.5,
 	Length1 is Length * 4 - 1,
-	format("    |", []),
+	format("    ║", []),
 	print_void_left(N1),
-	string_substring("\\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ / \\ /", 0, Length1, S),
+	string_substring("╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ /", 0, Length1, S),
 	format('~s', [S]),
 	print_void_right(N1).
 
@@ -82,7 +82,7 @@ print_top_rows(Board, N) :-
 	R is N mod 5,
 	Length is 5 + N,
 	print_border_top(N, Length),
-	format("i=~d |", [N]),
+	format("i=~d ║", [N]),
 	print_void_left(R),
 	print_row(Board, N, 0, Length),
 	print_void_right(R),
@@ -95,7 +95,7 @@ print_top_rows(Board, N) :-
  */
 print_middle_row(Board) :-
 	print_border_top(4, 9),
-	format("i=~d |", [4]),
+	format("i=~d ║", [4]),
 	print_void_left(4),
 	print_row(Board, 4, 0, 9),
 	print_void_right(4),
@@ -113,7 +113,7 @@ print_bottom_rows(Board, N) :-
 	R is 8 mod N,
 	Length is 5 + R,
 	J is 9 - Length,
-	format("i=~d |", [N]),
+	format("i=~d ║", [N]),
 	print_void_left(R),
 	print_row(Board, N, J, Length),
 	print_void_right(R),
@@ -134,9 +134,12 @@ print_player(2) :- format('Player 2 turn (yellow/negative):\n').
  * Print column indexes
  */
 print_column_indexes :-
-	format("                  j=0 j=1 j=2 j=3 j=4 j=5 j=6 j=7 j=8\n", []),
-	format("                   /   /   /   /   /   /   /   /   / \n", []),
-	format("    +------------------------------------------------\n", []).
+	format("                 j=0 j=1 j=2 j=3 j=4 j=5 j=6 j=7 j=8\n", []),
+	format("                  ╱   ╱   ╱   ╱   ╱   ╱   ╱   ╱   ╱ \n", []),
+	format("    ╔══════════════════════════════════════════════╗\n", []).
+
+print_last_row :-
+	format("    ╚══════════════════════════════════════════════╝\n", []).
 
 /**
  * display_game(+GameState)
@@ -148,4 +151,5 @@ display_game(gamestate(Board, P)) :-
 	print_column_indexes,
 	print_top_rows(Board, 0),
 	print_middle_row(Board),
-	print_bottom_rows(Board, 5).
+	print_bottom_rows(Board, 5),
+	print_last_row.
