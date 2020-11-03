@@ -133,8 +133,8 @@ print_bottom_rows(Board, N) :-
  * 
  * Print player that plays next.
  */
-print_player(1) :- format('\e[41m\e[97mPlayer 1 turn\e[0m (red/positive):\n').
-print_player(2) :- format('\e[43m\e[30mPlayer 2 turn\e[0m (yellow/negative):\n').
+print_player(1) :- format('\e[41m\e[97mPlayer 1 turn\e[0m (red/positive):\n', []).
+print_player(2) :- format('\e[43m\e[30mPlayer 2 turn\e[0m (yellow/negative):\n', []).
 
 /**
  * print_column_indexes
