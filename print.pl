@@ -116,11 +116,20 @@ print_bottom_rows(Board, N) :-
 	print_bottom_rows(Board, N1).
 
 /**
- * display_game(+Board, +T)
+ * print_player(+P)
  * 
- * Display the game from the perspective of player T.
+ * Print player that plays next.
  */
-display_game(Board, _) :-
+print_player(P) :-
+	format('Player ~d turn:\n', [P]).
+
+/**
+ * display_game(+GameState)
+ * 
+ * Display the game from the perspective of player P.
+ */
+display_game(gamestate(Board, P)) :-
+	print_player(P),
 	print_top_rows(Board, 0),
 	print_middle_row(Board),
 	print_bottom_rows(Board, 5).

@@ -7,16 +7,13 @@
  * Entry point of the game
  */
 play :-
-    assert(turn(1)),
-    initial,
+    initial(GameState),
     !,
-    play_loop.
+    play_loop(GameState).
     
-play_loop :-
-    start_turn,
-    display_game(T1),
-    end_turn,
-    start_turn,
-    display_game(T2),
-    end_turn
+play_loop(GameState) :-
+    display_game(GameState),
+    end_turn(GameState, GameState1),
+    display_game(GameState1),
+    end_turn(GameState1, GameState2)
     .

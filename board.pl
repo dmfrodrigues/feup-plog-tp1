@@ -1,6 +1,10 @@
 :- use_module(library(lists)).
 
 /**
+ * gamestate(Board, Turn)
+ */
+
+/**
  * board(+Board, +I, +J, -N).
  *
  * Returns number N of pieces in cell (I, J).
@@ -82,20 +86,9 @@ board_update_recursive([[X|Row]|Board], 0, J, N, [[X|NewRow]|Board   ]) :- J1 is
 board_update_recursive([   Row |Board], I, J, N, [      Row |NewBoard]) :- I1 is I-1, board_update_recursive(Board, I1, J, N, NewBoard), !.                 % Searching the right row
 
 /**
- * turn(-T)
+ * end_turn(+GameState, -NewGameState)
  * 
- * Returns the player that is playing the current turn:
- * 1 for player 1, 2 for player 2
+ * Ends current player's turn
  */
-:- dynamic turn/1.
-
-start_turn :-
-    turn(T),
-    format("Turn ~d\n", [T]).
-
-end_turn :-
-    turn(P),
-    format("Player ~d ended turn\n", [P]),
-    (P =:= 1 -> P1 is 2 ; P1 is 1),
-    retract(turn(_)),
-    assert(turn(P1)).
+end_turn(gamestate(Board, P), gamestate(Board, P1)) :-
+    (P =:= 1 -> P1 is 2 ; P1 is 1).

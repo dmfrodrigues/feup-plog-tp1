@@ -43,11 +43,11 @@ board_create_line(N, Line) :-
     list_create(0, Size, Line).
 
 /**
- * initial()
+ * initial_board(-Board)
  * 
- * Sets up initial board.
+ * Get initial board layout
  */
-initial(Board) :-
+initial_board(Board) :-
     format("Creating and filling board\n", []),
     board_create(Board1),
     board_update(Board1, 0, 1,  6, Board2),
@@ -57,3 +57,13 @@ initial(Board) :-
     board_update(Board5, 7, 3,  6, Board6),
     board_update(Board6, 3, 0, -6, Board),
     format("Created and filled board\n", []).
+
+/**
+ * initial(-GameState)
+ * 
+ * Sets up initial game state.
+ */
+initial(gamestate(Board, 1)) :-
+    format("Creating initial game state\n", []),
+    initial_board(Board),
+    format("Created initial game state\n", []).
