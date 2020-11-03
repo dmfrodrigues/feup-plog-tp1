@@ -7,8 +7,8 @@
  */
 print_cell(Board, I, J) :-
 	board(Board, I, J, V),
-	((V =:= 0) ->format('│   ', []);
-		((V > 0) -> format('│\e[41m\e[97m ~d \e[0m', [V]); format('│\e[43m\e[30m~d \e[0m', [V]))
+	((V =:= 0) ->format('\x2502\   ', []);
+		((V > 0) -> format('\x2502\\e[41m\e[97m ~d \e[0m', [V]); format('\x2502\\e[43m\e[30m~d \e[0m', [V]))
 	).
 
 % \e[41m ~d \e[0m'
@@ -42,9 +42,9 @@ print_void_left(N) :-
  * Prints right void space with size N. 
  */
 print_void_right(N) :-
-	(integer(N) -> format("│", []) ; true),
+	(integer(N) -> format("\x2502\", []) ; true),
 	N1 is round((5 - N)*2)+7,
-	format("~*c║~n", [N1, 32]).
+	format("~*c\x2551\~n", [N1, 32]).
 
 /**
  * print_border_top(+N, +Length)
@@ -54,9 +54,9 @@ print_void_right(N) :-
 print_border_top(N, Length) :-
 	N1 is N - 0.5,
 	Length1 is Length * 4 - 1,
-	format("    ║", []),
+	format("    \x2551\", []),
 	print_void_left(N1),
-	string_substring("╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲", 0, Length1, S),
+	string_substring("\x2571\ \x2572\ \x2571\ \x2572\ \x2571\ \x2572\ \x2571\ \x2572\ \x2571\ \x2572\ \x2571\ \x2572\ \x2571\ \x2572\ \x2571\ \x2572\ \x2571\ \x2572\ \x2571\ \x2572\", 0, Length1, S),
 	format('~s', [S]),
 	print_void_right(N1).
 
@@ -68,9 +68,9 @@ print_border_top(N, Length) :-
 print_border_bottom(N, Length) :-
 	N1 is N - 0.5,
 	Length1 is Length * 4 - 1,
-	format("    ║", []),
+	format("    \x2551\", []),
 	print_void_left(N1),
-	string_substring("╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ /", 0, Length1, S),
+	string_substring("\x2572\ \x2571\ \x2572\ \x2571\ \x2572\ \x2571\ \x2572\ \x2571\ \x2572\ \x2571\ \x2572\ \x2571\ \x2572\ \x2571\ \x2572\ \x2571\ \x2572\ \x2571\ \x2572\ \x2571\", 0, Length1, S),
 	format('~s', [S]),
 	print_void_right(N1).
 
@@ -86,7 +86,7 @@ print_top_rows(Board, N) :-
 	R is N mod 5,
 	Length is 5 + N,
 	print_border_top(N, Length),
-	format("i=~d ║", [N]),
+	format("i=~d \x2551\", [N]),
 	print_void_left(R),
 	print_row(Board, N, 0, Length),
 	print_void_right(R),
@@ -99,7 +99,7 @@ print_top_rows(Board, N) :-
  */
 print_middle_row(Board) :-
 	print_border_top(4, 9),
-	format("i=~d ║", [4]),
+	format("i=~d \x2551\", [4]),
 	print_void_left(4),
 	print_row(Board, 4, 0, 9),
 	print_void_right(4),
@@ -117,7 +117,7 @@ print_bottom_rows(Board, N) :-
 	R is 8 mod N,
 	Length is 5 + R,
 	J is 9 - Length,
-	format("i=~d ║", [N]),
+	format("i=~d \x2551\", [N]),
 	print_void_left(R),
 	print_row(Board, N, J, Length),
 	print_void_right(R),
@@ -139,8 +139,8 @@ print_player(2) :- format('\e[43m\e[30mPlayer 2 turn\e[0m (yellow/negative):\n',
  */
 print_column_indexes :-
 	format("                 j=0 j=1 j=2 j=3 j=4 j=5 j=6 j=7 j=8\n", []),
-	format("                  ╱   ╱   ╱   ╱   ╱   ╱   ╱   ╱   ╱ \n", []),
-	format("    ╔══════════════════════════════════════════════╗\n", []).
+	format("                  \x2571\   \x2571\   \x2571\   \x2571\   \x2571\   \x2571\   \x2571\   \x2571\   \x2571\ \n", []),
+	format("    \x2554\~*c\x2557\\n", [46, 9552]).
 
 /**
  * print_last_row
@@ -148,7 +148,7 @@ print_column_indexes :-
  * Print last row.
  */
 print_last_row :-
-	format("    ╚══════════════════════════════════════════════╝\n", []).
+	format("    \x255A\~*c\x255D\\n", [46, 9552]).
 
 /**
  * display_game(+GameState)
