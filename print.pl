@@ -7,12 +7,8 @@
  */
 print_cell(Board, I, J) :-
 	board(Board, I, J, V),
-	(
-		(V =:= 0) ->
-			format('│   ')
-		; (
-			((V > 0) -> format('│\e[41m\e[97m ~d \e[0m', [V]); format('│\e[43m\e[30m~d \e[0m', [V]))
-		)
+	((V =:= 0) ->format('│   ', []);
+		((V > 0) -> format('│\e[41m\e[97m ~d \e[0m', [V]); format('│\e[43m\e[30m~d \e[0m', [V]))
 	).
 
 % \e[41m ~d \e[0m'
@@ -139,13 +135,18 @@ print_player(2) :- format('\e[43m\e[30mPlayer 2 turn\e[0m (yellow/negative):\n',
 /**
  * print_column_indexes
  * 
- * Print column indexes
+ * Print column indexes.
  */
 print_column_indexes :-
 	format("                 j=0 j=1 j=2 j=3 j=4 j=5 j=6 j=7 j=8\n", []),
 	format("                  ╱   ╱   ╱   ╱   ╱   ╱   ╱   ╱   ╱ \n", []),
 	format("    ╔══════════════════════════════════════════════╗\n", []).
 
+/**
+ * print_last_row
+ * 
+ * Print last row.
+ */
 print_last_row :-
 	format("    ╚══════════════════════════════════════════════╝\n", []).
 
