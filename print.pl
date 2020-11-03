@@ -120,8 +120,8 @@ print_bottom_rows(Board, N) :-
  * 
  * Print player that plays next.
  */
-print_player(P) :-
-	format('Player ~d turn:\n', [P]).
+print_player(1) :- format('Player 1 turn (red/positive):\n').
+print_player(2) :- format('Player 2 turn (yellow/negative):\n').
 
 /**
  * display_game(+GameState)
