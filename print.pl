@@ -7,7 +7,15 @@
  */
 print_cell(Board, I, J) :-
 	board(Board, I, J, V),
-	((V >= 0) -> format('│ ~d ', [V]); format('│~d ', [V])).
+	(
+		(V =:= 0) ->
+			format('│   ')
+		; (
+			((V > 0) -> format('│\e[41m\e[97m ~d \e[0m', [V]); format('│\e[43m\e[30m~d \e[0m', [V]))
+		)
+	).
+
+% \e[41m ~d \e[0m'
 
 /**
  * print_row(+Board, +I, +J, +Length)
@@ -125,8 +133,8 @@ print_bottom_rows(Board, N) :-
  * 
  * Print player that plays next.
  */
-print_player(1) :- format('Player 1 turn (red/positive):\n').
-print_player(2) :- format('Player 2 turn (yellow/negative):\n').
+print_player(1) :- format('\e[41m\e[97mPlayer 1 turn\e[0m (red/positive):\n').
+print_player(2) :- format('\e[43m\e[30mPlayer 2 turn\e[0m (yellow/negative):\n').
 
 /**
  * print_column_indexes
