@@ -1,0 +1,66 @@
+<?xml version='1.0' standalone='yes'?>
+<!DOCTYPE svg>
+<svg version='1.0' xmlns='http://www.w3.org/2000/svg' width='624px' height='571px' style='background-color:white'>
+  <style>
+    * {font: 20px monospace;}
+    text {white-space: pre;}
+    tspan.red {fill: white;}
+    rect.red {fill: red;}
+    tspan.yellow {fill: black;}
+    rect.yellow {fill: yellow;}
+  </style>
+  <rect width='156' height='24' x='0' y='0' class='yellow'/>
+  <text x='0' y= '19'><tspan class='yellow'>Player 2 turn</tspan> (yellow/negative)</text>
+  <text x='0' y= '43'>                 j=0 j=1 j=2 j=3 j=4 j=5 j=6 j=7 j=8</text>
+  <text x='0' y= '67'>                  ╱   ╱   ╱   ╱   ╱   ╱   ╱   ╱   ╱ </text>
+  <text x='0' y= '91'>    ╔══════════════════════════════════════════════╗</text>
+  <rect width='36' height='24' x='168' y='120' class='yellow'/>
+  <rect width='36' height='24' x='264' y='120' class='yellow'/>
+  <rect width='36' height='24' x='360' y='120' class='red'/>
+  <rect width='36' height='24' x='240' y='168' class='yellow'/>
+  <rect width='36' height='24' x='264' y='216' class='yellow'/>
+  <rect width='36' height='24' x='360' y='216' class='red'/>
+  <rect width='36' height='24' x='408' y='216' class='red'/>
+  <rect width='36' height='24' x='192' y='264' class='red'/>
+  <rect width='36' height='24' x='240' y='264' class='red'/>
+  <rect width='36' height='24' x='288' y='264' class='red'/>
+  <rect width='36' height='24' x='336' y='264' class='red'/>
+  <rect width='36' height='24' x='72' y='312' class='red'/>
+  <rect width='36' height='24' x='120' y='312' class='red'/>
+  <rect width='36' height='24' x='168' y='312' class='red'/>
+  <rect width='36' height='24' x='264' y='312' class='yellow'/>
+  <rect width='36' height='24' x='144' y='360' class='yellow'/>
+
+  <rect width='36' height='24' x='192' y='360' class='yellow'/>
+
+  <rect width='36' height='24' x='240' y='360' class='yellow'/>
+
+  <rect width='36' height='24' x='168' y='408' class='yellow'/>
+
+  <rect width='36' height='24' x='264' y='408' class='red'/>
+
+  <rect width='36' height='24' x='144' y='456' class='yellow'/>
+
+  <rect width='36' height='24' x='336' y='456' class='red'/>
+
+  <text x='0' y='115'>    ║         ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲                  ║</text>
+  <text x='0' y='139'>i=0 ║        │<tspan class='yellow'>-1 </tspan>│   │<tspan class='yellow'>-1 </tspan>│   │<tspan class='red'> 1 </tspan>│                 ║</text>
+  <text x='0' y='163'>    ║       ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲                ║</text>
+  <text x='0' y='187'>i=1 ║      │   │   │<tspan class='yellow'>-1 </tspan>│   │   │   │               ║</text>
+  <text x='0' y='211'>    ║     ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲              ║</text>
+  <text x='0' y='235'>i=2 ║    │   │   │   │<tspan class='yellow'>-6 </tspan>│   │<tspan class='red'> 3 </tspan>│<tspan class='red'> 1 </tspan>│             ║</text>
+  <text x='0' y='259'>    ║   ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲            ║</text>
+  <text x='0' y='283'>i=3 ║  │   │   │<tspan class='red'> 2 </tspan>│<tspan class='red'> 3 </tspan>│<tspan class='red'> 5 </tspan>│<tspan class='red'> 1 </tspan>│   │   │           ║</text>
+  <text x='0' y='307'>    ║ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲          ║</text>
+  <text x='0' y='331'>i=4 ║│<tspan class='red'> 1 </tspan>│<tspan class='red'> 2 </tspan>│<tspan class='red'> 1 </tspan>│   │<tspan class='yellow'>-3 </tspan>│   │   │   │   │         ║</text>
+  <text x='0' y='355'>    ║ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱          ║</text>
+  <text x='0' y='379'>i=5 ║  │   │<tspan class='yellow'>-3 </tspan>│<tspan class='yellow'>-1 </tspan>│<tspan class='yellow'>-3 </tspan>│   │   │   │   │           ║</text>
+  <text x='0' y='403'>    ║   ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱            ║</text>
+  <text x='0' y='427'>i=6 ║    │   │<tspan class='yellow'>-1 </tspan>│   │<tspan class='red'> 2 </tspan>│   │   │   │             ║</text>
+  <text x='0' y='451'>    ║     ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱              ║</text>
+  <text x='0' y='475'>i=7 ║      │<tspan class='yellow'>-1 </tspan>│   │   │   │<tspan class='red'> 1 </tspan>│   │               ║</text>
+  <text x='0' y='499'>    ║       ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱                ║</text>
+  <text x='0' y='523'>i=8 ║        │   │   │   │   │   │                 ║</text>
+  <text x='0' y='547'>    ║         ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱ ╲ ╱                  ║</text>
+  <text x='0' y='571'>    ╚══════════════════════════════════════════════╝</text>
+</svg>

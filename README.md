@@ -100,15 +100,15 @@ Under **Windows**, colors are correctly displayed in all situations, except on t
 
 ### Initial state
 
-<img src="img/in_game_initial_board.png" width="300">
+<img src="img/initial_print_simple.svg" width="400">
 
 ### Intermediate state
 
-<img src="img/in_game_intermediate_board.png" width="300">
+<img src="img/intermediate_print_simple.svg" width="400">
 
 ### Final state
 
-<img src="img/in_game_final_board.png" width="300">
+<img src="img/final_print_simple.svg" width="400">
 
 ## Inner workings
 
