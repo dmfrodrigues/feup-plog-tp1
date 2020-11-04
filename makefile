@@ -15,9 +15,13 @@ PLOG_TP1_RI_$(CLASS)_$(GROUP).zip:
 	rm -rf PLOG_TP1_RI_$(CLASS)_$(GROUP)
 
 test:
-	echo "halt." | $(PROLOG) -q -l sample-states/initial.pl
-	echo "halt." | $(PROLOG) -q -l sample-states/intermediate.pl
-	echo "halt." | $(PROLOG) -q -l sample-states/final.pl
+	$(PROLOG) -q -l sample-states/initial.pl
+	$(PROLOG) -q -l sample-states/intermediate.pl
+	$(PROLOG) -q -l sample-states/final.pl
+
+	$(PROLOG) -q -l sample-states/initial.pl      -a color
+	$(PROLOG) -q -l sample-states/intermediate.pl -a color
+	$(PROLOG) -q -l sample-states/final.pl        -a color
 
 clean:
 	rm *.zip

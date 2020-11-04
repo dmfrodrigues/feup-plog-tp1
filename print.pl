@@ -1,5 +1,8 @@
 :- reconsult('utils.pl').
 
+:- use_module(library(system)).
+isColor :- current_prolog_flag(argv, Arguments), member(color, Arguments).
+
 /**
  * print_cell(+Board, +I, +J)
  * 
@@ -8,10 +11,11 @@
 print_cell(Board, I, J) :-
 	board(Board, I, J, V),
 	((V =:= 0) ->format('\x2502\   ', []);
-		((V > 0) -> format('\x2502\\e[41m\e[97m ~d \e[0m', [V]); format('\x2502\\e[43m\e[30m~d \e[0m', [V]))
+		((V > 0) ->
+			(isColor -> format('\x2502\\e[41m\e[97m ~d \e[0m', [V]) ; format('\x2502\ ~d ', [V]));
+			(isColor -> format('\x2502\\e[43m\e[30m~d \e[0m',  [V]) ; format('\x2502\~d ',  [V]))
+		)
 	).
-
-% \e[41m ~d \e[0m'
 
 /**
  * print_row(+Board, +I, +J, +Length)
@@ -129,8 +133,8 @@ print_bottom_rows(Board, N) :-
  * 
  * Print player that plays next.
  */
-print_player(1) :- format('\e[41m\e[97mPlayer 1 turn\e[0m (red/positive):\n', []).
-print_player(2) :- format('\e[43m\e[30mPlayer 2 turn\e[0m (yellow/negative):\n', []).
+print_player(1) :- (isColor -> format('\e[41m\e[97mPlayer 1 turn\e[0m (red/positive):\n',    []) ; format('Player 1 turn (red/positive):\n',    [])).
+print_player(2) :- (isColor -> format('\e[43m\e[30mPlayer 2 turn\e[0m (yellow/negative):\n', []) ; format('Player 2 turn (yellow/negative):\n', [])).
 
 /**
  * print_column_indexes

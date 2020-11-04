@@ -87,19 +87,30 @@ Thus, we will not keep the number of pieces in reserve.
 
 ## Game state visualization
 
-Once initialized with `initial(-Board)`, the game board can be visualized with `display_game(+Board, +T)`, which uses predicates `print_top_rows(+Board, +N)`, `print_middle_row(+Board, +N)` and `print_bottom_rows(+Board, +N)`.
-These use `print_row(+Board, +I, +J, +Length)`, to print a specific row *I*, and `print_cell(+Board, +I, +J)`, to print a specific cell *(I, J)*, alongside helper predicates to format the border, such as `print_void_left(+N)`, `print_void_right(+N)`, `print_border_top(+N, +Length)` and `print_border_bottom(+N, +Length)`.
+To run the program using colored text, run sicstus/swi with argument `-a color`.
 
-Initial state
+Under **Linux**, `sh` and `bash` should correctly present special characters; if they are coloured, they should also correctly present colors.
+
+Under **Windows**, when using any console you are advised to use one of the following fonts, which have been confirmed to correctly render all characters:
+- Consolas
+- DejaVu Sans Mono (preferred)
+- Source Code Pro
+
+Under **Windows**, colors are correctly displayed in the VSCode integrated terminal, but in the Command Prompt and PowerShell the color characters are replaced by unkown characters; as such you are <span style="color:orange;">advised</span> to not use colors.
+
+### Initial state
 
 <img src="img/in_game_initial_board.png" width="300">
 
-
-Intermediate state
+### Intermediate state
 
 <img src="img/in_game_intermediate_board.png" width="300">
 
-
-Final state
+### Final state
 
 <img src="img/in_game_final_board.png" width="300">
+
+## Inner workings
+
+Once initialized with `initial(-Board)`, the game board can be visualized with `display_game(+Board, +T)`, which uses predicates `print_top_rows(+Board, +N)`, `print_middle_row(+Board, +N)` and `print_bottom_rows(+Board, +N)`.
+These use `print_row(+Board, +I, +J, +Length)`, to print a specific row *I*, and `print_cell(+Board, +I, +J)`, to print a specific cell *(I, J)*, alongside helper predicates to format the border, such as `print_void_left(+N)`, `print_void_right(+N)`, `print_border_top(+N, +Length)` and `print_border_bottom(+N, +Length)`.
