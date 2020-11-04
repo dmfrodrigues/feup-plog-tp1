@@ -96,7 +96,7 @@ Under **Windows**, when using any console you are advised to use one of the foll
 - DejaVu Sans Mono (preferred)
 - Source Code Pro
 
-Under **Windows**, colors are correctly displayed in the VSCode integrated terminal, but in the Command Prompt and PowerShell the color characters are replaced by unkown characters; as such you are <span style="color:orange;">advised</span> to not use colors.
+Under **Windows**, colors are correctly displayed in all situations, except on the SICStus console (where colors do not render but the rest is fine), and `sicstus` running on cmd/PowerShell (colors are rendered as unknown characters).
 
 ### Initial state
 
