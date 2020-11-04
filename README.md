@@ -85,6 +85,60 @@ A player can end his/her turn by calling `end_turn`.
 Although the physical board game comes with 75 pieces, the game play is not limited in any way by the lack of pieces since it is assumed there is always the required number of pieces.
 Thus, we will not keep the number of pieces in reserve.
 
+#### Initial state
+The initial state is represented with each player with three 6-stacks.
+
+Example of a initial state in prolog:
+```
+initial_board([
+[ 0, 6, 0, 0, 0],
+[ 0, 0, 0, 0, 0, -6],
+[ 0, 0, 0, 0, 0,  0, 0],
+[-6, 0, 0, 0, 0,  0, 0, 0],
+[ 0, 0, 0, 0, 0,  0, 0, 0, 0],
+[ 0, 0, 0, 0, 0,  0, 0, 6],
+[ 0, 0, 0, 0, 0,  0, 0],
+[ 6, 0, 0, 0, 0,  0],
+[ 0, 0, 0, -6, 0]
+]).
+```
+
+#### Intermediate state
+When both players still have valid moves.
+
+Example of a intermediate state in prolog:
+```
+intermediate_board([
+[-1, 0, -1,  0,  1],
+[ 0, 0, -1,  0,  0, 0],
+[ 0, 0,  0, -6,  0,  3, 1],
+[ 0, 0,  2,  3,  5, -1, 0, 0],
+[ 1, 2,  1,  0, -3,  1, 0, 0, 0],
+[ 0,-3, -1, -3,  0,  0, 0, 0],
+[ 0,-1,  0,  2,  0,  0, 0],
+[-1, 0,  0,  0,  1,  0],
+[ 0, 0,  0,  0, 0]
+]).
+```
+
+#### Final state
+As stated in the Game play section, when a player connects any two opposite sides of the game board or if a player cannot separate and move any stacks, it is a final state.
+
+Example of a final state in prolog:
+```
+final_board([
+[-1, 0,-1, 0, 1],
+[ 0, 0,-1, 0, 0,  0],
+[ 0, 0, 0,-6, 0,  3, 1],
+[ 0, 0, 2, 3, 5,  1, 0, 0],
+[ 1, 2, 1, 0,-3,  0, 0, 0, 0],
+[ 0,-3,-1,-3, 0,  0, 0, 0],
+[ 0,-1, 0, 2, 0,  0, 0],
+[-1, 0, 0, 0, 1,  0],
+[ 0, 0, 0, 0, 0]
+]).
+```
+
 ## Game state visualization
 
 To run the program using colored text, run sicstus/swi with argument `-a color`.
