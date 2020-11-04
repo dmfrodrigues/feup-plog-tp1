@@ -17,9 +17,7 @@ board_create(Board) :- board_create(5, Board).
  * Create board with width N.
  */
 board_create(N, Board) :-
-    format("    Creating board with width ~d\n", [N]),
-    board_create(N, 0, Board),
-    format("    Created board with width ~d\n", [N]).
+    board_create(N, 0, Board).
 
 /**
  * board_create(+N, +I, -Board)
@@ -48,15 +46,13 @@ board_create_line(N, Line) :-
  * Get initial board layout
  */
 initial_board(Board) :-
-    format("Creating and filling board\n", []),
     board_create(Board1),
     board_update(Board1, 0, 1,  6, Board2),
     board_update(Board2, 1, 5, -6, Board3),
     board_update(Board3, 5, 8,  6, Board4),
     board_update(Board4, 8, 7, -6, Board5),
     board_update(Board5, 7, 3,  6, Board6),
-    board_update(Board6, 3, 0, -6, Board),
-    format("Created and filled board\n", []).
+    board_update(Board6, 3, 0, -6, Board).
 
 /**
  * initial(-GameState)
@@ -64,6 +60,4 @@ initial_board(Board) :-
  * Sets up initial game state.
  */
 initial(gamestate(Board, 1)) :-
-    format("Creating initial game state\n", []),
-    initial_board(Board),
-    format("Created initial game state\n", []).
+    initial_board(Board).
