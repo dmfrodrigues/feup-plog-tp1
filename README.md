@@ -41,7 +41,7 @@ The objective is to connect any pair of opposite sides of the board with a conti
 
 ## Internal game state representation
 
-The game is internally represented as a list of lists that can be queried using predicate `board(Board, I, J, N)`, meaning in position `(I, J)` there is a stack of `N` pieces, with `N` positive if the stack is made of red pieces, and negative if it is made of yellow pieces.
+The board is internally represented as a list of lists that can be queried using predicate `board(Board, I, J, N)`, meaning in position `(I, J)` there is a stack of `N` pieces, with `N` positive if the stack is made of red pieces, and negative if it is made of yellow pieces.
 
 ```txt
                      j=0 j=1 j=2 j=3 j=4 j=5 j=6 j=7 j=8
@@ -79,8 +79,7 @@ The cells adjacent to `(I, J)` are:
 
 Some positions are not valid (e.g. `(1, 6)`), which can be checked by calling `board_is_valid_position(I, J)`.
 
-The turn (current player) is saved using dynamic predicate `turn(T)`, which returns `T=1` when it is Player 1's turn, and `T=2` when it is player 2's turn.
-A player can end his/her turn by calling `end_turn`.
+The game state is internally represented by pseudo-structure `gamestate(Board, Turn)`, where `Board` is the game board and `Turn` is the turn of the current player. `Turn` is 1 for player 1, and 2 for player 2.
 
 Although the physical board game comes with 75 pieces, the game play is not limited in any way by the lack of pieces since it is assumed there is always the required number of pieces.
 Thus, we will not keep the number of pieces in reserve.
@@ -129,6 +128,8 @@ gamestate(
 )
 ```
 
+This state can be obtained by consulting `sample-states/intermediate_state.pl` (from the root of the project), and calling `intermediate_state(GameState).`.
+
 #### Final state
 As stated in the Game play section, when a player connects any two opposite sides of the game board or if a player cannot separate and move any stacks, it is a final state.
 
@@ -150,9 +151,18 @@ gamestate(
 )
 ```
 
+This state can be obtained by consulting `sample-states/final_state.pl` (from the root of the project), and calling `final_state(GameState).`.
+
 ## Game state visualization
 
-To run the program using colored text, run sicstus/swi with argument `-a color`.
+To run the program using colored text, run `sicstus`/`swipl` with argument `-a color`:
+
+```sh
+sicstus -q -l sample-states/display_initial_state.pl            # Run with sicstus, without color
+sicstus -q -l sample-states/display_initial_state.pl -a color   # Run with sicstus, with color
+swipl   -q -l sample-states/display_initial_state.pl            # Run with swipl, without color
+swipl   -q -l sample-states/display_initial_state.pl -a color   # Run with swipl, with color
+```
 
 Under **Linux**, `sh` and `bash` should correctly present special characters; if they are coloured, they should also correctly present colors.
 
@@ -163,19 +173,29 @@ Under **Windows**, when using any console you are advised to use one of the foll
 
 Under **Windows**, colors are correctly displayed in all situations, except on the SICStus console (where colors do not render but the rest is fine), and `sicstus` running on cmd/PowerShell (colors are rendered as unknown characters).
 
+The following states were obtained by running `make svg`, which runs the PROLOG programs to print each state in a computer-friendly way, parses it using a python script and renders as an SVG image.
+
 ### Initial state
 
 <img src="img/initial_print_simple.svg" width="400">
+
+Obtained by running `make img/initial_print_simple.svg`; can alternatively be displayed in a console by consulting `sample-states/display_initial_state.pl`.
 
 ### Intermediate state
 
 <img src="img/intermediate_print_simple.svg" width="400">
 
+Obtained by running `make img/intermediate_print_simple.svg`; can alternatively be displayed in a console by consulting `sample-states/display_intermediate_state.pl`.
+
 ### Final state
 
 <img src="img/final_print_simple.svg" width="400">
+
+Obtained by running `make img/final_print_simple.svg`; can alternatively be displayed in a console by consulting `sample-states/display_final_state.pl`.
 
 ## Inner workings
 
 Once initialized with `initial(-Board)`, the game board can be visualized with `display_game(+Board, +T)`, which uses predicates `print_top_rows(+Board, +N)`, `print_middle_row(+Board, +N)` and `print_bottom_rows(+Board, +N)`.
 These use `print_row(+Board, +I, +J, +Length)`, to print a specific row *I*, and `print_cell(+Board, +I, +J)`, to print a specific cell *(I, J)*, alongside helper predicates to format the border, such as `print_void_left(+N)`, `print_void_right(+N)`, `print_border_top(+N, +Length)` and `print_border_bottom(+N, +Length)`.
+
+A player can end his/her turn by calling `end_turn`.
