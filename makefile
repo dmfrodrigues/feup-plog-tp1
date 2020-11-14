@@ -2,17 +2,18 @@
 PROLOG=swipl
 CLASS=T2
 GROUP=Glaisher4
+ZIPNAME=PLOG_TP1_RI_$(CLASS)_$(GROUP)
 
 all:
 
-zip: PLOG_TP1_RI_$(CLASS)_$(GROUP).zip
+zip: $(ZIPNAME).zip
 
-PLOG_TP1_RI_$(CLASS)_$(GROUP).zip:
-	rm -rf PLOG_TP1_RI_$(CLASS)_$(GROUP)
-	mkdir -p PLOG_TP1_RI_$(CLASS)_$(GROUP)
-	cp -r img sample-states board_create.pl board.pl game.pl print.pl utils.pl README.md LICENSE PLOG_TP1_RI_$(CLASS)_$(GROUP)
-	cd PLOG_TP1_RI_$(CLASS)_$(GROUP) && zip ../$@ -r .
-	rm -rf PLOG_TP1_RI_$(CLASS)_$(GROUP)
+$(ZIPNAME).zip:
+	rm -rf $(ZIPNAME)
+	mkdir -p $(ZIPNAME)
+	cp -r img sample-states board_create.pl board.pl game.pl print.pl utils.pl README.md LICENSE $(ZIPNAME)
+	cd $(ZIPNAME) && zip ../$@ -r .
+	rm -rf $(ZIPNAME)
 
 test:
 	$(PROLOG) -q -l sample-states/initial.pl
