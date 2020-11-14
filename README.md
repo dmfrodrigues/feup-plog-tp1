@@ -88,7 +88,22 @@ Thus, we will not keep the number of pieces in reserve.
 #### Initial state
 The initial state is represented with each player with three 6-stacks.
 
-Example of a initial state in prolog:
+Initial state in PROLOG:
+```prolog
+gamestate(
+    [ % Board
+        [  0,  6,  0,  0,  0,nan,nan,nan,nan],
+        [  0,  0,  0,  0,  0, -6,nan,nan,nan],
+        [  0,  0,  0,  0,  0,  0,  0,nan,nan],
+        [ -6,  0,  0,  0,  0,  0,  0,  0,nan],
+        [  0,  0,  0,  0,  0,  0,  0,  0,  0],
+        [nan,  0,  0,  0,  0,  0,  0,  0,  6],
+        [nan,nan,  0,  0,  0,  0,  0,  0,  0],
+        [nan,nan,nan,  6,  0,  0,  0,  0,  0],
+        [nan,nan,nan,nan,  0,  0,  0, -6,  0]
+    ],
+    1 % Player turn
+)
 ```
 initial_board([
 [ 0, 6, 0, 0, 0],
@@ -106,37 +121,43 @@ initial_board([
 #### Intermediate state
 When both players still have valid moves.
 
-Example of a intermediate state in prolog:
-```
-intermediate_board([
-[-1, 0, -1,  0,  1],
-[ 0, 0, -1,  0,  0, 0],
-[ 0, 0,  0, -6,  0,  3, 1],
-[ 0, 0,  2,  3,  5, -1, 0, 0],
-[ 1, 2,  1,  0, -3,  1, 0, 0, 0],
-[ 0,-3, -1, -3,  0,  0, 0, 0],
-[ 0,-1,  0,  2,  0,  0, 0],
-[-1, 0,  0,  0,  1,  0],
-[ 0, 0,  0,  0, 0]
-]).
+Example of an intermediate state in PROLOG:
+```prolog
+gamestate(
+    [ % Board
+        [ -1,  0, -1,  0,  1,nan,nan,nan,nan],
+        [  0,  0, -1,  0,  0,  0,nan,nan,nan],
+        [  0,  0,  0, -6,  0,  3,  1,nan,nan],
+        [  0,  0,  2,  3,  5, -1,  0,  0,nan],
+        [  1,  2,  1,  0, -3,  1,  0,  0,  0],
+        [nan,  0, -3, -1, -3,  0,  0,  0,  0],
+        [nan,nan,  0, -1,  0,  2,  0,  0,  0],
+        [nan,nan,nan, -1,  0,  0,  0,  1,  0],
+        [nan,nan,nan,nan,  0,  0,  0,  0,  0]
+    ],
+    1 % Player turn
+)
 ```
 
 #### Final state
 As stated in the Game play section, when a player connects any two opposite sides of the game board or if a player cannot separate and move any stacks, it is a final state.
 
-Example of a final state in prolog:
-```
-final_board([
-[-1, 0,-1, 0, 1],
-[ 0, 0,-1, 0, 0,  0],
-[ 0, 0, 0,-6, 0,  3, 1],
-[ 0, 0, 2, 3, 5,  1, 0, 0],
-[ 1, 2, 1, 0,-3,  0, 0, 0, 0],
-[ 0,-3,-1,-3, 0,  0, 0, 0],
-[ 0,-1, 0, 2, 0,  0, 0],
-[-1, 0, 0, 0, 1,  0],
-[ 0, 0, 0, 0, 0]
-]).
+Example of a final state in PROLOG:
+```prolog
+gamestate(
+    [ % Board
+        [ -1,  0, -1,  0,  1,nan,nan,nan,nan],
+        [  0,  0, -1,  0,  0,  0,nan,nan,nan],
+        [  0,  0,  0, -6,  0,  3,  1,nan,nan],
+        [  0,  0,  2,  3,  5,  1,  0,  0,nan],
+        [  1,  2,  1,  0, -3,  0,  0,  0,  0],
+        [nan,  0, -3, -1, -3,  0,  0,  0,  0],
+        [nan,nan,  0, -1,  0,  2,  0,  0,  0],
+        [nan,nan,nan, -1,  0,  0,  0,  1,  0],
+        [nan,nan,nan,nan,  0,  0,  0,  0,  0]
+    ],
+    2 % Player turn
+)
 ```
 
 ## Game state visualization

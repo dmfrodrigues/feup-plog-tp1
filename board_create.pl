@@ -27,18 +27,35 @@ board_create(N, Board) :-
 board_create(N, I, [          ]) :- I >= 2*N-1.
 board_create(N, I, [Line|Board]) :-
     I < 2*N-1,
-    board_create_line(N, Line),
+    board_create_line(N, I, Line),
     I1 is I+1,
     board_create(N, I1, Board).
 
 /**
- * board_create_line(+N, -Line)
+ * board_create_line(+N, +I, -Line)
  * 
- * Create board line in a board of width N
+ * Create board line I in a board of width N
  */
-board_create_line(N, Line) :-
-    Size is 2*N-1,
-    list_create(0, Size, Line).
+board_create_line(N, I, Line) :- board_create_line(N, I, 0, Line).
+
+/**
+ * board_create_line(+N, +I, +J, -Line)
+ * 
+ * Create board line I in a board of width N, starting in column J
+ */
+board_create_line(N, _, J, []) :- J >= 2*N-1, !.
+board_create_line(N, I, J, [nan|Board]) :-
+    (
+        (J =< I-N);
+        (I =< J-N)
+    ),
+    J1 is J+1,
+    board_create_line(N, I, J1, Board),
+    !.
+board_create_line(N, I, J, [0|Board]) :-
+    J1 is J+1,
+    board_create_line(N, I, J1, Board),
+    !.
 
 /**
  * initial_board(-Board)
