@@ -1,4 +1,4 @@
-# Glaisher
+# Glaisher <!-- omit in toc -->
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
@@ -15,6 +15,25 @@
 - **Group members:** 
     - [Breno Accioly de Barros Pimentel](https://github.com/BrenoAccioly) (<up201800170@fe.up.pt>)
     - [Diogo Miguel Ferreira Rodrigues](https://github.com/dmfrodrigues) (<up201806429@fe.up.pt>)
+
+## Index <!-- omit in toc -->
+
+- [Installing and executing](#installing-and-executing)
+  - [Installing](#installing)
+  - [Executing](#executing)
+- [The game](#the-game)
+  - [Preparation](#preparation)
+  - [Game play](#game-play)
+- [Game logic](#game-logic)
+  - [Game state representation](#game-state-representation)
+  - [Game state visualization](#game-state-visualization)
+  - [Valid moves](#valid-moves)
+  - [End game](#end-game)
+  - [Board evaluation](#board-evaluation)
+  - [Computer move](#computer-move)
+- [Conclusions](#conclusions)
+- [Bibliography](#bibliography)
+
 
 ## Installing and executing
 
@@ -71,7 +90,9 @@ Players take turns in doing two consecutive, mandatory actions:
 
 The objective is to connect any pair of opposite sides of the board with a contiguous chain of stacks with your color. A player can also lose when he has no legal moves in item 1.
 
-## Internal game state representation
+## Game logic
+
+### Game state representation
 
 The board is internally represented as a list of lists that can be queried using predicate `board(Board, I, J, N)`, meaning in position `(I, J)` there is a stack of `N` pieces, with `N` positive if the stack is made of red pieces, and negative if it is made of yellow pieces.
 
@@ -116,7 +137,7 @@ The game state is internally represented by pseudo-structure `gamestate(Board, T
 Although the physical board game comes with 75 pieces, the game play is not limited in any way by the lack of pieces since it is assumed there is always the required number of pieces.
 Thus, we will not keep the number of pieces in reserve.
 
-#### Initial state
+#### Initial state <!-- omit in toc -->
 The initial state is represented with each player with three 6-stacks.
 
 Initial state in PROLOG:
@@ -139,7 +160,7 @@ gamestate(
 
 This state can be obtained by consulting `sample-states/initial_state.pl` (from the root of the project), and calling `initial_state(GameState).`.
 
-#### Intermediate state
+#### Intermediate state <!-- omit in toc -->
 When both players still have valid moves.
 
 Example of an intermediate state in PROLOG:
@@ -162,7 +183,7 @@ gamestate(
 
 This state can be obtained by consulting `sample-states/intermediate_state.pl` (from the root of the project), and calling `intermediate_state(GameState).`.
 
-#### Final state
+#### Final state <!-- omit in toc -->
 As stated in the Game play section, when a player connects any two opposite sides of the game board or if a player cannot separate and move any stacks, it is a final state.
 
 Example of a final state in PROLOG:
@@ -189,27 +210,46 @@ This state can be obtained by consulting `sample-states/final_state.pl` (from th
 
 The following states were obtained by running `make svg`, which runs the PROLOG programs to print each state in a computer-friendly way, parses it using a python script and renders as an SVG image.
 
-### Initial state
+<!-- TODO: menus -->
+
+#### Initial state <!-- omit in toc -->
 
 <img src="img/initial_print_simple.svg" width="400">
 
 Obtained by running `make img/initial_print_simple.svg`; can alternatively be displayed in a console by consulting `sample-states/display_initial_state.pl`.
 
-### Intermediate state
+#### Intermediate state <!-- omit in toc -->
 
 <img src="img/intermediate_print_simple.svg" width="400">
 
 Obtained by running `make img/intermediate_print_simple.svg`; can alternatively be displayed in a console by consulting `sample-states/display_intermediate_state.pl`.
 
-### Final state
+#### Final state <!-- omit in toc -->
 
 <img src="img/final_print_simple.svg" width="400">
 
 Obtained by running `make img/final_print_simple.svg`; can alternatively be displayed in a console by consulting `sample-states/display_final_state.pl`.
 
-## Inner workings
+### Valid moves
 
-Once initialized with `initial(-Board)`, the game board can be visualized with `display_game(+Board, +T)`, which uses predicates `print_top_rows(+Board, +N)`, `print_middle_row(+Board, +N)` and `print_bottom_rows(+Board, +N)`.
-These use `print_row(+Board, +I, +J, +Length)`, to print a specific row *I*, and `print_cell(+Board, +I, +J)`, to print a specific cell *(I, J)*, alongside helper predicates to format the border, such as `print_void_left(+N)`, `print_void_right(+N)`, `print_border_top(+N, +Length)` and `print_border_bottom(+N, +Length)`.
+<!-- TODO -->
 
-A player can end his/her turn by calling `end_turn`.
+### End game
+
+<!-- TODO -->
+
+### Board evaluation
+
+<!-- TODO -->
+
+### Computer move
+
+<!-- TODO -->
+
+## Conclusions
+
+<!-- TODO -->
+
+## Bibliography
+
+<!-- TODO -->
