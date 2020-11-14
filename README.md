@@ -16,6 +16,38 @@
     - [Breno Accioly de Barros Pimentel](https://github.com/BrenoAccioly) (<up201800170@fe.up.pt>)
     - [Diogo Miguel Ferreira Rodrigues](https://github.com/dmfrodrigues) (<up201806429@fe.up.pt>)
 
+## Installing and executing
+
+### Installing
+
+To run this game you need a running Prolog environment, preferrably one of the tested environments:
+- [SICStus Prolog](https://sicstus.sics.se/)
+- [SWI-Prolog](https://www.swi-prolog.org/)
+
+After obtaining this project (or cloning it), you're set!
+
+### Executing
+
+This program can be executed as per the project guidelines.
+
+To run the program using colored text, run `sicstus`/`swipl` with argument `-a color`:
+
+```sh
+sicstus            # Run with sicstus, without color
+sicstus -a color   # Run with sicstus, with color
+swipl              # Run with swipl, without color
+swipl   -a color   # Run with swipl, with color
+```
+
+Under **Linux**, `sh` and `bash` should correctly present special characters; if the terminals are coloured, they should also correctly present colors.
+
+Under **Windows**, when using any console you are advised to use one of the following fonts, which have been confirmed to correctly render all characters:
+- Consolas
+- DejaVu Sans Mono (preferred)
+- Source Code Pro
+
+Under **Windows**, colors are correctly displayed in all situations, except at least on the SICStus console (where colors do not render but the rest is fine), and `sicstus` running on cmd/PowerShell (colors are rendered as unknown characters).
+
 ## The game
 
 The game we implemented is called [Glaisher](https://nestorgames.com/#glaisher_detail) (the rules are available [here](https://nestorgames.com/rulebooks/GLAISHER_EN.pdf)), named after [Glaisher's theorem](https://en.wikipedia.org/wiki/Glaisher%27s_theorem).
@@ -153,25 +185,7 @@ gamestate(
 
 This state can be obtained by consulting `sample-states/final_state.pl` (from the root of the project), and calling `final_state(GameState).`.
 
-## Game state visualization
-
-To run the program using colored text, run `sicstus`/`swipl` with argument `-a color`:
-
-```sh
-sicstus -q -l sample-states/display_initial_state.pl            # Run with sicstus, without color
-sicstus -q -l sample-states/display_initial_state.pl -a color   # Run with sicstus, with color
-swipl   -q -l sample-states/display_initial_state.pl            # Run with swipl, without color
-swipl   -q -l sample-states/display_initial_state.pl -a color   # Run with swipl, with color
-```
-
-Under **Linux**, `sh` and `bash` should correctly present special characters; if they are coloured, they should also correctly present colors.
-
-Under **Windows**, when using any console you are advised to use one of the following fonts, which have been confirmed to correctly render all characters:
-- Consolas
-- DejaVu Sans Mono (preferred)
-- Source Code Pro
-
-Under **Windows**, colors are correctly displayed in all situations, except on the SICStus console (where colors do not render but the rest is fine), and `sicstus` running on cmd/PowerShell (colors are rendered as unknown characters).
+### Game state visualization
 
 The following states were obtained by running `make svg`, which runs the PROLOG programs to print each state in a computer-friendly way, parses it using a python script and renders as an SVG image.
 
