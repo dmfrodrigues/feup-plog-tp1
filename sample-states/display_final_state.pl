@@ -1,7 +1,7 @@
 :-
-    reconsult('../board_create.pl'),
+    reconsult('final_state.pl'),
     reconsult('../print.pl'),
-    initial(GameState),
+    final_state(GameState),
     display_game(GameState),
     halt(0).
-:- halt(1).
+:-  halt(1).

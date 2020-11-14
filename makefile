@@ -15,14 +15,17 @@ $(ZIPNAME).zip:
 	cd $(ZIPNAME) && zip ../$@ -r .
 	rm -rf $(ZIPNAME)
 
-test:
-	$(PROLOG) -q -l sample-states/initial.pl
-	$(PROLOG) -q -l sample-states/intermediate.pl
-	$(PROLOG) -q -l sample-states/final.pl
+test: test_samples
 
-	$(PROLOG) -q -l sample-states/initial.pl      -a color
-	$(PROLOG) -q -l sample-states/intermediate.pl -a color
-	$(PROLOG) -q -l sample-states/final.pl        -a color
+test_samples:
+	$(PROLOG) -q -l sample-states/display_initial_state.pl
+	$(PROLOG) -q -l sample-states/display_intermediate_state.pl
+	$(PROLOG) -q -l sample-states/display_final_state.pl
+
+	$(PROLOG) -q -l sample-states/display_initial_state.pl      -a color
+	$(PROLOG) -q -l sample-states/display_intermediate_state.pl -a color
+	$(PROLOG) -q -l sample-states/display_final_state.pl        -a color
+	
 
 svg: img/initial_print_simple.svg img/intermediate_print_simple.svg img/final_print_simple.svg
 

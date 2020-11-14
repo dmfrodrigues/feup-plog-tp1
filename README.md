@@ -105,18 +105,8 @@ gamestate(
     1 % Player turn
 )
 ```
-initial_board([
-[ 0, 6, 0, 0, 0],
-[ 0, 0, 0, 0, 0, -6],
-[ 0, 0, 0, 0, 0,  0, 0],
-[-6, 0, 0, 0, 0,  0, 0, 0],
-[ 0, 0, 0, 0, 0,  0, 0, 0, 0],
-[ 0, 0, 0, 0, 0,  0, 0, 6],
-[ 0, 0, 0, 0, 0,  0, 0],
-[ 6, 0, 0, 0, 0,  0],
-[ 0, 0, 0, -6, 0]
-]).
-```
+
+This state can be obtained by consulting `sample-states/initial_state.pl` (from the root of the project), and calling `initial_state(GameState).`.
 
 #### Intermediate state
 When both players still have valid moves.
