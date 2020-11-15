@@ -49,6 +49,7 @@
  *
  */
 board(Board, I, J, N) :-
+    ground(Board),
     board_is_valid_position(Board, I, J),
     I1 is I+1, nth1(I1, Board, Row),
     J1 is J+1, nth1(J1, Row, N).
@@ -92,3 +93,23 @@ board_update_recursive([   Row |Board], I, J, N, [      Row |NewBoard]) :- I1 is
  */
 end_turn(gamestate(Board, P), gamestate(Board, P1)) :-
     (P =:= 1 -> P1 is 2 ; P1 is 1).
+
+/**
+ * isControlledByPlayer(+Board, +Player, +U)
+ * 
+ * Finds if cell U is controlled by Player.
+ */
+isControlledByPlayer(Board, 1, Ui-Uj) :- board(Board, Ui, Uj, N), N > 0.
+isControlledByPlayer(Board, 2, Ui-Uj) :- board(Board, Ui, Uj, N), N < 0.
+
+/**
+ * isAdj(+Board, +U, ?V)
+ * 
+ * True when U and V are adjacent
+ */
+isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui, Uj), Vi is Ui+1, Vj is Uj  , board_is_valid_position(Board, Vi, Vj).
+isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui, Uj), Vi is Ui-1, Vj is Uj  , board_is_valid_position(Board, Vi, Vj).
+isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui, Uj), Vi is Ui  , Vj is Uj+1, board_is_valid_position(Board, Vi, Vj).
+isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui, Uj), Vi is Ui  , Vj is Uj-1, board_is_valid_position(Board, Vi, Vj).
+isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui, Uj), Vi is Ui+1, Vj is Uj+1, board_is_valid_position(Board, Vi, Vj).
+isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui, Uj), Vi is Ui-1, Vj is Uj-1, board_is_valid_position(Board, Vi, Vj).
