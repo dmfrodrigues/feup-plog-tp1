@@ -64,12 +64,12 @@ board_create_line(N, I, J, [0|Board]) :-
  */
 initial_board(Board) :-
     board_create(Board1),
-    board_update(Board1, 0, 1,  6, Board2),
-    board_update(Board2, 1, 5, -6, Board3),
-    board_update(Board3, 5, 8,  6, Board4),
-    board_update(Board4, 8, 7, -6, Board5),
-    board_update(Board5, 7, 3,  6, Board6),
-    board_update(Board6, 3, 0, -6, Board).
+    board_update(Board1, 0-1,  6, Board2),
+    board_update(Board2, 1-5, -6, Board3),
+    board_update(Board3, 5-8,  6, Board4),
+    board_update(Board4, 8-7, -6, Board5),
+    board_update(Board5, 7-3,  6, Board6),
+    board_update(Board6, 3-0, -6, Board).
 
 /**
  * initial(-GameState)

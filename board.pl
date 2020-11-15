@@ -5,9 +5,9 @@
  */
 
 /**
- * board(+Board, +I, +J, -N).
+ * board(+Board, +Pos, -N).
  *
- * Returns number N of pieces in cell (I, J).
+ * Returns number N of pieces in cell Pos=(I, J).
  *
  *                      j=0 j=1 j=2 j=3 j=4 j=5 j=6 j=7 j=8
  *                       /   /   /   /   /   /   /   /   /
@@ -48,30 +48,30 @@
  * |     8 |XXX|XXX|XXX|XXX|   |   |   |   |   |
  *
  */
-board(Board, I, J, N) :-
+board(Board, I-J, N) :-
     ground(Board),
-    board_is_valid_position(Board, I, J),
+    board_is_valid_position(Board, I-J),
     I1 is I+1, nth1(I1, Board, Row),
     J1 is J+1, nth1(J1, Row, N).
     
 
 /**
- * board_is_valid_position(+Board, +I, +J)
+ * board_is_valid_position(+Board, +Pos)
  * 
- * Checks if (I, J) is a valid board position
+ * Checks if Pos(I, J) is a valid board position
  */
-board_is_valid_position(_, I, J) :-
+board_is_valid_position(_, I-J) :-
     (I =< 4, 0   =< J, J =< 4+I);
     (4  < I, I-4 =< J, J =< 8  ).
 
 /**
- * board_update(+Board, +I, +J, +N, -NewBoard)
+ * board_update(+Board, +Pos, +N, -NewBoard)
  * 
  * Updates the value of Board in cell (I,J) to value N,
  * and returns the new board in NewBoard.
  */
-board_update(Board, I, J, N, NewBoard) :-
-    board_is_valid_position(Board, I, J),
+board_update(Board, I-J, N, NewBoard) :-
+    board_is_valid_position(Board, I-J),
     board_update_recursive(Board, I, J, N, NewBoard).
 
 /**
@@ -99,17 +99,17 @@ end_turn(gamestate(Board, P), gamestate(Board, P1)) :-
  * 
  * Finds if cell U is controlled by Player.
  */
-isControlledByPlayer(Board, 1, Ui-Uj) :- board(Board, Ui, Uj, N), N > 0.
-isControlledByPlayer(Board, 2, Ui-Uj) :- board(Board, Ui, Uj, N), N < 0.
+isControlledByPlayer(Board, 1, U) :- board(Board, U, N), N > 0.
+isControlledByPlayer(Board, 2, U) :- board(Board, U, N), N < 0.
 
 /**
  * isAdj(+Board, +U, ?V)
  * 
  * True when U and V are adjacent
  */
-isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui, Uj), Vi is Ui+1, Vj is Uj  , board_is_valid_position(Board, Vi, Vj).
-isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui, Uj), Vi is Ui-1, Vj is Uj  , board_is_valid_position(Board, Vi, Vj).
-isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui, Uj), Vi is Ui  , Vj is Uj+1, board_is_valid_position(Board, Vi, Vj).
-isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui, Uj), Vi is Ui  , Vj is Uj-1, board_is_valid_position(Board, Vi, Vj).
-isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui, Uj), Vi is Ui+1, Vj is Uj+1, board_is_valid_position(Board, Vi, Vj).
-isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui, Uj), Vi is Ui-1, Vj is Uj-1, board_is_valid_position(Board, Vi, Vj).
+isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui-Uj), Vi is Ui+1, Vj is Uj  , board_is_valid_position(Board, Vi-Vj).
+isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui-Uj), Vi is Ui-1, Vj is Uj  , board_is_valid_position(Board, Vi-Vj).
+isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui-Uj), Vi is Ui  , Vj is Uj+1, board_is_valid_position(Board, Vi-Vj).
+isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui-Uj), Vi is Ui  , Vj is Uj-1, board_is_valid_position(Board, Vi-Vj).
+isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui-Uj), Vi is Ui+1, Vj is Uj+1, board_is_valid_position(Board, Vi-Vj).
+isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui-Uj), Vi is Ui-1, Vj is Uj-1, board_is_valid_position(Board, Vi-Vj).

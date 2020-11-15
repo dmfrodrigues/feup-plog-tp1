@@ -4,12 +4,12 @@
 isColor :- current_prolog_flag(argv, Arguments), member(color, Arguments).
 
 /**
- * print_cell(+Board, +I, +J)
+ * print_cell(+Board, +Pos)
  * 
- * Prints cell in (I, J) position. 
+ * Prints cell in Pos=(I, J) position. 
  */
-print_cell(Board, I, J) :-
-	board(Board, I, J, V),
+print_cell(Board, I-J) :-
+	board(Board, I-J, V),
 	((V =:= 0) ->format('\x2502\   ', []);
 		((V > 0) ->
 			(isColor -> format('\x2502\\e[41m\e[97m ~d \e[0m', [V]) ; format('\x2502\ ~d ', [V]));
@@ -27,7 +27,7 @@ print_row(_, I, J, Length) :- I < 5 , J > Length - 1, !.
 print_row(_, _, J, _) :- J > 8.
 
 print_row(Board, I, J, Length) :-
-	print_cell(Board, I, J),
+	print_cell(Board, I-J),
 	NJ is J + 1,
 	print_row(Board, I, NJ, Length).
 

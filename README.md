@@ -39,7 +39,7 @@
 
 ### Installing
 
-To run this game you need a running Prolog environment, preferrably one of the tested environments:
+To run this game you need a running Prolog environment, preferably one of the tested environments:
 - [SICStus Prolog](https://sicstus.sics.se/)
 - [SWI-Prolog](https://www.swi-prolog.org/)
 
@@ -94,7 +94,7 @@ The objective is to connect any pair of opposite sides of the board with a conti
 
 ### Game state representation
 
-The board is internally represented as a list of lists that can be queried using predicate `board(Board, I, J, N)`, meaning in position `(I, J)` there is a stack of `N` pieces, with `N` positive if the stack is made of red pieces, and negative if it is made of yellow pieces.
+The board is internally represented as a list of lists that can be queried using predicate `board(Board, I-J, N)`, meaning in position `(I, J)` there is a stack of `N` pieces, with `N` positive if the stack is made of red pieces, and negative if it is made of yellow pieces.
 
 ```txt
                      j=0 j=1 j=2 j=3 j=4 j=5 j=6 j=7 j=8
@@ -130,7 +130,7 @@ The cells adjacent to `(I, J)` are:
 - `(I-1, J-1)` (above left)
 - `(I+1, J+1)` (below right)
 
-Some positions are not valid (e.g. `(1, 6)`), which can be checked by calling `board_is_valid_position(I, J)`.
+Some positions are not valid (e.g. `(1, 6)`), which can be checked by calling `board_is_valid_position(Board, I-J)`.
 
 The game state is internally represented by pseudo-structure `gamestate(Board, Turn)`, where `Board` is the game board and `Turn` is the turn of the current player. `Turn` is 1 for player 1, and 2 for player 2.
 
@@ -140,7 +140,7 @@ Thus, we will not keep the number of pieces in reserve.
 #### Initial state <!-- omit in toc -->
 The initial state is represented with each player with three 6-stacks.
 
-Initial state in PROLOG:
+Initial state in Prolog:
 ```prolog
 gamestate(
     [ % Board
@@ -163,7 +163,7 @@ This state can be obtained by consulting `sample-states/initial_state.pl` (from 
 #### Intermediate state <!-- omit in toc -->
 When both players still have valid moves.
 
-Example of an intermediate state in PROLOG:
+Example of an intermediate state in Prolog:
 ```prolog
 gamestate(
     [ % Board
@@ -186,7 +186,7 @@ This state can be obtained by consulting `sample-states/intermediate_state.pl` (
 #### Final state <!-- omit in toc -->
 As stated in the Game play section, when a player connects any two opposite sides of the game board or if a player cannot separate and move any stacks, it is a final state.
 
-Example of a final state in PROLOG:
+Example of a final state in Prolog:
 ```prolog
 gamestate(
     [ % Board
