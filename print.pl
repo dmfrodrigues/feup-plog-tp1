@@ -22,7 +22,7 @@ print_cell(Board, I, J) :-
  * 
  * Prints row I starting in J with length Length. 
  */
-print_row(_, I, J, Length) :- I < 5 , J > Length - 1.
+print_row(_, I, J, Length) :- I < 5 , J > Length - 1, !.
 
 print_row(_, _, J, _) :- J > 8.
 
