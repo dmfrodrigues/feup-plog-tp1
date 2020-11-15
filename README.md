@@ -123,8 +123,8 @@ i=8 ----------> |   |   |   |-6 |   |
 ```
 
 The cells adjacent to `(I, J)` are:
-- `(I+1, J)` (above right)
 - `(I-1, J)` (below left)
+- `(I+1, J)` (above right)
 - `(I, J-1)` (left)
 - `(I, J+1)` (right)
 - `(I-1, J-1)` (above left)
