@@ -15,7 +15,7 @@ $(ZIPNAME).zip:
 	cd $(ZIPNAME) && zip ../$@ -r .
 	rm -rf $(ZIPNAME)
 
-test: test_samples test_game_over
+test: test_samples test_game_over test_move
 
 test_samples:
 	$(PROLOG) -q -l sample-states/display_initial_state.pl
@@ -30,6 +30,15 @@ test_game_over:
 	$(PROLOG) -q -l tests/test_game_over-1.pl -a color
 	$(PROLOG) -q -l tests/test_game_over-2.pl -a color
 	$(PROLOG) -q -l tests/test_game_over-3.pl -a color
+
+test_move:
+	$(PROLOG) -q -l tests/test_move-1.pl -a color
+	$(PROLOG) -q -l tests/test_move-2.pl -a color
+	$(PROLOG) -q -l tests/test_move-3.pl -a color
+	$(PROLOG) -q -l tests/test_move-4.pl -a color
+	$(PROLOG) -q -l tests/test_move-5.pl -a color
+	$(PROLOG) -q -l tests/test_move-6.pl -a color
+	$(PROLOG) -q -l tests/test_move-7.pl -a color
 
 svg: img/initial_print_simple.svg img/intermediate_print_simple.svg img/final_print_simple.svg
 
