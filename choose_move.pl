@@ -16,10 +16,7 @@ choose_move(gamestate(Board, Turn), Turn, 1, Move) :-
  * Choose best move from list.
  */
 best_move(gamestate(Board, Turn), [X|ListOfMoves], Move) :-
-    move(Board, X, NewBoard),
-    next_player(Turn, Turn1),
-    value(gamestate(NewBoard, Turn1), Turn, V),
-    best_move_(gamestate(Board, Turn), [X|ListOfMoves], Move, V).
+    best_move_(gamestate(Board, Turn), [X|ListOfMoves], Move, _).
 
 /**
  * best_move_(+GameState, +ListOfMoves, -Move, -Value)
@@ -31,18 +28,23 @@ best_move_(gamestate(Board, Turn), [X], X, V) :-
     move(Board, X, NewBoard),
     next_player(Turn, Turn1),
     value(gamestate(NewBoard, Turn1), Turn, V).
-best_move_(gamestate(Board, Turn), [X|ListOfMoves], X, V) :-
+best_move_(gamestate(Board, Turn), [X1|ListOfMoves], X, V) :-
     % To the right
-    best_move_(gamestate(Board, Turn), ListOfMoves, _, V1),
+    best_move_(gamestate(Board, Turn), ListOfMoves, X2, V2),
     % Current element
-    move(Board, X, NewBoard),
-    next_player(Turn, Turn1),
-    value(gamestate(NewBoard, Turn1), Turn, V),
+    best_move_(gamestate(Board, Turn), [X1], X1, V1),
     % Evaluate
     (
-        (Turn =:= 1, V >= V1);
-        (Turn =:= 2, V =< V1)
-    ),
-    !.
-best_move_(gamestate(Board, Turn), [_|ListOfMoves], X, V) :-
-    best_move_(gamestate(Board, Turn), ListOfMoves, X, V).
+        (Turn =:= 1,
+            (V2 > V1 ->
+                (X = X2, V is V2) ;
+                (X = X1, V is V1)
+            )
+        );
+        (Turn =:= 2,
+            (V2 < V1 ->
+                (X = X2, V is V2) ;
+                (X = X1, V is V1)
+            )
+        )
+    ).
