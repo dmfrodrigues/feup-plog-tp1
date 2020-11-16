@@ -5,10 +5,10 @@
  * if Value is negative, player 2 has the advantage.
  */
 value(gamestate(Board, _), 1, 999999) :-
-    game_over(gamestate(Board, _), 1).
+    game_over(gamestate(Board, _), 1), !.
 
 value(gamestate(Board, _), 2, -999999) :-
-    game_over(gamestate(Board, _), 2).
+    game_over(gamestate(Board, _), 2), !.
 
 value(gamestate(Board, _), Player, Value) :-
     value_(Board, 0-0, V0),
@@ -27,7 +27,8 @@ value_(Board, I-J, Value):-
     cell_value(I-J, N, V),
     NI is I + 1,
     value_(Board, NI-J, NV),
-    Value is V + NV.
+    Value is V + NV,
+    !.
 
 value_(Board, _, 0).
 
