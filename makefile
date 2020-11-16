@@ -15,7 +15,7 @@ $(ZIPNAME).zip:
 	cd $(ZIPNAME) && zip ../$@ -r .
 	rm -rf $(ZIPNAME)
 
-#test: test_samples test_game_over test_move test_value test_valid_moves
+#test: test_samples test_game_over test_move test_has_valid_moves test_value test_valid_moves
 test: test_menus
 
 test_menus:
@@ -43,6 +43,13 @@ test_move:
 	$(PROLOG) -q -l tests/test_move-5.pl -a color
 	$(PROLOG) -q -l tests/test_move-6.pl -a color
 	$(PROLOG) -q -l tests/test_move-7.pl -a color
+	$(PROLOG) -q -l tests/test_move-8.pl -a color
+	$(PROLOG) -q -l tests/test_move-9.pl -a color
+
+test_has_valid_moves:
+	$(PROLOG) -q -l tests/test_has_valid_moves-1.pl -a color
+	$(PROLOG) -q -l tests/test_has_valid_moves-2.pl -a color
+	$(PROLOG) -q -l tests/test_has_valid_moves-3.pl -a color
 
 test_valid_moves:
 	$(PROLOG) -q -l tests/test_valid_moves-1.pl -a color
