@@ -59,7 +59,7 @@ exec_play_options(2) :-
     repeat,
     display_choose_level,
     format("Option: ", []), read(Option),
-    exec_play_options(Option), !.
+    exec_choose_level(Option), !.
 
 % computer vs computer
 exec_play_options(3) :-
