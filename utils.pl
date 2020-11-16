@@ -62,7 +62,20 @@ list_sum(L, R) :- list_sum_(R, 0, L).
  */
 list_sum_(0, _, []) :- !.
 list_sum_(R, N, [X|L]) :-
+	R > 0, !,
 	N1 is N+1,
 	between(N1, R, X),
 	R1 is R-X,
 	list_sum_(R1, X, L).
+list_sum_(R, 0, L) :-
+	R1 is abs(R),
+	list_sum_(R1, 0, L1),
+	maplist(negation, L1, L).
+
+/**
+ * negation(+X, -Y)
+ * 
+ * Negates X and returns in Y;
+ * X+Y = 0
+ */
+negation(X, Y) :- Y is -X.

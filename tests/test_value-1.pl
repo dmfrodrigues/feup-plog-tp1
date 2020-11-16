@@ -1,11 +1,8 @@
 :-
-    reconsult('../game_over.pl'),
-    reconsult('../value.pl'),
-    reconsult('../sample-states/initial_state.pl'),
-    reconsult('../print.pl'),
+    reconsult('everything.pl'),
     initial_state(GameState),
     display_game(GameState),
-    value(GameState, 1, Value),
-    format("Value: ~d ~n", [Value]),
+    value(GameState, 1, 0),
+    value(GameState, 2, 0),
     halt(0).
 :-  halt(1).

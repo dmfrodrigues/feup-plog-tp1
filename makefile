@@ -15,11 +15,7 @@ $(ZIPNAME).zip:
 	cd $(ZIPNAME) && zip ../$@ -r .
 	rm -rf $(ZIPNAME)
 
-test: test_samples test_game_over test_move test_value test_valid_moves test_choose_move
-
-
-test_choose_move:
-	$(PROLOG) -q -l tests/test_choose_move-1.pl -a color
+test: test_samples test_game_over test_move test_has_valid_moves test_value test_valid_moves test_choose_move
 
 test_samples:
 	$(PROLOG) -q -l sample-states/display_initial_state.pl
@@ -43,6 +39,13 @@ test_move:
 	$(PROLOG) -q -l tests/test_move-5.pl -a color
 	$(PROLOG) -q -l tests/test_move-6.pl -a color
 	$(PROLOG) -q -l tests/test_move-7.pl -a color
+	$(PROLOG) -q -l tests/test_move-8.pl -a color
+	$(PROLOG) -q -l tests/test_move-9.pl -a color
+
+test_has_valid_moves:
+	$(PROLOG) -q -l tests/test_has_valid_moves-1.pl -a color
+	$(PROLOG) -q -l tests/test_has_valid_moves-2.pl -a color
+	$(PROLOG) -q -l tests/test_has_valid_moves-3.pl -a color
 
 test_valid_moves:
 	$(PROLOG) -q -l tests/test_valid_moves-1.pl -a color
@@ -51,6 +54,9 @@ test_value:
 	$(PROLOG) -q -l tests/test_value-1.pl -a color
 	$(PROLOG) -q -l tests/test_value-2.pl -a color
 	$(PROLOG) -q -l tests/test_value-3.pl -a color
+
+test_choose_move:
+	$(PROLOG) -q -l tests/test_choose_move-1.pl -a color
 
 svg: img/initial_print_simple.svg img/intermediate_print_simple.svg img/final_print_simple.svg
 
