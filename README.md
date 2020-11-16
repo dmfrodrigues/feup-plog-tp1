@@ -130,7 +130,7 @@ The cells adjacent to `(I, J)` are:
 - `(I-1, J-1)` (above left)
 - `(I+1, J+1)` (below right)
 
-Some positions are not valid (e.g. `(1, 6)`), which can be checked by calling `board_is_valid_position(Board, I-J)`.
+Some positions are not valid (e.g. `(1, 6)`), which can be checked by calling `board_is_valid_position(I-J)`.
 
 The game state is internally represented by pseudo-structure `gamestate(Board, Turn)`, where `Board` is the game board and `Turn` is the turn of the current player. `Turn` is 1 for player 1, and 2 for player 2.
 

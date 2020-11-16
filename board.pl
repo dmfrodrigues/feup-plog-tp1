@@ -52,18 +52,18 @@
  */
 board(Board, I-J, N) :-
     ground(Board),
-    board_is_valid_position(Board, I-J),
+    board_is_valid_position(I-J),
     I1 is I+1, nth1(I1, Board, Row),
     J1 is J+1, nth1(J1, Row, N).
     
 
 /**
- * board_is_valid_position(+Board, +Pos)
+ * board_is_valid_position(+Pos)
  * 
  * Checks if Pos(I, J) is a valid board position
  */
-board_is_valid_position(_, I-J) :- between(0, 4, I), R is I+4, between(0, R, J).
-board_is_valid_position(_, I-J) :- between(5, 8, I), L is I-4, between(L, 8, J).
+board_is_valid_position(I-J) :- between(0, 4, I), R is I+4, between(0, R, J).
+board_is_valid_position(I-J) :- between(5, 8, I), L is I-4, between(L, 8, J).
 
 /**
  * board_update(+Board, +Pos, +N, -NewBoard)
@@ -72,7 +72,7 @@ board_is_valid_position(_, I-J) :- between(5, 8, I), L is I-4, between(L, 8, J).
  * and returns the new board in NewBoard.
  */
 board_update(Board, I-J, N, NewBoard) :-
-    board_is_valid_position(Board, I-J),
+    board_is_valid_position(I-J),
     board_update_recursive(Board, I, J, N, NewBoard).
 
 /**
@@ -111,16 +111,16 @@ isControlledByPlayer(Board, 1, U) :- board(Board, U, N), N > 0.
 isControlledByPlayer(Board, 2, U) :- board(Board, U, N), N < 0.
 
 /**
- * isAdj(+Board, +U, ?V)
+ * isAdj(+U, ?V)
  * 
  * True when U and V are adjacent
  */
-isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui-Uj), Vi is Ui+1, Vj is Uj  , board_is_valid_position(Board, Vi-Vj).
-isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui-Uj), Vi is Ui-1, Vj is Uj  , board_is_valid_position(Board, Vi-Vj).
-isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui-Uj), Vi is Ui  , Vj is Uj+1, board_is_valid_position(Board, Vi-Vj).
-isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui-Uj), Vi is Ui  , Vj is Uj-1, board_is_valid_position(Board, Vi-Vj).
-isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui-Uj), Vi is Ui+1, Vj is Uj+1, board_is_valid_position(Board, Vi-Vj).
-isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui-Uj), Vi is Ui-1, Vj is Uj-1, board_is_valid_position(Board, Vi-Vj).
+isAdj(Ui-Uj, Vi-Vj) :- board_is_valid_position(Ui-Uj), Vi is Ui+1, Vj is Uj+1, board_is_valid_position(Vi-Vj). % Direction 6
+isAdj(Ui-Uj, Vi-Vj) :- board_is_valid_position(Ui-Uj), Vi is Ui  , Vj is Uj+1, board_is_valid_position(Vi-Vj). % Direction 5
+isAdj(Ui-Uj, Vi-Vj) :- board_is_valid_position(Ui-Uj), Vi is Ui+1, Vj is Uj  , board_is_valid_position(Vi-Vj). % Direction 1
+isAdj(Ui-Uj, Vi-Vj) :- board_is_valid_position(Ui-Uj), Vi is Ui  , Vj is Uj-1, board_is_valid_position(Vi-Vj). % Direction 2
+isAdj(Ui-Uj, Vi-Vj) :- board_is_valid_position(Ui-Uj), Vi is Ui-1, Vj is Uj  , board_is_valid_position(Vi-Vj). % Direction 4
+isAdj(Ui-Uj, Vi-Vj) :- board_is_valid_position(Ui-Uj), Vi is Ui-1, Vj is Uj-1, board_is_valid_position(Vi-Vj). % Direction 3
 
 /**
  * new_piece(+Player, -Piece)

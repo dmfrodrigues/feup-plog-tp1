@@ -5,16 +5,25 @@
     reconsult('moves.pl'). 
 
 /**
- * leadsTo(+Board, +Player, +U, +V, -Path)
+ * dfs(+Board, +Player, +Stack, +Visited, -Ret)
  * 
- * True when U leads to V.
+ * Finds nodes reachable from Stack.
  */
-leadsTo(Board, Player, Path, U, U, [U|Path]) :- isControlledByPlayer(Board, Player, U).
-leadsTo(Board, Player, Path, U, D,    Sol  ) :- isControlledByPlayer(Board, Player, U),
-    isAdj(Board, U, V),
-    isControlledByPlayer(Board, Player, V),
-    \+(member(V, Path)),
-    leadsTo(Board, Player, [U|Path], V, D, Sol).
+dfs(Board, Player, [U|Stack], Visited, Dest   ) :- % Ignore if already in Visited
+    member(U, Visited), !,
+    dfs(Board, Player, Stack, Visited, Dest   ).
+dfs(Board, Player, [U|Stack], Visited, Dest   ) :- % If U is under control, add adjacent
+    isControlledByPlayer(Board, Player, U),
+    (
+        member(U, Dest);
+        (
+            findall(V, isAdj(U, V), AddToStack),
+            append(AddToStack, Stack, NewStack),
+            dfs(Board, Player, NewStack, [U|Visited], Dest)
+        )
+    ).
+dfs(Board, Player, [_|Stack], Visited, Dest   ) :- % U is not under control, ignore
+    dfs(Board, Player, Stack, Visited, Dest   ).
 
 /**
  * has_valid_moves(+Board, +Player)
@@ -40,18 +49,12 @@ game_over_(gamestate(Board, Turn), Winner) :-
 
 game_over_top(gamestate(Board, _), Winner) :- 
     ground(Board),
-    member(U, [0-0,0-1,0-2,0-3,0-4]),
-    member(V, [8-4,8-5,8-6,8-7,8-8]),
-    leadsTo(Board, Winner, [], U, V, _).
+    dfs(Board, Winner, [0-0,0-1,0-2,0-3,0-4], [], [8-4,8-5,8-6,8-7,8-8]).
 
 game_over_left(gamestate(Board, _), Winner) :- 
     ground(Board),
-    member(U, [0-0,1-0,2-0,3-0,4-0]),
-    member(V, [4-8,5-8,6-8,7-8,8-8]),
-    leadsTo(Board, Winner, [], U, V, _).
+    dfs(Board, Winner, [0-0,1-0,2-0,3-0,4-0], [], [4-8,5-8,6-8,7-8,8-8]).
 
-game_over_diagonal(gamestate(Board, _), Winner) :- 
+game_over_diagonal(gamestate(Board, _), Winner) :-
     ground(Board),
-    member(U, [4-0,5-1,6-2,7-3,8-4]),
-    member(V, [0-4,1-5,2-6,3-7,4-8]),
-    leadsTo(Board, Winner, [], U, V, _).
+    dfs(Board, Winner, [4-0,5-1,6-2,7-3,8-4], [], [0-4,1-5,2-6,3-7,4-8]).

@@ -54,7 +54,7 @@ move_substacks(Board, stacksmove(Pos, [S|Substacks], Dir), NewBoard) :-
 move_substack(Board, stackmove(Pos, Size, Dir), NewBoard) :-
     % Check if new position falls outside board
     new_substack_position(stackmove(Pos, Size, Dir), NewPos),
-    board_is_valid_position(Board, NewPos),
+    board_is_valid_position(NewPos),
     % Check if new stack is taller than already-existing stack;
     % if taller or same-size, N+Size is zero or the same sign as Size,
     % thus (N+Size)*Size must be zero or positive.
