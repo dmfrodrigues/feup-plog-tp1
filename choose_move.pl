@@ -8,7 +8,7 @@
  */
 choose_move(gamestate(Board, Turn), Turn, 1, Move) :-
     valid_moves(gamestate(Board, Turn), Turn, ListOfMoves),
-    best_move(gamestate(Board, Turn), ListOfMoves, Move)
+    best_move(gamestate(Board, Turn), ListOfMoves, Move).
 
 /**
  * best_move(+GameState, +ListOfMoves, -BestMove)
