@@ -38,31 +38,21 @@ value_(Board, _, 0).
  * Evaluates a specific cell.
  */
 cell_value(I-J, N, V) :-
-    (
-    I=0; J=0; I=8; J=8;
-    (I=0, J=4); (I=1, J=5); (I=2, J=6); (I=3, J=7); (I=4, J=8);
-    (I=4, J=0); (I=5, J=1); (I=6, J=2); (I=7, J=3); (I=8, J=4)
-    ) -> V is N. 
+    (I=:=0; J=:=0; I=:=8; J=:=8; abs(I-J) =:= 4),
+    !, V is N. 
     
 cell_value(I-J, N, V) :-
-    (
-    I=1; J=1; I=7; J=7;
-    (I=2, J=5); (I=3, J=6);
-    (I=5, J=2); (I=6, J=3)
-    ) -> V is N*2.
+    (I=:=1; J=:=1; I=:=7; J=:=7; abs(I-J) =:= 3),
+    !, V is N*2.
 
 cell_value(I-J, N, V) :-
-    (
-    I=2; J=2; I=6; J=6;
-    (I=3, J=6);
-    (I=5, J=3)
-    ) -> V is N*3. 
+    (I=:=2; J=:=2; I=:=6; J=:=6; abs(I-J) =:= 2),
+    !, V is N*3. 
 
 cell_value(I-J, N, V) :-
-    (
-    I=3; J=3; I=5; J=5
-    ) -> V is N*4. 
+    (I=:=3; J=:=3; I=:=5; J=:=5; abs(I-J) =:= 1),
+    !, V is N*4. 
 
-cell_value(4-4, N, N*5).
+cell_value(4-4, N, N*5) :- !.
 
 cell_value(I-J, N, 0).

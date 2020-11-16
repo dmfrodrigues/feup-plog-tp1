@@ -57,6 +57,7 @@ test_value:
 
 test_choose_move:
 	$(PROLOG) -q -l tests/test_choose_move-1.pl -a color
+	$(PROLOG) -q -l tests/test_choose_move-2.pl -a color
 
 svg: img/initial_print_simple.svg img/intermediate_print_simple.svg img/final_print_simple.svg
 

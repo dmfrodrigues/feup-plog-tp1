@@ -1,4 +1,5 @@
 :-
+    reconsult('../choose_move.pl'),
     reconsult('../game_over.pl'),
     reconsult('../moves.pl'),
     reconsult('../print.pl'),
