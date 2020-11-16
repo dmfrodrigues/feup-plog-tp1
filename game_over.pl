@@ -11,7 +11,7 @@
  */
 leadsTo(Board, Player, Path, U, U, [U|Path]) :- isControlledByPlayer(Board, Player, U).
 leadsTo(Board, Player, Path, U, D,    Sol  ) :- isControlledByPlayer(Board, Player, U),
-    isAdj(Board, U, V),
+    isAdj(U, V),
     isControlledByPlayer(Board, Player, V),
     \+(member(V, Path)),
     leadsTo(Board, Player, [U|Path], V, D, Sol).

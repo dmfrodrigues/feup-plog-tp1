@@ -20,7 +20,7 @@ display_board_simple(Board, I, J) :-
 
 display_cell_simple(Board, I, J) :-
 	!,
-	(board_is_valid_position(Board, I-J)) -> (
+	(board_is_valid_position(I-J)) -> (
 		board(Board, I-J, N),
 		(N =\= 0 -> format("~d ~d ~d~n", [I, J, N]) ; true)
 	); (
