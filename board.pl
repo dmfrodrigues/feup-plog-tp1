@@ -62,12 +62,8 @@ board(Board, I-J, N) :-
  * 
  * Checks if Pos(I, J) is a valid board position
  */
-board_is_valid_position(_, I-J) :-
-    between(0, 8, I),
-    (I =< 4 -> 
-        (R is I+4, between(0, R, J));
-        (L is I-4, between(L, 8, J))
-    ).
+board_is_valid_position(_, I-J) :- between(0, 4, I), R is I+4, between(0, R, J).
+board_is_valid_position(_, I-J) :- between(5, 8, I), L is I-4, between(L, 8, J).
 
 /**
  * board_update(+Board, +Pos, +N, -NewBoard)
@@ -92,12 +88,19 @@ board_update_recursive([[X|Row]|Board], 0, J, N, [[X|NewRow]|Board   ]) :- J1 is
 board_update_recursive([   Row |Board], I, J, N, [      Row |NewBoard]) :- I1 is I-1, board_update_recursive(Board, I1, J, N, NewBoard), !.                 % Searching the right row
 
 /**
+ * next_player(+Player, -NextPlayer)
+ * 
+ * Get next player.
+ */
+next_player(Player, NextPlayer) :- NextPlayer is (Player+1) mod 2.
+
+/**
  * end_turn(+GameState, -NewGameState)
  * 
  * Ends current player's turn
  */
 end_turn(gamestate(Board, P), gamestate(Board, P1)) :-
-    (P =:= 1 -> P1 is 2 ; P1 is 1).
+    next_player(P, P1).
 
 /**
  * isControlledByPlayer(+Board, +Player, +U)
@@ -118,3 +121,11 @@ isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui-Uj), Vi is Ui  ,
 isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui-Uj), Vi is Ui  , Vj is Uj-1, board_is_valid_position(Board, Vi-Vj).
 isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui-Uj), Vi is Ui+1, Vj is Uj+1, board_is_valid_position(Board, Vi-Vj).
 isAdj(Board, Ui-Uj, Vi-Vj) :- board_is_valid_position(Board, Ui-Uj), Vi is Ui-1, Vj is Uj-1, board_is_valid_position(Board, Vi-Vj).
+
+/**
+ * new_piece(+Player, -Piece)
+ * 
+ * Get new piece placed by player Player.
+ */
+new_piece(1, 1).
+new_piece(2, -1).

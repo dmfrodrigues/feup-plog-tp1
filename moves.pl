@@ -33,11 +33,8 @@ move(Board, playermove(Player, Pos, Substacks, Dir, NewPos), NewBoard) :-
     move_substacks(Board, stacksmove(Pos, Substacks, Dir), NewBoard1),  % Move substacks
     board_update(NewBoard1, Pos, 0, NewBoard2),                         % Delete initial stack
     board(NewBoard2, NewPos, 0),                                        % Check if a new piece can be placed at NewPos
-    (                                                                   % Place it at NewPos
-        Player =:= 1 ->
-            board_update(NewBoard2, NewPos,  1, NewBoard);
-            board_update(NewBoard2, NewPos, -1, NewBoard)
-    ).
+    new_piece(Player, Piece),                                           % Get new piece
+    board_update(NewBoard2, NewPos, Piece, NewBoard).                   % Place new piece
 
 /**
  * move_substacks(+Board, +stacksmove(StackPosition, Substacks, Direction), -NewBoard)
