@@ -1,4 +1,6 @@
-:- use_module(library(lists)).
+:-
+    use_module(library(lists)),
+    reconsult('utils.pl').
 
 /**
  * gamestate(Board, Turn)
@@ -61,8 +63,11 @@ board(Board, I-J, N) :-
  * Checks if Pos(I, J) is a valid board position
  */
 board_is_valid_position(_, I-J) :-
-    (I =< 4, 0   =< J, J =< 4+I);
-    (4  < I, I-4 =< J, J =< 8  ).
+    between(0, 8, I),
+    (I =< 4 -> 
+        (R is I+4, between(0, R, J));
+        (L is I-4, between(L, 8, J))
+    ).
 
 /**
  * board_update(+Board, +Pos, +N, -NewBoard)

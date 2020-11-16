@@ -1,3 +1,6 @@
+:-
+	use_module(library(lists)).
+
 /**
  * list_create(+X, +N, -List)
  * 
@@ -29,3 +32,37 @@ string_substring(S, I, J, R) :-
 	string_to_list(S, L),
 	list_sublist(L, I, J, RL),
 	string_to_list(R, RL).
+
+/**
+ * between(+L, +R, ?I)
+ * 
+ * If I is binded, it checks if L =< I =< R.
+ * If I is not binded, it is successively assigned
+ * to the integers between L and R inclusive.
+ */
+between(L, R, I) :- ground(I), !, L =< I, I =< R.
+between(L, L, I) :- I is L, !.
+between(L, R, I) :- L < R, I is L.
+between(L, R, I) :- L < R, L1 is L+1, between(L1, R, I).
+
+/**
+ * list_sum(?List, ?R)
+ * 
+ * R is the result of the list.
+ * If List is grounded, R is returned;
+ * If R is grounded, lists are successively returned, with different elements
+ */
+list_sum(L, R) :- ground(L), sumlist(L, R).
+list_sum(L, R) :- list_sum_(R, 0, L).
+
+/**
+ * list_sum_(+R, +N, -L)
+ * 
+ * Returns list L adding up R, where all elements of L are greater than N.
+ */
+list_sum_(0, _, []) :- !.
+list_sum_(R, N, [X|L]) :-
+	N1 is N+1,
+	between(N1, R, X),
+	R1 is R-X,
+	list_sum_(R1, X, L).

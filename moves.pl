@@ -2,6 +2,7 @@
     use_module(library(lists)),
     (current_predicate(list_to_set/2) -> true ; use_module(library(sets))).
 :-
+    reconsult('utils.pl'),
     reconsult('board.pl').
 
 /**
@@ -17,7 +18,7 @@ no_duplicates(L1) :- sort(L1, L2), list_to_set(L2, L2).
  * Check if stack can be split into substacks.
  */
 canSplitStack(Stack, Substacks) :-
-    sumlist(Substacks, Stack),
+    list_sum(Substacks, Stack),
     no_duplicates(Substacks),
     \+(member(0, Substacks)).
 
