@@ -37,22 +37,25 @@ value_(Board, _, 0).
  * 
  * Evaluates a specific cell.
  */
-cell_value(I-J, N, V) :-
-    (I=:=0; J=:=0; I=:=8; J=:=8; abs(I-J) =:= 4),
-    !, V is N. 
+cell_value(I-J, N, V) :- position_value(I-J, F), V is F*N.
+
+/**
+ * position_value(+Pos, -Value)
+ * 
+ * Value of position
+ */
+position_value(I-J, 1) :-
+    I=:=0; J=:=0; I=:=8; J=:=8; abs(I-J) =:= 4. 
     
-cell_value(I-J, N, V) :-
-    (I=:=1; J=:=1; I=:=7; J=:=7; abs(I-J) =:= 3),
-    !, V is N*2.
+position_value(I-J, 2) :-
+    I=:=1; J=:=1; I=:=7; J=:=7; abs(I-J) =:= 3.
 
-cell_value(I-J, N, V) :-
-    (I=:=2; J=:=2; I=:=6; J=:=6; abs(I-J) =:= 2),
-    !, V is N*3. 
+position_value(I-J, 3) :-
+    I=:=2; J=:=2; I=:=6; J=:=6; abs(I-J) =:= 2.
 
-cell_value(I-J, N, V) :-
-    (I=:=3; J=:=3; I=:=5; J=:=5; abs(I-J) =:= 1),
-    !, V is N*4. 
+position_value(I-J, 4) :-
+    I=:=3; J=:=3; I=:=5; J=:=5; abs(I-J) =:= 1.
 
-cell_value(4-4, N, N*5) :- !.
+position_value(4-4, 5).
 
-cell_value(I-J, N, 0).
+position_value(I-J, 0).
