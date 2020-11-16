@@ -1,7 +1,8 @@
 :-
     use_module(library(lists)).
 :-
-    reconsult('board.pl').
+    reconsult('board.pl'),
+    reconsult('moves.pl'). 
 
 /**
  * leadsTo(+Board, +Player, +U, +V, -Path)
@@ -22,6 +23,8 @@ leadsTo(Board, Player, Path, U, D,    Sol  ) :- isControlledByPlayer(Board, Play
  */
 game_over(gamestate(Board, Turn), 1) :- game_over_(gamestate(Board, Turn), 1).
 game_over(gamestate(Board, Turn), 2) :- game_over_(gamestate(Board, Turn), 2).
+game_over_(gamestate(Board, 1), 2) :- \+(move(Board, playermove(1,_,_,_,_),_)).
+game_over_(gamestate(Board, 2), 1) :- \+(move(Board, playermove(2,_,_,_,_),_)).
 game_over_(gamestate(Board, Turn), Winner) :-
     game_over_top(gamestate(Board, Turn), Winner);
     game_over_left(gamestate(Board, Turn), Winner);
