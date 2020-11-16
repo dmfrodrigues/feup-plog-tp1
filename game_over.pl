@@ -17,14 +17,22 @@ leadsTo(Board, Player, Path, U, D,    Sol  ) :- isControlledByPlayer(Board, Play
     leadsTo(Board, Player, [U|Path], V, D, Sol).
 
 /**
+ * has_valid_moves(+Board, +Player)
+ * 
+ * Asserts if player has valid moves in the provided Board.
+ */
+has_valid_moves(Board, Player) :-
+    !,
+    move(Board, playermove(Player,_,_,_,_),_).
+
+/**
  * game_over(+GameState, -Winner)​
  * 
  * Evaluates if game is over, and returns winner if it is over
  */
 game_over(gamestate(Board, Turn), 1) :- game_over_(gamestate(Board, Turn), 1).
 game_over(gamestate(Board, Turn), 2) :- game_over_(gamestate(Board, Turn), 2).
-game_over_(gamestate(Board, 1), 2) :- \+(move(Board, playermove(1,_,_,_,_),_)).
-game_over_(gamestate(Board, 2), 1) :- \+(move(Board, playermove(2,_,_,_,_),_)).
+game_over_(gamestate(Board, _), Winner) :- next_player(Winner, P), \+(has_valid_moves(Board, P)).
 game_over_(gamestate(Board, Turn), Winner) :-
     game_over_top(gamestate(Board, Turn), Winner);
     game_over_left(gamestate(Board, Turn), Winner);

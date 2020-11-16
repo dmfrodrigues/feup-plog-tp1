@@ -23,7 +23,7 @@ canSplitStack(Stack, Substacks) :-
     \+(member(0, Substacks)).
 
 /**
- * move(+Board, ?move(Player, Position, Substacks, Direction))
+ * move(+Board, ?playermove(Player, Position, Substacks, Direction), ?NewBoard)
  * 
  * Determines if a move is valid.
  */
