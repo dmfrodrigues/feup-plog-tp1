@@ -10,7 +10,7 @@ value(gamestate(Board, _), 1, 999999) :-
 value(gamestate(Board, _), 2, -999999) :-
     game_over(gamestate(Board, _), 2), !.
 
-value(gamestate(Board, _), Player, Value) :-
+value(gamestate(Board, _), _, Value) :-
     value_(Board, 0-0, V0),
     value_(Board, 0-1, V1),
     value_(Board, 0-2, V2),
@@ -30,7 +30,7 @@ value_(Board, I-J, Value):-
     Value is V + NV,
     !.
 
-value_(Board, _, 0).
+value_(_, _, 0).
 
 /**
  * cell_value(+Pos, +N, -Value).
@@ -58,4 +58,4 @@ position_value(I-J, 4) :-
 
 position_value(4-4, 5).
 
-position_value(I-J, 0).
+position_value(_, 0).
