@@ -3,6 +3,8 @@
     reconsult('../sample-states/initial_state.pl'),
     reconsult('../print.pl'),
     initial_state(gamestate(InitialBoard,InitialTurn)),
-    has_valid_moves(InitialBoard, 1),
+    move(InitialBoard, playermove(1, 7-3, [6], 2, 8-8), NewBoard),
+    GameState = gamestate(NewBoard, 2),
+    has_valid_moves(NewBoard, 2),
     halt(0).
 :-  halt(1).

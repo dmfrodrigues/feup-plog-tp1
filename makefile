@@ -45,6 +45,7 @@ test_move:
 test_has_valid_moves:
 	$(PROLOG) -q -l tests/test_has_valid_moves-1.pl -a color
 	$(PROLOG) -q -l tests/test_has_valid_moves-2.pl -a color
+	$(PROLOG) -q -l tests/test_has_valid_moves-3.pl -a color
 
 test_valid_moves:
 	$(PROLOG) -q -l tests/test_valid_moves-1.pl -a color
