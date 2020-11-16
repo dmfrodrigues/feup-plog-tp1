@@ -79,3 +79,14 @@ list_sum_(R, 0, L) :-
  * X+Y = 0
  */
 negation(X, Y) :- Y is -X.
+
+/**
+ * intersects(+L1, +L2)
+ * 
+ * Check if two lists have any elements in common.
+ */
+intersects([H|_],List) :-
+    member(H,List),
+    !.
+intersects([_|T],List) :-
+    intersects(T,List).
