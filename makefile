@@ -15,7 +15,11 @@ $(ZIPNAME).zip:
 	cd $(ZIPNAME) && zip ../$@ -r .
 	rm -rf $(ZIPNAME)
 
-test: test_samples test_game_over test_move test_value test_valid_moves
+#test: test_samples test_game_over test_move test_value test_valid_moves
+test: test_menus
+
+test_menus:
+	$(PROLOG) -q -l tests/test_menus.pl -a color
 
 test_samples:
 	$(PROLOG) -q -l sample-states/display_initial_state.pl
