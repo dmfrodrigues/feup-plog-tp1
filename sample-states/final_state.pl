@@ -6,8 +6,8 @@
  * 
  * Get sample final state.
  */
-final_state(gamestate(Board, 2)) :-
-    Board = [
+final_state(gamestate(
+    [
         [ -1,  0, -1,  0,  1,nan,nan,nan,nan],
         [  0,  0, -1,  0,  0,  0,nan,nan,nan],
         [  0,  0,  0, -6,  0,  3,  1,nan,nan],
@@ -17,4 +17,5 @@ final_state(gamestate(Board, 2)) :-
         [nan,nan,  0, -1,  0,  2,  0,  0,  0],
         [nan,nan,nan, -1,  0,  0,  0,  1,  0],
         [nan,nan,nan,nan,  0,  0,  0,  0,  0]
-    ].
+    ]
+, 2)).
