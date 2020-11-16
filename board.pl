@@ -92,7 +92,7 @@ board_update_recursive([   Row |Board], I, J, N, [      Row |NewBoard]) :- I1 is
  * 
  * Get next player.
  */
-next_player(Player, NextPlayer) :- NextPlayer is (Player+1) mod 2.
+next_player(Player, NextPlayer) :- NextPlayer is (Player mod 2)+1.
 
 /**
  * end_turn(+GameState, -NewGameState)
