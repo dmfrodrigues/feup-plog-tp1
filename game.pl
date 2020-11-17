@@ -40,28 +40,31 @@ play_game(h_c, Level):-
     play_loop(GameState, h_c, Level).
 
 /**
- *
+ * Human vs human
  */
 play_loop(gamestate(StartBoard, Turn), h_h) :-
     % Turn 1
     display_game(gamestate(StartBoard, Turn)),
     turn_action(Turn, StartBoard, NewBoard1),
     end_turn(gamestate(NewBoard1, Turn), gamestate(NewBoard1, Turn1)),
-    
-    \+ game_over(gamestate(NewBoard1, Turn1), 1),
 
-    % Turn 2
-    display_game(gamestate(NewBoard1, Turn1)),
-    turn_action(Turn1, NewBoard1, NewBoard2),
-    end_turn(gamestate(NewBoard2, Turn1), gamestate(NewBoard2, Turn2)),
-
-    \+ game_over(gamestate(NewBoard2, Turn2), 2),
-
-    play_loop(gamestate(NewBoard2, Turn2), h_h).
+    (
+        game_over(gamestate(NewBoard1, Turn), 1);
+        (
+        % Turn 2
+        display_game(gamestate(NewBoard1, Turn1)),
+        turn_action(Turn1, NewBoard1, NewBoard2),
+        end_turn(gamestate(NewBoard2, Turn1), gamestate(NewBoard2, Turn2)),
+            (
+            game_over(gamestate(NewBoard2, Turn1), 2);
+            play_loop(gamestate(NewBoard2, Turn2), h_h)
+            )
+        )
+    ).
 
 
 /**
- *
+ * Human vs computer
  */
 play_loop(gamestate(StartBoard, Turn), h_c, Level) :-
     % Turn 1
@@ -69,20 +72,23 @@ play_loop(gamestate(StartBoard, Turn), h_c, Level) :-
     turn_action(Turn, StartBoard, NewBoard1),
     end_turn(gamestate(NewBoard1, Turn), gamestate(NewBoard1, Turn1)),
     
-    \+ game_over(gamestate(NewBoard1, Turn1), 1),
-
-    % Turn 2
-    display_game(gamestate(NewBoard1, Turn1)),
-    choose_move(gamestate(NewBoard1, Turn1), Turn1, 1, Move),
-    move(NewBoard1, Move, NewBoard2),
-    end_turn(gamestate(NewBoard2, Turn1), gamestate(NewBoard2, Turn2)),
-
-    \+ game_over(gamestate(NewBoard2, Turn2), 2),
-
-    play_loop(gamestate(NewBoard2, Turn2), h_c, Level).
+    (
+        game_over(gamestate(NewBoard1, Turn), 1);
+        (
+        % Turn 2
+        display_game(gamestate(NewBoard1, Turn1)),
+        choose_move(gamestate(NewBoard1, Turn1), Turn1, 1, Move),
+        move(NewBoard1, Move, NewBoard2),
+        end_turn(gamestate(NewBoard2, Turn1), gamestate(NewBoard2, Turn2)),
+            (
+            game_over(gamestate(NewBoard2, Turn1), 2);
+            play_loop(gamestate(NewBoard2, Turn2), h_c, Level)
+            )
+        )
+    ).
 
 /**
- *
+ * Computer vs computer
  */
 play_loop(gamestate(StartBoard, Turn), c_c) :-
     % Turn 1
@@ -91,14 +97,17 @@ play_loop(gamestate(StartBoard, Turn), c_c) :-
     move(StartBoard, Move1, NewBoard1),
     end_turn(gamestate(NewBoard1, Turn), gamestate(NewBoard1, Turn1)),
     
-    \+ game_over(gamestate(NewBoard1, Turn1), 1),
-
-    % Turn 2
-    display_game(gamestate(NewBoard1, Turn1)),
-    choose_move(gamestate(NewBoard1, Turn1), Turn1, 1, Move2),
-    move(NewBoard1, Move2, NewBoard2),
-    end_turn(gamestate(NewBoard2, Turn1), gamestate(NewBoard2, Turn2)),
-
-    \+ game_over(gamestate(NewBoard2, Turn2), 2),
-
-    play_loop(gamestate(NewBoard2, Turn2), c_c).
+    (   
+        game_over(gamestate(NewBoard1, Turn), 1);
+        (
+        % Turn 2
+        display_game(gamestate(NewBoard1, Turn1)),
+        choose_move(gamestate(NewBoard1, Turn1), Turn1, 1, Move2),
+        move(NewBoard1, Move2, NewBoard2),
+        end_turn(gamestate(NewBoard2, Turn1), gamestate(NewBoard2, Turn2)),
+            (
+            game_over(gamestate(NewBoard2, Turn1), 2);
+            play_loop(gamestate(NewBoard2, Turn2), c_c)
+            )
+        )   
+    ).

@@ -1,6 +1,9 @@
 display_menu :-
     nl,
-    format("GLAISHER~n~n", []),
+    format("  / __|| |     /_\\  |_ _|/ __|| || || __|| _ \\~n", []),
+    format(" | (_ || |__  / _ \\  | | \\__ \\| __ || _| |   /~n", []),
+    format("  \\___||____|/_/ \\_\\|___||___/|_||_||___||_|_\\~n", []),
+    nl,
     format("1. Play~n", []),
     format("2. Instructions~n", []),
     format("0. Quit~n~n", []).
