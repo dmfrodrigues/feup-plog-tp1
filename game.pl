@@ -49,7 +49,7 @@ play_loop(gamestate(StartBoard, Turn), h_h) :-
     end_turn(gamestate(NewBoard1, Turn), gamestate(NewBoard1, Turn1)),
 
     (
-        game_over(gamestate(NewBoard1, Turn), 1);
+        (game_over(gamestate(NewBoard1, Turn), 1), display_game_over(Turn));
         (
         % Turn 2
         display_game(gamestate(NewBoard1, Turn1)),
@@ -73,7 +73,7 @@ play_loop(gamestate(StartBoard, Turn), h_c, Level) :-
     end_turn(gamestate(NewBoard1, Turn), gamestate(NewBoard1, Turn1)),
     
     (
-        game_over(gamestate(NewBoard1, Turn), 1);
+        (game_over(gamestate(NewBoard1, Turn), 1), display_game_over(Turn));
         (
         % Turn 2
         display_game(gamestate(NewBoard1, Turn1)),
@@ -98,7 +98,7 @@ play_loop(gamestate(StartBoard, Turn), c_c) :-
     end_turn(gamestate(NewBoard1, Turn), gamestate(NewBoard1, Turn1)),
     
     (   
-        game_over(gamestate(NewBoard1, Turn), 1);
+        (game_over(gamestate(NewBoard1, Turn), 1), display_game_over(Turn));
         (
         % Turn 2
         display_game(gamestate(NewBoard1, Turn1)),
