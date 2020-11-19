@@ -98,10 +98,10 @@ turn_action(Player, Board, NewBoard):-
     repeat,
     format("Movement~n", []),
     format("Position: ", []), read(Pos),
-    format("Subtracks: ", []), read(Substracks),
+    format("Substacks: ", []), read(Substacks),
     format("Direction: ", []), read(Dir),
     format("New Position: ", []), read(NewPos),
-    move(Board, playermove(Player, Pos, Substracks, Dir, NewPos), NewBoard),
+    move(Board, playermove(Player, Pos, Substacks, Dir, NewPos), NewBoard),
     !.
 
 display_game_over(Winner) :-
