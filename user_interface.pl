@@ -28,6 +28,20 @@ display_instructions :-
     format("After separating the stack, all substacks must move in the same direction, and each stack travels as many hexes as it is tall (e.g., a 2-substack must travel 2 hexes), including over adversary stacks.~n~n", []),
     format("2) Place a new piece: grab a new piece from the reserve, and place it in any empty hex with your color facing up (thus creating a 1-stack).~n~n", []),
     format("The objective is to connect any pair of opposite sides of the board with a contiguous chain of stacks with your color. A player can also lose when he has no legal moves in item 1.~n~n", []),
+    format("# How to move~n~n", []),
+    format("- Position: provide a pair of indexes representing the position of the stack you want to split, separated by an hypen (e.g., 0-1)~n", []),
+    format("- Substacks: provide a list of integers, of the same sign and adding up to the number in the position you selected before (e.g., [4, 2])~n", []),
+    format("- Direction: provide a number from 1 to 6, indicating the direction you want to move your substacks (e.g., 1)~n", []),
+    format("- New Position: provide a pair of indexes representing the cell where you will place your new 1-stack (e.g., 0-0)~n~n", []),
+    format("Directions:~n", []),
+    format("      3     2      ~n", []),
+    format("       \x2572\   \x2571\       ~n", []),
+    format("        \x2571\ \x2572\        ~n", []),
+    format(" 4 <\x2500\\x2500\ \x2502\ # \x2502\ \x2500\\x2500\> 1 ~n", []),
+    format("        \x2572\ \x2571\        ~n", []),
+    format("       \x2571\   \x2572\       ~n", []),
+    format("      5     6      ~n", []),
+    format("~n", []),
     format("Enter any key to go back~n~n", []).
 
 initial_menu :-
