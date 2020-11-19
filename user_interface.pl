@@ -1,8 +1,16 @@
 display_menu :-
     nl,
-    format("  / __|| |     /_\\  |_ _|/ __|| || || __|| _ \\~n", []),
-    format(" | (_ || |__  / _ \\  | | \\__ \\| __ || _| |   /~n", []),
-    format("  \\___||____|/_/ \\_\\|___||___/|_||_||___||_|_\\~n", []),
+    format(" \x259F\\x2580\\x2580\\x2580\\x2599\ \x2588\ \x2597\\x2584\\x2584\\x2596\\x2584\ \x2580\ \x2597\\x2584\\x2584\\x2584\ \x2588\    \x2597\\x2584\\x2584\\x2596\ \x2584\\x2597\\x2584\ ~n", []),
+    format(" \x2588\ \x2584\\x2584\\x2584\ \x2588\ \x2588\  \x259C\\x2588\ \x2588\ \x259C\\x2584\\x2584\\x2596\ \x2588\\x2580\\x2580\\x2599\ \x2588\\x2584\\x2584\\x2588\ \x2588\\x2580\  ~n", []),
+    format(" \x259C\\x2584\\x2584\\x2584\\x259B\ \x2588\ \x259C\\x2584\\x2584\\x259B\\x2588\ \x2588\ \x2584\\x2584\\x2584\\x259B\ \x2588\  \x2588\ \x259C\\x2584\\x2584\\x2596\ \x2588\   ~n", []),
+    nl,
+    format(" A game for two players by Ken Shoda~n", []),
+    format(" Developed by Breno Pimentel & Diogo Rodrigues, in SICStus/SWI Prolog~n", []),
+    nl,
+    format(" (C) 2020 Diogo Rodrigues, Breno Pimentel (developers)~n", []),
+    format(" Based the homonymous game by Nestor Romeral Andres and Ken Shoda, publicly available through nestorgames~n", []),
+    format(" We lay claim only over the software; this software cannot be used for commercial purposes~n", []),
+    format(" Made available under GNU General Public License v3, copyrighted material used under fair use for education~n", []),
     nl,
     format("1. Play~n", []),
     format("2. Instructions~n", []),
@@ -51,7 +59,7 @@ initial_menu :-
     exec_initial_menu(Option), !.
 
 exec_initial_menu(0):-
-    abort.
+    halt(0).
 
 exec_initial_menu(1):-
     repeat,
@@ -96,22 +104,17 @@ exec_choose_level(2) :-
 
 turn_action(Player, Board, NewBoard):-
     repeat,
-    format("Movement   (q. to exit game)~n", []),
-    format("Position: ", []), read(Pos), exit_game(Pos),
-    format("Substacks: ", []), read(Substacks), exit_game(Substacks),
-    format("Direction: ", []), read(Dir), exit_game(Dir),
-    format("New Position: ", []), read(NewPos), exit_game(NewPos),
+    format("Movement~n", []),
+    format("Position: ", []), read(Pos),
+    format("Substacks: ", []), read(Substacks),
+    format("Direction: ", []), read(Dir),
+    format("New Position: ", []), read(NewPos),
     move(Board, playermove(Player, Pos, Substacks, Dir, NewPos), NewBoard),
     !.
 
 display_game_over(Winner) :-
     format("~nGame Over~n", []),
     format("Player ~d is the winner~n", [Winner]),
-    format("Enter any key to go back~n~n", []),
-    read(_),
+    format("Press enter to continue~n~n", []),
+    get_char(_),
     initial_menu.
-
-exit_game(Input) :-
-    ((Input = q) ->
-    initial_menu; true).
- 
