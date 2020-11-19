@@ -23,21 +23,19 @@ value(gamestate(Board, _), _, Value) :-
     Value is V0+V1+V2+V3+V4+V5+V6+V7+V8.
 
 value_(Board, I-J, Value):-
-    board(Board, I-J, N),
-    cell_value(I-J, N, V),
+    cell_value(Board, I-J, V),!,
     NI is I + 1,
     value_(Board, NI-J, NV),
-    Value is V + NV,
-    !.
+    Value is V + NV.
 
 value_(_, _, 0).
 
 /**
- * cell_value(+Pos, +N, -Value).
+ * cell_value(+Board, +Pos, -Value).
  * 
  * Evaluates a specific cell.
  */
-cell_value(I-J, N, V) :- position_value(I-J, F), V is F*N.
+cell_value(Board, I-J, V) :- board(Board, I-J, N), position_value(I-J, F), V is F*N.
 
 /**
  * position_value(+Pos, -Value)
