@@ -92,6 +92,9 @@ The objective is to connect any pair of opposite sides of the board with a conti
 
 ## Game logic
 
+Firstly, some brief notes on how to work with this game.
+- Every option/command must be ended with a period `.` (e.g., `[4, 2].`).
+
 ### Game state representation
 
 The board is internally represented as a list of lists that can be queried using predicate `board(Board, I-J, N)`, meaning in position `(I, J)` there is a stack of `N` pieces, with `N` positive if the stack is made of red pieces, and negative if it is made of yellow pieces.
@@ -231,6 +234,18 @@ Obtained by running `make img/intermediate_print_simple.svg`; can alternatively 
 Obtained by running `make img/final_print_simple.svg`; can alternatively be displayed in a console by consulting `sample-states/display_final_state.pl`.
 
 ### Valid moves
+
+Directions:
+
+```
+      3     2      
+       ╲   ╱       
+        ╱ ╲        
+ 4 <── │ # │ ──> 1 
+        ╲ ╱        
+       ╱   ╲       
+      5     6
+```
 
 <!-- TODO -->
 
