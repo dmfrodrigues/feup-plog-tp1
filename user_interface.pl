@@ -155,7 +155,7 @@ turn_action(Player, Board, NewBoard):-
  *
  * Displays the computer Move.
 */
-display_computer_move(playermove(Player, Pos, Substacks, Dir, NewPos)):-
+display_computer_move(playermove(_, Pos, Substacks, Dir, NewPos)):-
     write('Computer movement'), nl,
     write('Position: '), write(Pos), nl,
     write('Substacks: '), write(Substacks), nl,
@@ -191,5 +191,5 @@ exit_game(Input) :-
 */
 read_input(Input):-
     repeat,
-    catch(read(Input), Error, false),
+    catch(read(Input), _Error, false),
     !.

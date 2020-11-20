@@ -23,7 +23,6 @@ play_game(h_h):-
     initial(GameState),
     !,
     play_loop(GameState, h_h).
-
 play_game(c_c):-
     initial(GameState),
     !,
@@ -40,8 +39,11 @@ play_game(h_c, Level):-
     play_loop(GameState, h_c, Level).
 
 /**
- * Human vs human
+ * play_loop(+GameState, +Mode)
+ *
+ * Play loop with the Mode and GameState.
  */
+ % Human vs human
 play_loop(gamestate(StartBoard, Turn), h_h) :-
     % Turn 1
     display_game(gamestate(StartBoard, Turn)),
@@ -61,10 +63,7 @@ play_loop(gamestate(StartBoard, Turn), h_h) :-
             )
         )
     ).
-
-/**
- * Computer vs computer
- */
+% Computer vs computer
 play_loop(gamestate(StartBoard, Turn), c_c) :-
     % Turn 1
     display_game(gamestate(StartBoard, Turn)),
@@ -90,8 +89,11 @@ play_loop(gamestate(StartBoard, Turn), c_c) :-
     ).
 
 /**
- * Human vs computer
+ * play_loop(+GameState, +Mode, +Level)
+ *
+ * Play loop with the Mode, GameState and with the computer Level.
  */
+ % Human vs computer
 play_loop(gamestate(StartBoard, Turn), h_c, Level) :-
     % Turn 1
     display_game(gamestate(StartBoard, Turn)),
