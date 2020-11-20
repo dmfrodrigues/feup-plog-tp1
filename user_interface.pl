@@ -1,3 +1,8 @@
+/*
+ * display_menu
+ *
+ * Displays the initial menu.
+*/
 display_menu :-
     nl,
     format(" \x259F\\x2580\\x2580\\x2580\\x2599\ \x2588\ \x2597\\x2584\\x2584\\x2596\\x2584\ \x2580\ \x2597\\x2584\\x2584\\x2584\ \x2588\    \x2597\\x2584\\x2584\\x2596\ \x2584\\x2597\\x2584\ ~n", []),
@@ -16,6 +21,11 @@ display_menu :-
     format("2. Instructions~n", []),
     format("0. Quit~n~n", []).
 
+/*
+ * display_play_options
+ *
+ * Displays play modes.
+*/
 display_play_options :-
     nl,
     format("1. Human vs Human~n", []),
@@ -23,12 +33,22 @@ display_play_options :-
     format("3. Computer vs Computer~n", []),
     format("0. Back~n~n", []).
 
+/*
+ * display_choose_level
+ *
+ * Displays computer A.I. levels.
+*/
 display_choose_level :-
     nl,
     format("1. Level 1~n", []),
     format("2. Level 2~n", []),
     format("0. Back~n~n", []).
 
+/*
+ * display_instructions
+ *
+ * Displays game instructions.
+*/
 display_instructions :-
     nl,
     format("Players take turns in doing two consecutive, mandatory actions:~n~n", []),
@@ -52,56 +72,73 @@ display_instructions :-
     format("~n", []),
     format("Enter any key to go back~n~n", []).
 
+/*
+ * initial_menu
+ *
+ * Starts initial menu and wait for input.
+*/
 initial_menu :-
     repeat,
     display_menu,
     format("Option: ", []), read_input(Option),
     exec_initial_menu(Option), !.
 
+/*
+ * exec_initial_menu(+Option)
+ *
+ * Executes initial menu Option.
+*/
 exec_initial_menu(0):-
     abort.
-
 exec_initial_menu(1):-
     repeat,
     display_play_options,
     format("Option: ", []), read_input(Option),
     exec_play_options(Option), !.
-
 exec_initial_menu(2):-
     display_instructions,
     read_input(_),
     initial_menu.
 
+/*
+ * exec_play_options(+Option)
+ *
+ * Executes play modes menu Option.
+*/
 exec_play_options(0) :-
     initial_menu.
-
 % human vs human
 exec_play_options(1) :-
     play_game(h_h).
-
 % human vs computer
 exec_play_options(2) :-
     repeat,
     display_choose_level,
     format("Option: ", []), read_input(Option),
     exec_choose_level(Option), !.
-
 % computer vs computer
 exec_play_options(3) :-
     play_game(c_c).
 
+/*
+ * exec_choose_level(+Option)
+ *
+ * Executes choose levels menu Option.
+*/
 exec_choose_level(0) :-
     initial_menu.
-
 % level 1
 exec_choose_level(1) :-
     play_game(h_c, 1).
-
 % level 2
 exec_choose_level(2) :-
     play_game(h_c, 2).
 
 /*
+ * turn_action(+Player, +Board, -NewBoard)
+ *
+ * Reads the Player movement in the Board and returns the NewBoard.
+ * It repeats until a valid move is done.
 */
 turn_action(Player, Board, NewBoard):-
     repeat,
@@ -114,6 +151,9 @@ turn_action(Player, Board, NewBoard):-
     !.
 
 /*
+ * display_computer_move(+Move)
+ *
+ * Displays the computer Move.
 */
 display_computer_move(playermove(Player, Pos, Substacks, Dir, NewPos)):-
     write('Computer movement'), nl,
@@ -122,8 +162,10 @@ display_computer_move(playermove(Player, Pos, Substacks, Dir, NewPos)):-
     write('Direction: '), write(Dir), nl,
     write('New Position: '), write(NewPos), nl, nl.
 
-
 /*
+ * display_game_over(+Winner)
+ *
+ * Displays the Winner after a game over.
 */
 display_game_over(Winner) :-
     format("~nGame Over~n", []),
@@ -132,10 +174,21 @@ display_game_over(Winner) :-
     read_input(_),
     initial_menu.
 
+/*
+ * exit_game(+Input)
+ *
+ * Returns to initial menu if Input is equal to q, otherwise evaluates to true.
+*/
 exit_game(Input) :-
     ((Input = q) ->
     initial_menu; true).
 
+/*
+ * read_input(+Input)
+ * 
+ * Read the next Prolog term from the current input stream.
+ * If a not valid term is provided, it tries again until it receives one that is.
+*/
 read_input(Input):-
     repeat,
     catch(read(Input), Error, false),
