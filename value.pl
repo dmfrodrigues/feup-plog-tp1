@@ -10,32 +10,27 @@ value(gamestate(Board, _), 1, 999999) :-
 value(gamestate(Board, _), 2, -999999) :-
     game_over(gamestate(Board, _), 2), !.
 
-value(gamestate(Board, _), _, Value) :-
-    value_(Board, 0-0, V0),
-    value_(Board, 0-1, V1),
-    value_(Board, 0-2, V2),
-    value_(Board, 0-3, V3),
-    value_(Board, 0-4, V4),
-    value_(Board, 1-5, V5),
-    value_(Board, 2-6, V6),
-    value_(Board, 3-7, V7),
-    value_(Board, 4-8, V8),
+value(gamestate([L0, L1, L2, L3, L4, [_|L5], [_,_|L6], [_,_,_|L7], [_,_,_,_|L8]], _), _, Value) :-
+    value_line(L0, 0-0, V0),
+    value_line(L1, 1-0, V1),
+    value_line(L2, 2-0, V2),
+    value_line(L3, 3-0, V3),
+    value_line(L4, 4-0, V4),
+    value_line(L5, 5-1, V5),
+    value_line(L6, 6-2, V6),
+    value_line(L7, 7-3, V7),
+    value_line(L8, 8-4, V8),
     Value is V0+V1+V2+V3+V4+V5+V6+V7+V8.
 
-value_(Board, I-J, Value):-
-    cell_value(Board, I-J, V),!,
-    NI is I + 1,
-    value_(Board, NI-J, NV),
-    Value is V + NV.
-
-value_(_, _, 0).
-
-/**
- * cell_value(+Board, +Pos, -Value).
- * 
- * Evaluates a specific cell.
- */
-cell_value(Board, I-J, V) :- board(Board, I-J, N), position_value(I-J, F), V is F*N.
+value_line(_, I-J, 0) :-            % End of line
+    J > min(8, 4+I), !.
+value_line([N|Line], I-J, Value):-  % Valid position
+    % Next values
+    J1 is J+1,
+    value_line(Line, I-J1, Value1),
+    % Current value
+    position_value(I-J, F),
+    Value is Value1 + N*F.
 
 /**
  * position_value(+Pos, -Value)
