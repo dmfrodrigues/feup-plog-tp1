@@ -54,6 +54,8 @@ test_value:
 	$(PROLOG) -q -l tests/test_value-1.pl -a color
 	$(PROLOG) -q -l tests/test_value-2.pl -a color
 	$(PROLOG) -q -l tests/test_value-3.pl -a color
+	$(PROLOG) -q -l tests/test_value-4.pl -a color
+	$(PROLOG) -q -l tests/test_value-5.pl -a color
 
 test_choose_move:
 	$(PROLOG) -q -l tests/test_choose_move-1.pl -a color
