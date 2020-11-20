@@ -55,7 +55,7 @@ display_instructions :-
 initial_menu :-
     repeat,
     display_menu,
-    format("Option: ", []), read(Option),
+    format("Option: ", []), read_input(Option),
     exec_initial_menu(Option), !.
 
 exec_initial_menu(0):-
@@ -64,12 +64,12 @@ exec_initial_menu(0):-
 exec_initial_menu(1):-
     repeat,
     display_play_options,
-    format("Option: ", []), read(Option),
+    format("Option: ", []), read_input(Option),
     exec_play_options(Option), !.
 
 exec_initial_menu(2):-
     display_instructions,
-    read(_),
+    read_input(_),
     initial_menu.
 
 exec_play_options(0) :-
@@ -83,7 +83,7 @@ exec_play_options(1) :-
 exec_play_options(2) :-
     repeat,
     display_choose_level,
-    format("Option: ", []), read(Option),
+    format("Option: ", []), read_input(Option),
     exec_choose_level(Option), !.
 
 % computer vs computer
@@ -106,10 +106,10 @@ exec_choose_level(2) :-
 turn_action(Player, Board, NewBoard):-
     repeat,
     format("Movement   (q. to exit game)~n", []),
-    format("Position: ", []), read(Pos), exit_game(Pos),
-    format("Substacks: ", []), read(Substacks), exit_game(Substacks),
-    format("Direction: ", []), read(Dir), exit_game(Dir),
-    format("New Position: ", []), read(NewPos), exit_game(NewPos),
+    format("Position: ", []), read_input(Pos), exit_game(Pos),
+    format("Substacks: ", []), read_input(Substacks), exit_game(Substacks),
+    format("Direction: ", []), read_input(Dir), exit_game(Dir),
+    format("New Position: ", []), read_input(NewPos), exit_game(NewPos),
     move(Board, playermove(Player, Pos, Substacks, Dir, NewPos), NewBoard),
     !.
 
@@ -129,9 +129,14 @@ display_game_over(Winner) :-
     format("~nGame Over~n", []),
     format("Player ~d is the winner~n", [Winner]),
     format("Enter any key to go back~n~n", []),
-    read(_),
+    read_input(_),
     initial_menu.
 
 exit_game(Input) :-
     ((Input = q) ->
     initial_menu; true).
+
+read_input(Input):-
+    repeat,
+    catch(read(Input), Error, false),
+    !.
