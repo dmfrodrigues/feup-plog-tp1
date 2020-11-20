@@ -59,7 +59,7 @@ initial_menu :-
     exec_initial_menu(Option), !.
 
 exec_initial_menu(0):-
-    halt(0).
+    abort.
 
 exec_initial_menu(1):-
     repeat,
@@ -101,20 +101,37 @@ exec_choose_level(1) :-
 exec_choose_level(2) :-
     play_game(h_c, 2).
 
-
+/*
+*/
 turn_action(Player, Board, NewBoard):-
     repeat,
-    format("Movement~n", []),
-    format("Position: ", []), read(Pos),
-    format("Substacks: ", []), read(Substacks),
-    format("Direction: ", []), read(Dir),
-    format("New Position: ", []), read(NewPos),
+    format("Movement   (q. to exit game)~n", []),
+    format("Position: ", []), read(Pos), exit_game(Pos),
+    format("Substacks: ", []), read(Substacks), exit_game(Substacks),
+    format("Direction: ", []), read(Dir), exit_game(Dir),
+    format("New Position: ", []), read(NewPos), exit_game(NewPos),
     move(Board, playermove(Player, Pos, Substacks, Dir, NewPos), NewBoard),
     !.
 
+/*
+*/
+display_computer_move(playermove(Player, Pos, Substacks, Dir, NewPos)):-
+    write('Computer movement'), nl,
+    write('Position: '), write(Pos), nl,
+    write('Substacks: '), write(Substacks), nl,
+    write('Direction: '), write(Dir), nl,
+    write('New Position: '), write(NewPos), nl, nl.
+
+
+/*
+*/
 display_game_over(Winner) :-
     format("~nGame Over~n", []),
     format("Player ~d is the winner~n", [Winner]),
-    format("Press enter to continue~n~n", []),
-    get_char(_),
+    format("Enter any key to go back~n~n", []),
+    read(_),
     initial_menu.
+
+exit_game(Input) :-
+    ((Input = q) ->
+    initial_menu; true).
