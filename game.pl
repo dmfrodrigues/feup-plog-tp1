@@ -43,6 +43,8 @@ computer_turn_action(gamestate(Board, Turn), Level, NewGameState) :-
     display_computer_move(Move),
     end_turn(gamestate(NewBoard, Turn), NewGameState).
 
+is_human(P) :- P = h.
+
 /**
  * play_loop(+GameState, +Mode, +Level, +Round)
  *
@@ -51,11 +53,14 @@ computer_turn_action(gamestate(Board, Turn), Level, NewGameState) :-
  * Computers will play with difficulty level Level
  */
  % Human vs human
-play_loop(gamestate(StartBoard, Turn), h-h, _, Round) :-
+play_loop(gamestate(StartBoard, Turn), P1-P2, Level, Round) :-
     display_round(Round),
     Round1 is Round+1,
     % Turn 1
-    human_turn_action(gamestate(StartBoard, Turn), gamestate(NewBoard1, Turn1)),
+    (is_human(P1) ->
+        human_turn_action(gamestate(StartBoard, Turn), gamestate(NewBoard1, Turn1));
+        computer_turn_action(gamestate(StartBoard, Turn), Level, gamestate(NewBoard1, Turn1))
+    ),
     (
         (
             game_over(gamestate(NewBoard1, Turn), 1),
@@ -63,56 +68,13 @@ play_loop(gamestate(StartBoard, Turn), h-h, _, Round) :-
             display_game_over(Turn)
         );
         ( % Turn 2
-            human_turn_action(gamestate(NewBoard1, Turn1), gamestate(NewBoard2, Turn2)),
+            (is_human(P2) ->
+                human_turn_action(gamestate(NewBoard1, Turn1), gamestate(NewBoard2, Turn2));
+                computer_turn_action(gamestate(NewBoard1, Turn1), Level, gamestate(NewBoard2, Turn2))
+            ),
             (
                 game_over(gamestate(NewBoard2, Turn1), 2);
-                play_loop(gamestate(NewBoard2, Turn2), h-h, Round1)
-            )
-        )
-    ).
-% Computer vs computer
-play_loop(gamestate(StartBoard, Turn), c-c, Level, Round) :-
-    display_round(Round),
-    Round1 is Round+1,
-    % Turn 1
-    computer_turn_action(gamestate(StartBoard, Turn), Level, gamestate(NewBoard1, Turn1)),
-    (   
-        (
-            game_over(gamestate(NewBoard1, Turn), 1),
-            display_game(gamestate(NewBoard1, Turn1)),
-            display_game_over(Turn)
-        );
-        ( % Turn 2
-            computer_turn_action(gamestate(NewBoard1, Turn1), Level, gamestate(NewBoard2, Turn2)),
-            (
-                game_over(gamestate(NewBoard2, Turn1), 2);
-                play_loop(gamestate(NewBoard2, Turn2), c-c, Round1)
-            )
-        )   
-    ).
-
-/**
- * play_loop(+GameState, +Mode, +Level, +Round)
- *
- * Play loop with the Mode, GameState and with the computer Level.
- */
- % Human vs computer
-play_loop(gamestate(StartBoard, Turn), h-c, Level, Round) :-
-    display_round(Round),
-    Round1 is Round+1,
-    % Turn 1
-    human_turn_action(gamestate(StartBoard, Turn), gamestate(NewBoard1, Turn1)),
-    (
-        (
-            game_over(gamestate(NewBoard1, Turn), 1),
-            display_game(gamestate(NewBoard1, Turn1)),
-            display_game_over(Turn)
-        );
-        ( % Turn 2
-            computer_turn_action(gamestate(NewBoard1, Turn1), Level, gamestate(NewBoard2, Turn2)),
-            (
-                game_over(gamestate(NewBoard2, Turn1), 2);
-                play_loop(gamestate(NewBoard2, Turn2), h-c, Level, Round1)
+                play_loop(gamestate(NewBoard2, Turn2), h-h, Level, Round1)
             )
         )
     ).
