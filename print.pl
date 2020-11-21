@@ -164,3 +164,12 @@ display_game(gamestate(Board, P)) :-
 	print_middle_row(Board),
 	print_bottom_rows(Board, 5),
 	print_last_row.
+
+/**
+ * display_round(+Round)
+ * 
+ * Display current round.
+ */
+display_round(Round) :-
+	list_create('\x2501\', 52, L), format(L, []), nl,
+    format("Round ~d~n~n", [Round]).
