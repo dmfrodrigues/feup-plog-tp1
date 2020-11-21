@@ -3,7 +3,7 @@
     initial_state(gamestate(InitialBoard,InitialTurn)),
     display_game(gamestate(InitialBoard,InitialTurn)),
     statistics(walltime, _),
-    choose_move(gamestate(InitialBoard,InitialTurn), 1, 1, 5, Move),
+    choose_move(gamestate(InitialBoard,InitialTurn), 1, 3, 5, Move),
     statistics(walltime, [_|[ExecutionTime]]),
     TimeSeconds is ExecutionTime/1000,
     write(TimeSeconds),

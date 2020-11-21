@@ -57,8 +57,24 @@ expand_valid_moves_action1(gamestate(Board, Turn), [M|Moves], Expanded) :-
     expand_valid_move_action1(gamestate(Board, Turn), M, Expanded2),
     append(Expanded1, Expanded2, Expanded).
 
-choose_move_1(gamestate(Board, Turn), Turn, 0, N, Move, Value) :-
+best_submove(gamestate(Board, Turn), Move, Level, Value-Move) :-
+    move(Board, Move, NewBoard),
+    next_player(Turn, NewTurn),
+    Level1 is Level-1,
+    choose_move_1(gamestate(NewBoard, NewTurn), NewTurn, Level1, 1, _, Value).
+
+choose_move_1(gamestate(Board, Turn), Turn, 0, N, Move, Value) :- !,
     valid_moves_action1(Board, Turn, ListOfMoves),
     best_N_moves(gamestate(Board, Turn), ListOfMoves, N, ListOfBestMoves),
     expand_valid_moves_action1(gamestate(Board, Turn), ListOfBestMoves, ListOfBestMovesExpanded),
     best_move(gamestate(Board, Turn), ListOfBestMovesExpanded, Move, Value).
+
+choose_move_1(gamestate(Board, Turn), Turn, Level, N, Move, Value) :-
+    valid_moves_action1(Board, Turn, ListOfMoves),
+    best_N_moves(gamestate(Board, Turn), ListOfMoves, N, ListOfBestMoves),
+    expand_valid_moves_action1(gamestate(Board, Turn), ListOfBestMoves, ListOfBestMovesExpanded),
+    best_N_moves(gamestate(Board, Turn), ListOfBestMovesExpanded, N, ListOfBestestMoves),
+    list_create(gamestate(Board, Turn), N, GameStates),
+    list_create(Level, N, Levels),
+    maplist(best_submove, GameStates, ListOfBestestMoves, Levels, Result),
+    (Turn =:=1 -> min_member(Value-Move, Result) ; max_member(Value-Move, Result)).
