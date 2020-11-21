@@ -109,7 +109,7 @@ exec_play_options(0) :-
     initial_menu.
 % human vs human
 exec_play_options(1) :-
-    play_game(h_h).
+    play_game(h_h, 0).
 % human vs computer
 exec_play_options(2) :-
     repeat,
@@ -118,7 +118,7 @@ exec_play_options(2) :-
     exec_choose_level(Option), !.
 % computer vs computer
 exec_play_options(3) :-
-    play_game(c_c).
+    play_game(c_c, 0).
 
 /*
  * exec_choose_level(+Option)
