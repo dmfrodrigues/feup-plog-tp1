@@ -48,13 +48,15 @@ play_loop(gamestate(StartBoard, Turn), h_h, Round) :-
     display_round(Round),
     Round1 is Round+1,
     % Turn 1
-    display_game(gamestate(StartBoard, Turn)),
     turn_action(Turn, StartBoard, NewBoard1),
     end_turn(gamestate(NewBoard1, Turn), gamestate(NewBoard1, Turn1)),
-    display_game(gamestate(NewBoard1, Turn1)),
 
     (
-        (game_over(gamestate(NewBoard1, Turn), 1), display_game_over(Turn));
+        (
+            game_over(gamestate(NewBoard1, Turn), 1),
+            display_game(gamestate(NewBoard1, Turn1)),
+            display_game_over(Turn)
+        );
         (
         % Turn 2
         turn_action(Turn1, NewBoard1, NewBoard2),
@@ -75,10 +77,13 @@ play_loop(gamestate(StartBoard, Turn), c_c, Round) :-
     move(StartBoard, Move1, NewBoard1),
     display_computer_move(Move1),
     end_turn(gamestate(NewBoard1, Turn), gamestate(NewBoard1, Turn1)),
-    display_game(gamestate(NewBoard1, Turn1)),
     
     (   
-        (game_over(gamestate(NewBoard1, Turn), 1), display_game_over(Turn));
+        (
+            game_over(gamestate(NewBoard1, Turn), 1),
+            display_game(gamestate(NewBoard1, Turn1)),
+            display_game_over(Turn)
+        );
         (
         % Turn 2
         choose_move(gamestate(NewBoard1, Turn1), Turn1, 1, Move2),
@@ -102,13 +107,15 @@ play_loop(gamestate(StartBoard, Turn), h_c, Level, Round) :-
     display_round(Round),
     Round1 is Round+1,
     % Turn 1
-    display_game(gamestate(StartBoard, Turn)),
     turn_action(Turn, StartBoard, NewBoard1),
     end_turn(gamestate(NewBoard1, Turn), gamestate(NewBoard1, Turn1)),
-    display_game(gamestate(NewBoard1, Turn1)),
 
     (
-        (game_over(gamestate(NewBoard1, Turn), 1), display_game_over(Turn));
+        (
+            game_over(gamestate(NewBoard1, Turn), 1),
+            display_game(gamestate(NewBoard1, Turn1)),
+            display_game_over(Turn)
+        );
         (
         % Turn 2
         choose_move(gamestate(NewBoard1, Turn1), Turn1, 1, Move),

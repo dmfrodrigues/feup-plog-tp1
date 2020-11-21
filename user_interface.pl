@@ -141,6 +141,7 @@ exec_choose_level(2) :-
  * It repeats until a valid move is done.
 */
 turn_action(Player, Board, NewBoard):-
+    display_game(gamestate(Board, Player)),
     repeat,
     format("Movement   (q. to exit game)~n", []),
     format("Position: ", []), read_input(Pos), exit_game(Pos),
