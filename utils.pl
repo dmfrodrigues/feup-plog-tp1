@@ -100,3 +100,18 @@ display_list([]).
 display_list([X|L]) :-
 	write(X),nl,
 	display_list(L).
+
+/**
+ * take(L, N, R)
+ * 
+ * Takes at most the first N elements of L, and returns them to R.
+ */
+take(_,0,[]).
+take([],_,[]).
+take([X|L], N, [X|R]) :-
+	N1 is N-1,
+	take(L, N1, R).
+
+pairs_values(Pairs, Values) :- pairs_keys_values(Pairs, _, Values).
+pairs_keys_values([], [], []).
+pairs_keys_values([K-V|Pairs], [K|Keys], [V|Values]) :- pairs_keys_values(Pairs, Keys, Values).
