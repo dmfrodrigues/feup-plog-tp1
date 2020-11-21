@@ -90,3 +90,13 @@ intersects([H|_],List) :-
     !.
 intersects([_|T],List) :-
     intersects(T,List).
+
+/**
+ * display_list(L)
+ * 
+ * Display contents of list L, one element per line.
+ */
+display_list([]).
+display_list([X|L]) :-
+	write(X),nl,
+	display_list(L).
