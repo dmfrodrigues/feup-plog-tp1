@@ -115,3 +115,9 @@ take([X|L], N, [X|R]) :-
 pairs_values(Pairs, Values) :- pairs_keys_values(Pairs, _, Values).
 pairs_keys_values([], [], []).
 pairs_keys_values([K-V|Pairs], [K|Keys], [V|Values]) :- pairs_keys_values(Pairs, Keys, Values).
+
+maplist(_, [], [], [], []).
+maplist(Predicate, [X1|L1], [X2|L2], [X3|L3], [X4|L4]) :-
+	T =.. [Predicate, X1, X2, X3, X4],
+	T,
+	maplist(Predicate, L1, L2, L3, L4).
