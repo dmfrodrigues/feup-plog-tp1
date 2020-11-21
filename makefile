@@ -60,6 +60,9 @@ test_value:
 test_choose_move:
 	$(PROLOG) --noinfo -q -l tests/test_choose_move-1.pl -a color 
 	$(PROLOG) --noinfo -q -l tests/test_choose_move-2.pl -a color
+	$(PROLOG) --noinfo -q -l tests/test_choose_move-3.pl -a color
+	$(PROLOG) --noinfo -q -l tests/test_choose_move-4.pl -a color
+	$(PROLOG) --noinfo -q -l tests/test_choose_move-5.pl -a color
 
 svg: img/initial_print_simple.svg img/intermediate_print_simple.svg img/final_print_simple.svg
 
