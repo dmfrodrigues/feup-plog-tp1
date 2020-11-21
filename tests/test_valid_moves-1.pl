@@ -3,6 +3,6 @@
     initial_state(gamestate(InitialBoard,InitialTurn)),
     display_game(gamestate(InitialBoard,InitialTurn)),
     valid_moves(gamestate(InitialBoard,InitialTurn),InitialTurn,ListOfMoves),
-    display(ListOfMoves),
+    length(ListOfMoves, 1290),
     halt(0).
 :-  halt(1).
