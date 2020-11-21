@@ -18,7 +18,7 @@ get_move_value_pair(gamestate(Board, Player), Move, V-Move) :-
  * 
  * Get the best N moves from ListOfMoves
  */
-best_N_moves(gamestate(Board, Turn), Level, ListOfMoves, N, ListOfBestMoves) :-
+best_N_moves(gamestate(Board, Turn), ListOfMoves, N, ListOfBestMoves) :-
     length(ListOfMoves, L),
     list_create(gamestate(Board,Turn), L, GameStates),
     maplist(get_move_value_pair, GameStates, ListOfMoves, ListOfMovesPairs),
