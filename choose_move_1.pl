@@ -61,4 +61,4 @@ choose_move_1(gamestate(Board, Turn), Turn, Level, N, Move) :-
     valid_moves_action1(Board, Turn, ListOfMoves),
     best_N_moves(gamestate(Board, Turn), Level, ListOfMoves, N, ListOfBestMoves),
     expand_valid_moves_action1(gamestate(Board, Turn), ListOfBestMoves, ListOfBestMovesExpanded),
-    best_move(gamestate(Board, Turn), Level, ListOfBestMovesExpanded, Move).
+    best_move(gamestate(Board, Turn), ListOfBestMovesExpanded, Move).
