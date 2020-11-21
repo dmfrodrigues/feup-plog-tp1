@@ -31,7 +31,10 @@
   - [End game](#end-game)
   - [Board evaluation](#board-evaluation)
   - [Computer move](#computer-move)
+    - [Classical approach](#classical-approach)
+    - [Practical approach](#practical-approach)
 - [Conclusions](#conclusions)
+  - [Parallel programming](#parallel-programming)
 - [Bibliography](#bibliography)
 
 
@@ -259,9 +262,43 @@ Directions:
 
 ### Computer move
 
+#### Classical approach
+
+In most games, a move is simply just that: a player moves one of his/her pieces in the board according to the game's rules; generally, a move consists of a single action. This usually implies the number of possible moves is approximately equal to the number of player pieces in the board (estimated from the size of the board) times the number of possible moves for a cell (usually restricted by the game rules).
+
+In this game, however, a move consists of two actions: splitting a stack and moving the substacks, and placing a new piece. Each of these actions are similar to the *move* in most games, meaning that, given a fixed gameboard, the number of moves in Glaisher is approximately the number of moves in other games (with similar board sizes) raised to the second power.
+
+This obviously implies Glaisher allows many more moves than other games, thus leading to additional complications in terms of autonomous player runtime, given the following reference values:
+- Evaluating the initial board takes approx. 1.5ms
+- Player 1 has 1290 possible moves in the initial board
+- This means a level 1 autonomous player takes 1.9s to choose a move for the first board
+
+That is for level 1, because for level 2, even if we were to use a greedy strategy, for each possible move originating board B1 we would have to:
+- Evaluate all possible adversary moves in B1, and choose the best move, originating board B2
+- Evaluate all possible player moves in B2, and choose the best move
+
+This amounts to evaluating approximately 1290*(1290+1290) = 3.3e6 boards, which would take approx. 1h23min to compute.
+
+The most important part is to reduce the complexity of the level 2 autonomous player computations, because from this point on time complexity is linear; for instance, a level L autonomous player would require 1290*(L\*2\*1290) computations.
+
+#### Practical approach
+
+To overcome this problem, we have to obviously reduce the number of calculations, which can only be done by discarding some moves without evaluating them: that's what a greedy strategy is all about; the important part about a greedy strategy is that its quality is measured by how many states are dumped and how little that impacts the quality of the final result (i.e., choose the states that can originate the best outcomes in the future).
+
+We will thus use the following strategy to discard some states:
+1. Get all moves that differ in the first action, and choose as second action the first valid move
+2. Evaluate those moves
+3. Choose N of those moves, create all possible moves by varying the second action, and get the best move
+
+The number of evaluations is very roughly the number of possibilities for the first action (A1), plus N times the number of possibilities for the first action (A2). Assume a third of the board cells (20) have stacks, and the others (41) are empty. A2 can be estimated to be on the same order of magnitude of the number of empty board cells: A2=41. As for A1, assume the average stack height is 6, and that a 6-stack can move in 6 directions and be partitioned in 4 ways (ignoring the fact some of those moves fall out of the board and are thus invalid), we have that A1=20\*6\*4=480. Thus the upper bound of the number of evaluations is estimated to be A1+N\*A2=480+41\*N. In practice A1 will be quite smaller. Now we can tune N to find a decent value that does not cause much computation delay but gives the best possible answer.
+
 <!-- TODO -->
 
 ## Conclusions
+
+### Parallel programming
+
+Prolog programs can very much benefit from parallel programming; however, SICStus Prolog does not support parallel programming out-of-the-box. Nevertheless, one can possibly implement some predicates to perform parallel programming by using the `process` library to create and manage processes.
 
 <!-- TODO -->
 
