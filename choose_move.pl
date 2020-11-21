@@ -40,7 +40,8 @@ choose_move(gamestate(Board, Turn), Turn, Level, Move) :-
 choose_move_1(gamestate(Board, Turn), Turn, Level, Move) :-
     valid_moves_action1(Board, Turn, ListOfMoves),
     best_N_moves(gamestate(Board, Turn), Level, ListOfMoves, 5, ListOfBestMoves),
-    best_move(gamestate(Board, Turn), Level, ListOfMoves, Move).
+    expand_valid_moves_action1(gamestate(Board, Turn), ListOfBestMoves, ListOfBestMovesExpanded),
+    best_move(gamestate(Board, Turn), Level, ListOfBestMovesExpanded, Move).
 
 /**
  * get_move_value_pair(+gamestate(Board, Player), +Move, -(V-Move))
