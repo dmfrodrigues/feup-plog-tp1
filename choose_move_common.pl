@@ -27,12 +27,12 @@ best_N_moves(gamestate(Board, Turn), ListOfMoves, N, ListOfBestMoves) :-
     pairs_values(ListOfBestMovesPairs, ListOfBestMoves).
 
 /**
- * best_move(+GameState, +ListOfMoves, -BestMove)
+ * best_move(+GameState, +ListOfMoves, -BestMove, -BestValue)
  * 
  * Choose best move from list.
  */
-best_move(gamestate(Board, Turn), [X|ListOfMoves], Move) :-
-    best_move_(gamestate(Board, Turn), [X|ListOfMoves], Move, _).
+best_move(gamestate(Board, Turn), ListOfMoves, Move, Value) :-
+    best_move_(gamestate(Board, Turn), ListOfMoves, Move, Value).
 
 /**
  * best_move_(+GameState, +ListOfMoves, -Move, -Value)

@@ -57,8 +57,8 @@ expand_valid_moves_action1(gamestate(Board, Turn), [M|Moves], Expanded) :-
     expand_valid_move_action1(gamestate(Board, Turn), M, Expanded2),
     append(Expanded1, Expanded2, Expanded).
 
-choose_move_1(gamestate(Board, Turn), Turn, 0, N, Move) :-
+choose_move_1(gamestate(Board, Turn), Turn, 0, N, Move, Value) :-
     valid_moves_action1(Board, Turn, ListOfMoves),
     best_N_moves(gamestate(Board, Turn), ListOfMoves, N, ListOfBestMoves),
     expand_valid_moves_action1(gamestate(Board, Turn), ListOfBestMoves, ListOfBestMovesExpanded),
-    best_move(gamestate(Board, Turn), ListOfBestMovesExpanded, Move).
+    best_move(gamestate(Board, Turn), ListOfBestMovesExpanded, Move, Value).
