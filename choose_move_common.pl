@@ -40,9 +40,11 @@ best_move(gamestate(Board, Turn), Level, [X|ListOfMoves], Move) :-
  * 
  * Get best move from list, where best move so far is Move, with value Value
  */
-best_move_(gamestate(Board, Turn), Level, [X], X, V) :-
+best_move_(gamestate(Board, Turn), 0, [X], X, V) :-
     !,
-    value_greedy(gamestate(Board, Turn), Level, X, V).
+    move(Board, X, NewBoard),
+    next_player(Turn, Turn1),
+    value(gamestate(NewBoard, Turn1), Turn, V).
 best_move_(gamestate(Board, Turn), Level, [X1|ListOfMoves], X, V) :-
     % To the right
     best_move_(gamestate(Board, Turn), Level, ListOfMoves, X2, V2),
@@ -63,13 +65,3 @@ best_move_(gamestate(Board, Turn), Level, [X1|ListOfMoves], X, V) :-
             )
         )
     ).
-
-/**
- * value_greedy(+gamestate(Board, Turn), +Level, +Move, -Value)
- * 
- * Goes Level levels down the possible plays tree
- */
-value_greedy(gamestate(Board, Turn), 0, Move, Value) :-
-    move(Board, Move, NewBoard),
-    next_player(Turn, Turn1),
-    value(gamestate(NewBoard, Turn1), Turn, Value).
