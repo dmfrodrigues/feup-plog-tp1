@@ -1,5 +1,14 @@
 # Glaisher <!-- omit in toc -->
 
+```txt
+ ▟▀▀▀▙ █ ▗▄▄▖▄ ▀ ▗▄▄▄ █    ▗▄▄▖ ▄▗▄ 
+ █ ▄▄▄ █ █  ▜█ █ ▜▄▄▖ █▀▀▙ █▄▄█ █▀  
+ ▜▄▄▄▛ █ ▜▄▄▛█ █ ▄▄▄▛ █  █ ▜▄▄▖ █   
+
+ A game for two players by Ken Shoda
+ Developed by Breno Pimentel & Diogo Rodrigues, in SICStus/SWI Prolog
+```
+
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ![Test](https://github.com/dmfrodrigues/feup-plog-tp1/workflows/Test/badge.svg)
