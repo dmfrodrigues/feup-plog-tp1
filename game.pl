@@ -28,7 +28,10 @@ play_game(P1-P2, Level, N):-
     assertz(round_dynamic(1)),
     assertz(gamestate_dynamic(InitialState)),
     !,
-    play_loop(P1-P2, Level, N).
+    play_loop(P1-P2, Level, N),
+    retract(round_dynamic(_)),
+    retract(gamestate_dynamic(_))
+    .
 
 human_turn_action(gamestate(Board, Turn), NewGameState) :-
     display_game(gamestate(Board, Turn)),
