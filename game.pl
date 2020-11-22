@@ -6,6 +6,10 @@
    consult('choose_move.pl'),
    consult('value.pl').
 
+:- dynamic
+      gamestate_dynamic/1,
+      round_dynamic/1.
+
 /**
  * play()
  * 
@@ -20,9 +24,14 @@ play :-
  * Starts a match with the given Mode and Level.
  */
 play_game(P1-P2, Level, N):-
-    initial(GameState),
+    initial(InitialState),
+    assertz(round_dynamic(1)),
+    assertz(gamestate_dynamic(InitialState)),
     !,
-    play_loop(GameState, P1-P2, Level, N, 1).
+    play_loop(P1-P2, Level, N),
+    retract(round_dynamic(_)),
+    retract(gamestate_dynamic(_))
+    .
 
 human_turn_action(gamestate(Board, Turn), NewGameState) :-
     display_game(gamestate(Board, Turn)),
@@ -33,22 +42,29 @@ computer_turn_action(gamestate(Board, Turn), Level, N, NewGameState) :-
     choose_move(gamestate(Board, Turn), Turn, Level, N, Move),
     move(Board, Move, NewBoard),
     display_computer_move(Move),
-    end_turn(gamestate(NewBoard, Turn), NewGameState).
+    end_turn(gamestate(NewBoard, Turn), NewGameState), !.
 
 is_human(P) :- P = h.
 
 /**
- * play_loop(+GameState, +Mode, +Level, +Round)
+ * play_loop(+Mode, +Level, N)
  *
  * Play loop with the Mode and GameState.
  *
  * Computers will play with difficulty level Level
  */
  % Human vs human
-play_loop(gamestate(StartBoard, Turn), P1-P2, Level, N, Round) :-
+play_loop(P1-P2, Level, N) :-
+    repeat,
+
+    round_dynamic(Round),
+    gamestate_dynamic(gamestate(StartBoard, Turn)),
+
     display_round(Round),
     Round1 is Round+1,
+
     % Turn 1
+
     (is_human(P1) ->
         human_turn_action(gamestate(StartBoard, Turn), gamestate(NewBoard1, Turn1));
         computer_turn_action(gamestate(StartBoard, Turn), Level, N, gamestate(NewBoard1, Turn1))
@@ -57,7 +73,7 @@ play_loop(gamestate(StartBoard, Turn), P1-P2, Level, N, Round) :-
         (
             game_over(gamestate(NewBoard1, Turn), Turn),
             display_game(gamestate(NewBoard1, Turn1)),
-            display_game_over(Turn)
+            display_game_over(Turn), !
         );
         ( % Turn 2
             (is_human(P2) ->
@@ -68,9 +84,15 @@ play_loop(gamestate(StartBoard, Turn), P1-P2, Level, N, Round) :-
                 (
                     game_over(gamestate(NewBoard2, Turn1), Turn1),
                     display_game(gamestate(NewBoard2, Turn2)),
-                    display_game_over(Turn1)
+                    display_game_over(Turn1), !
                 );
-                play_loop(gamestate(NewBoard2, Turn2), P1-P2, Level, N, Round1)
+                (
+                    retract(gamestate_dynamic(_)),
+                    retract(round_dynamic(_)),
+                    assertz(gamestate_dynamic(gamestate(NewBoard2, Turn2))),
+                    assertz(round_dynamic(Round1)),
+                    fail
+                )
             )
         )
     ).
