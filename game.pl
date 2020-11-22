@@ -55,7 +55,7 @@ play_loop(gamestate(StartBoard, Turn), P1-P2, Level, N, Round) :-
     ),
     (
         (
-            game_over(gamestate(NewBoard1, Turn), 1),
+            game_over(gamestate(NewBoard1, Turn), Turn),
             display_game(gamestate(NewBoard1, Turn1)),
             display_game_over(Turn)
         );
@@ -65,7 +65,11 @@ play_loop(gamestate(StartBoard, Turn), P1-P2, Level, N, Round) :-
                 computer_turn_action(gamestate(NewBoard1, Turn1), Level, N, gamestate(NewBoard2, Turn2))
             ),
             (
-                game_over(gamestate(NewBoard2, Turn1), 2);
+                (
+                    game_over(gamestate(NewBoard2, Turn1), Turn1),
+                    display_game(gamestate(NewBoard2, Turn2)),
+                    display_game_over(Turn1)
+                );
                 play_loop(gamestate(NewBoard2, Turn2), P1-P2, Level, N, Round1)
             )
         )
