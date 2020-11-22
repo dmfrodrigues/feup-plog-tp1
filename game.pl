@@ -6,6 +6,10 @@
    consult('choose_move.pl'),
    consult('value.pl').
 
+:- dynamic
+      gamestate/2,
+      round/1.
+
 /**
  * play()
  * 
@@ -21,8 +25,10 @@ play :-
  */
 play_game(P1-P2, Level, N):-
     initial(GameState),
+    assert(round(1)),
+    assert(GameState),
     !,
-    play_loop(GameState, P1-P2, Level, N, 1).
+    play_loop(P1-P2, Level, N).
 
 human_turn_action(gamestate(Board, Turn), NewGameState) :-
     display_game(gamestate(Board, Turn)),
@@ -45,10 +51,16 @@ is_human(P) :- P = h.
  * Computers will play with difficulty level Level
  */
  % Human vs human
-play_loop(gamestate(StartBoard, Turn), P1-P2, Level, N, Round) :-
+play_loop(P1-P2, Level, N) :-
+    repeat,
+
+    round(Round),
+    gamestate(StartBoard, Turn),
     display_round(Round),
     Round1 is Round+1,
+
     % Turn 1
+
     (is_human(P1) ->
         human_turn_action(gamestate(StartBoard, Turn), gamestate(NewBoard1, Turn1));
         computer_turn_action(gamestate(StartBoard, Turn), Level, N, gamestate(NewBoard1, Turn1))
@@ -70,7 +82,13 @@ play_loop(gamestate(StartBoard, Turn), P1-P2, Level, N, Round) :-
                     display_game(gamestate(NewBoard2, Turn2)),
                     display_game_over(Turn1)
                 );
-                play_loop(gamestate(NewBoard2, Turn2), P1-P2, Level, N, Round1)
+                (
+                    retract(gamestate(StartBoard, Turn)),
+                    assert(gamestate(NewBoard2, Turn2)),
+                    retract(round(Round)),
+                    assert(round(Round1)),
+                    fail
+                )
             )
         )
-    ).
+    ), !.
