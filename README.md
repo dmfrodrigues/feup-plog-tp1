@@ -254,7 +254,11 @@ Directions:
 
 ### End game
 
-<!-- TODO -->
+`game_over(+GameState, -Winner)` analyses the provided game state, and returns the winner if there is one, or fails if the game is not yet over. It calls the helper predicate `game_over_(+GameState, +Winner)` to ground Winner to each of the two possible values.
+
+It firstly evaluates if the player has any valid moves left, by using predicate `has_valid_moves(+Board, +Player)` (finds the first valid move).
+
+It then goes on to check if the player successfully connected opposite sides of the board with a bridge of his/her color, by using a Depth-First Search algorithm `dfs(+Board, +Player, +Stack, +Visited, -Ret)` which takes as arguments the Board, the Player presumed to have won, the DFS stack so far (is initialized with all cells of a board side), the Visited nodes (starts empty) and returns the cells that can be reached by using cells controlled by the Player in the given Board. Then it is checked if any cell of the opposite side are in the reachable cells Ret.
 
 ### Board evaluation
 
