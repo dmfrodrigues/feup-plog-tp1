@@ -7,8 +7,8 @@
    consult('value.pl').
 
 :- dynamic
-      gamestate/2,
-      round/1.
+      gamestate_dynamic/1,
+      round_dynamic/1.
 
 /**
  * play()
@@ -24,9 +24,9 @@ play :-
  * Starts a match with the given Mode and Level.
  */
 play_game(P1-P2, Level, N):-
-    initial(GameState),
-    assert(round(1)),
-    assert(GameState),
+    initial(InitialState),
+    assert(round_dynamic(1)),
+    assert(gamestate_dynamic(InitialState)),
     !,
     play_loop(P1-P2, Level, N).
 
@@ -54,8 +54,8 @@ is_human(P) :- P = h.
 play_loop(P1-P2, Level, N) :-
     repeat,
 
-    round(Round),
-    gamestate(StartBoard, Turn),
+    round_dynamic(Round),
+    gamestate_dynamic(gamestate(StartBoard, Turn)),
     display_round(Round),
     Round1 is Round+1,
 
@@ -83,10 +83,10 @@ play_loop(P1-P2, Level, N) :-
                     display_game_over(Turn1)
                 );
                 (
-                    retract(gamestate(StartBoard, Turn)),
-                    assert(gamestate(NewBoard2, Turn2)),
-                    retract(round(Round)),
-                    assert(round(Round1)),
+                    retract(gamestate_dynamic(_)),
+                    assert(gamestate_dynamic(gamestate(NewBoard2, Turn2))),
+                    retract(round_dynamic(_)),
+                    assert(round_dynamic(Round1)),
                     fail
                 )
             )
