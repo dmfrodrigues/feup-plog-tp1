@@ -113,8 +113,7 @@ Firstly, some brief notes on how to work with this game.
 The board is internally represented as a list of lists that can be queried using predicate `board(Board, I-J, N)`, meaning in position `(I, J)` there is a stack of `N` pieces, with `N` positive if the stack is made of red pieces, and negative if it is made of yellow pieces.
 
 ```txt
-                     j=0 j=1 j=2 j=3 j=4 j=5 j=6 j=7 j=8
-                      /   /   /   /   /   /   /   /   /
+                    j=0 j=1 j=2 j=3 j=4 j=5 j=6 j=7 j=8
                      /   /   /   /   /   /   /   /   /
                                         /   /   /   /
                  / \ / \ / \ / \ / \   /   /   /   /
@@ -224,9 +223,14 @@ This state can be obtained by consulting `sample-states/final_state.pl` (from th
 
 ### Game state visualization
 
-The following states were obtained by running `make svg`, which runs the PROLOG programs to print each state in a computer-friendly way, parses it using a python script and renders as an SVG image.
+On entering the game, you can choose to play the game (`1.`), see the instructions (`2.`) or quit (`0.`). We highly recommend reading the instructions, as they specify the correct input formats. If you choose to play the game, you are prompted to choose one of three game modes, or quit (`0.`):
+- Human vs Human (`1.`)
+- Human vs Computer (`2.`)
+- Computer vs Computer (`3.`)
 
-<!-- TODO: menus -->
+If you select `2.` or `3.` you are prompted about the difficulty level of the autonomous player (from 1 to 3). Then the game starts; the game state is shown at the beginning of each turn, and human players are prompted to introduce the information necessary to make up a complete move. If the move is invalid the player is reprompted. A player can press `q.` to quit a game.
+
+The following states were obtained by running `make svg`, which runs the PROLOG programs to print each state in a computer-friendly way, parses it using a python script and renders as an SVG image.
 
 #### Initial state <!-- omit in toc -->
 
