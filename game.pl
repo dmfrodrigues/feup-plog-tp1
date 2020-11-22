@@ -25,8 +25,8 @@ play :-
  */
 play_game(P1-P2, Level, N):-
     initial(InitialState),
-    assert(round_dynamic(1)),
-    assert(gamestate_dynamic(InitialState)),
+    assertz(round_dynamic(1)),
+    assertz(gamestate_dynamic(InitialState)),
     !,
     play_loop(P1-P2, Level, N).
 
@@ -39,12 +39,12 @@ computer_turn_action(gamestate(Board, Turn), Level, N, NewGameState) :-
     choose_move(gamestate(Board, Turn), Turn, Level, N, Move),
     move(Board, Move, NewBoard),
     display_computer_move(Move),
-    end_turn(gamestate(NewBoard, Turn), NewGameState).
+    end_turn(gamestate(NewBoard, Turn), NewGameState), !.
 
 is_human(P) :- P = h.
 
 /**
- * play_loop(+GameState, +Mode, +Level, +Round)
+ * play_loop(+Mode, +Level, N)
  *
  * Play loop with the Mode and GameState.
  *
@@ -56,6 +56,7 @@ play_loop(P1-P2, Level, N) :-
 
     round_dynamic(Round),
     gamestate_dynamic(gamestate(StartBoard, Turn)),
+
     display_round(Round),
     Round1 is Round+1,
 
@@ -69,7 +70,7 @@ play_loop(P1-P2, Level, N) :-
         (
             game_over(gamestate(NewBoard1, Turn), Turn),
             display_game(gamestate(NewBoard1, Turn1)),
-            display_game_over(Turn)
+            display_game_over(Turn), !
         );
         ( % Turn 2
             (is_human(P2) ->
@@ -80,15 +81,15 @@ play_loop(P1-P2, Level, N) :-
                 (
                     game_over(gamestate(NewBoard2, Turn1), Turn1),
                     display_game(gamestate(NewBoard2, Turn2)),
-                    display_game_over(Turn1)
+                    display_game_over(Turn1), !
                 );
                 (
                     retract(gamestate_dynamic(_)),
-                    assert(gamestate_dynamic(gamestate(NewBoard2, Turn2))),
                     retract(round_dynamic(_)),
-                    assert(round_dynamic(Round1)),
+                    assertz(gamestate_dynamic(gamestate(NewBoard2, Turn2))),
+                    assertz(round_dynamic(Round1)),
                     fail
                 )
             )
         )
-    ), !.
+    ).
