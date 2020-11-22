@@ -1,14 +1,5 @@
 # Glaisher <!-- omit in toc -->
 
-```txt
- ▟▀▀▀▙ █ ▗▄▄▖▄ ▀ ▗▄▄▄ █    ▗▄▄▖ ▄▗▄ 
- █ ▄▄▄ █ █  ▜█ █ ▜▄▄▖ █▀▀▙ █▄▄█ █▀  
- ▜▄▄▄▛ █ ▜▄▄▛█ █ ▄▄▄▛ █  █ ▜▄▄▖ █   
-
- A game for two players by Ken Shoda
- Developed by Breno Pimentel & Diogo Rodrigues, in SICStus/SWI Prolog
-```
-
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ![Test](https://github.com/dmfrodrigues/feup-plog-tp1/workflows/Test/badge.svg)
@@ -81,6 +72,15 @@ Under **Windows**, when using any console you are advised to use one of the foll
 Under **Windows**, colors are correctly displayed in all situations, except at least on the SICStus console (where colors do not render but the rest is fine), and `sicstus` running on cmd/PowerShell (colors are rendered as unknown characters).
 
 ## The game
+
+```txt
+ ▟▀▀▀▙ █ ▗▄▄▖▄ ▀ ▗▄▄▄ █    ▗▄▄▖ ▄▗▄ 
+ █ ▄▄▄ █ █  ▜█ █ ▜▄▄▖ █▀▀▙ █▄▄█ █▀  
+ ▜▄▄▄▛ █ ▜▄▄▛█ █ ▄▄▄▛ █  █ ▜▄▄▖ █   
+
+ A game for two players by Ken Shoda
+ Developed by Breno Pimentel & Diogo Rodrigues, in SICStus/SWI Prolog
+```
 
 The game we implemented is called [Glaisher](https://nestorgames.com/#glaisher_detail) (the rules are available [here](https://nestorgames.com/rulebooks/GLAISHER_EN.pdf)), named after [Glaisher's theorem](https://en.wikipedia.org/wiki/Glaisher%27s_theorem).
 It is played on a hexagonal board ([hex map](https://en.wikipedia.org/wiki/Hex_map)) with a side of 5 hexagonal cells (hexes). Each player has a color, usually red for Player 1 and yellow for Player 2.
