@@ -11,8 +11,8 @@ isColor :- current_prolog_flag(argv, Arguments), member(color, Arguments).
 print_cell(Board, I-J) :- board(Board, I-J, 0), !, format('\x2502\   ', []).
 print_cell(Board, I-J) :- board(Board, I-J, V),
 	((V > 0) ->
-		(isColor -> format('\x2502\\e[41m\e[97m ~d \e[0m', [V]) ; format('\x2502\ ~d ', [V]));
-		(isColor -> format('\x2502\\e[43m\e[30m~d \e[0m',  [V]) ; format('\x2502\~d ',  [V]))
+		(isColor -> format('\x2502\~|\e[41m\e[97m~t ~d~t~13+\e[0m', [V]) ; format('~|\x2502\~t ~d~t~4+', [V]));
+		(isColor -> format('\x2502\~|\e[43m\e[30m~t~d~t~13+\e[0m' , [V]) ; format('~|\x2502\~t~d~t~4+' ,  [V]))
 	).
 
 /**
@@ -164,3 +164,12 @@ display_game(gamestate(Board, P)) :-
 	print_middle_row(Board),
 	print_bottom_rows(Board, 5),
 	print_last_row.
+
+/**
+ * display_round(+Round)
+ * 
+ * Display current round.
+ */
+display_round(Round) :-
+	list_create('\x2501\', 52, L), format(L, []), nl,
+    format("Round ~d~n~n", [Round]).
