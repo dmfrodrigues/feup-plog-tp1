@@ -132,13 +132,13 @@ exec_choose_level(_, 0) :-
     initial_menu.
 % level 1
 exec_choose_level(Mode, 1) :-
-    play_game(Mode, 1, 5).
+    play_game(Mode, 1, 3).
 % level 2
 exec_choose_level(Mode, 2) :-
-    play_game(Mode, 3, 7).
+    play_game(Mode, 3, 5).
 
 exec_choose_level(Mode, 3) :-
-    play_game(Mode, 5, 10).
+    play_game(Mode, 5, 7).
 
 /*
  * turn_action(+Player, +Board, -NewBoard)
