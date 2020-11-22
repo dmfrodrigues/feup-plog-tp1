@@ -42,6 +42,7 @@ display_choose_level :-
     nl,
     format("1. Level 1~n", []),
     format("2. Level 2~n", []),
+    format("3. Level 3~n", []),
     format("0. Back~n~n", []).
 
 /*
@@ -109,30 +110,35 @@ exec_play_options(0) :-
     initial_menu.
 % human vs human
 exec_play_options(1) :-
-    play_game(h-h, 0).
+    play_game(h-h, _, _).
 % human vs computer
 exec_play_options(2) :-
     repeat,
     display_choose_level,
     format("Option: ", []), read_input(Option),
-    exec_choose_level(Option), !.
+    exec_choose_level(h-c, Option), !.
 % computer vs computer
 exec_play_options(3) :-
-    play_game(c-c, 0).
+    display_choose_level,
+    format("Option: ", []), read_input(Option),
+    exec_choose_level(c-c, Option), !.
 
 /*
- * exec_choose_level(+Option)
+ * exec_choose_level(+Mode, +Option)
  *
  * Executes choose levels menu Option.
 */
-exec_choose_level(0) :-
+exec_choose_level(_, 0) :-
     initial_menu.
 % level 1
-exec_choose_level(1) :-
-    play_game(h-c, 1).
+exec_choose_level(Mode, 1) :-
+    play_game(Mode, 1, 5).
 % level 2
-exec_choose_level(2) :-
-    play_game(h-c, 2).
+exec_choose_level(Mode, 2) :-
+    play_game(Mode, 3, 7).
+
+exec_choose_level(Mode, 3) :-
+    play_game(Mode, 5, 10).
 
 /*
  * turn_action(+Player, +Board, -NewBoard)
