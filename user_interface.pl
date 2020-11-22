@@ -21,11 +21,11 @@ display_menu :-
     format("2. Instructions~n", []),
     format("0. Quit~n~n", []).
 
-/*
+/**
  * display_play_options
  *
  * Displays play modes.
-*/
+ */
 display_play_options :-
     nl,
     format("1. Human vs Human~n", []),
@@ -199,3 +199,7 @@ read_input(Input):-
     repeat,
     catch(read(Input), _Error, false),
     !.
+
+display_time_taken(TimeMillis) :-
+    TimeSeconds is TimeMillis/1000,
+    format("Took ~3fs~n", [TimeSeconds]).

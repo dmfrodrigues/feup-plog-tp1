@@ -39,7 +39,10 @@ human_turn_action(gamestate(Board, Turn), NewGameState) :-
     end_turn(gamestate(NewBoard, Turn), NewGameState).
 computer_turn_action(gamestate(Board, Turn), Level, N, NewGameState) :-
     display_game(gamestate(Board, Turn)),
+    statistics(walltime, _),
     choose_move(gamestate(Board, Turn), Turn, Level, N, Move),
+    statistics(walltime, [_|[ExecutionTime]]),
+    display_time_taken(ExecutionTime),
     move(Board, Move, NewBoard),
     display_computer_move(Move),
     end_turn(gamestate(NewBoard, Turn), NewGameState), !.
