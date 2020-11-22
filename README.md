@@ -27,7 +27,8 @@
 - [Game logic](#game-logic)
   - [Game state representation](#game-state-representation)
   - [Game state visualization](#game-state-visualization)
-  - [Valid moves](#valid-moves)
+  - [Executing a moves](#executing-a-moves)
+  - [List of valid moves](#list-of-valid-moves)
   - [End game](#end-game)
   - [Board evaluation](#board-evaluation)
   - [Computer move](#computer-move)
@@ -236,7 +237,7 @@ Obtained by running `make img/intermediate_print_simple.svg`; can alternatively 
 
 Obtained by running `make img/final_print_simple.svg`; can alternatively be displayed in a console by consulting `sample-states/display_final_state.pl`.
 
-### Valid moves
+### Executing a moves
 
 A move `playermove(Player, Pos, Substacks, Direction, NewPos)` is valid iff:
 1. `Pos` is the position of a stack controlled by `Player`
@@ -257,9 +258,13 @@ Directions:
       5     6
 ```
 
-A player can perform a move by calling `move(+GameState, ?Playermove, -NewGameState)`, which returns the new game state if the move is valid, or fails if the move is not valid. It can also sequentially return all valid moves, as all required predicates were implemented to expect grounded values, or otherwise generate all valid values for those parameters (for instance, `between(+L,+R,?X)` evaluates if `X` is between `L` and `R` if `X` is grounded, or otherwise returns all possible values for `X`).
+A player can perform a move by calling `move(+GameState, ?Playermove, -NewGameState)`, which returns the new game state if the move is valid, or fails if the move is not valid.
 
-A player can get his list of valid moves by evaluating predicate `valid_moves(+GameState, +Player, -ListOfMoves)`, which uses `findall` over predicate `move(+GameState, ?Playermove, -NewGameState)`.
+### List of valid moves
+
+`move` can also sequentially return all valid moves, as all required predicates were implemented to expect grounded values, or otherwise generate all valid values for those parameters (for instance, `between(+L,+R,?X)` evaluates if `X` is between `L` and `R` if `X` is grounded, or otherwise returns all possible values for `X`).
+
+A player can get his list of valid moves by evaluating predicate `valid_moves(+GameState, +Player, -ListOfMoves)`, which uses `findall` over predicate `move(+GameState, ?Playermove, -NewGameState)`. Since `move` does not return repeated moves we don't have to worry about using `setof` for instance.
 
 ### End game
 
@@ -313,15 +318,17 @@ Using these ideas, we implemented `choose_move_1(+GameState, +Turn, +Level, +N, 
 
 Because we believe we could miss out on some cases where it would be more reasonable to consider action 2 first, we implemented a similar predicate `choose_move_2(+GameState, +Turn, +Level, +N, -Move, -Value)`, which is in all similar to `choose_move_1` but it starts by getting all moves that differ in action 2, and at step 4 expand into all possible moves by varying the first action. We expect it to have a complexity similar to `choose_move_1`.
 
-## Conclusions
+These two predicates are used to implement `choose_move(+GameState, +Turn, +Level, +N, -Move)`.
 
-### Parallel programming
+## Conclusions
 
 This was a challenging project, due not only to the fact it uses Prolog which greatly differs from imperative programming, but also because the [nature of this game](#computer-move) made it very distinct from other board games since in this game a turn has two actions and not one as usual.
 
-Prolog programs can very much benefit from parallel programming; however, SICStus Prolog does not support parallel programming out-of-the-box. Nevertheless, one can possibly implement some predicates to perform parallel programming by using the `process` library to create and manage processes.
-
 <!-- TODO -->
+
+### Parallel programming
+
+Prolog programs can very much benefit from parallel programming; however, SICStus Prolog does not support parallel programming out-of-the-box. Nevertheless, one can possibly implement some predicates to perform parallel programming by using the `process` library to create and manage processes.
 
 ## Bibliography
 
