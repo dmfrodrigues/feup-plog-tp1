@@ -238,6 +238,13 @@ Obtained by running `make img/final_print_simple.svg`; can alternatively be disp
 
 ### Valid moves
 
+A move `playermove(Player, Pos, Substacks, Direction, NewPos)` is valid iff:
+1. `Pos` is the position of a stack controlled by `Player`
+2. `Substacks` is a list of distinct numbers, all with same sign (non-zero) and adding up to the height of the stack at `Pos`
+3. `Direction` describes a valid direction (below)
+4. By moving the substacks according to the rules (one cell for each piece in the substack in the mentioned `Direction`), no piece falls outside the board nor does it land on top of an adversary stack taller than the moving substack
+5. `NewPos` is the position to place the new 1-stack, which is empty as of the time all the previous actions were executed
+
 Directions:
 
 ```
@@ -250,7 +257,9 @@ Directions:
       5     6
 ```
 
-<!-- TODO -->
+A player can perform a move by calling `move(+GameState, ?Playermove, -NewGameState)`, which returns the new game state if the move is valid, or fails if the move is not valid. It can also sequentially return all valid moves, as all required predicates were implemented to expect grounded values, or otherwise generate all valid values for those parameters (for instance, `between(+L,+R,?X)` evaluates if `X` is between `L` and `R` if `X` is grounded, or otherwise returns all possible values for `X`).
+
+A player can get his list of valid moves by evaluating predicate `valid_moves(+GameState, +Player, -ListOfMoves)`, which uses `findall` over predicate `move(+GameState, ?Playermove, -NewGameState)`.
 
 ### End game
 
