@@ -6,14 +6,14 @@
     BASE_PATH = CWD,
     assert(base_directory(BASE_PATH)),
     
-    findall(X, between(0,9,X), L),
+    findall(X, between(0,6,X), L),
     statistics(walltime, [StartTime|_]),
     atom_concat(BASE_PATH, 'tests/test_maplist_multi/print_me.pl', PRINT_ME),
     maplist_multi(
         (
             reconsult(PRINT_ME)
         ),
-        8,
+        7,
         print_me,
         L,
         L,
