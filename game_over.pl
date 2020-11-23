@@ -38,8 +38,6 @@ dfs_(Board, Player, [U|Stack], Visited, Dest   ) :- % If U is under control, add
             dfs_(Board, Player, NewStack, [U|Visited], Dest)
         )
     ).
-dfs_(Board, Player, [_|Stack], Visited, Dest   ) :- % U is not under control, ignore
-    dfs_(Board, Player, Stack, Visited, Dest   ).
 
 /**
  * has_valid_moves(+Board, +Player)
