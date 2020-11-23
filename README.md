@@ -59,10 +59,10 @@ This program can be executed as per the project guidelines.
 To run the program using colored text, run `sicstus`/`swipl` with argument `color`:
 
 ```sh
-sicstus            # Run with sicstus, without color
-sicstus -- color   # Run with sicstus, with color
-swipl              # Run with swipl, without color
-swipl   -- color   # Run with swipl, with color
+sicstus -l game.pl            # Run with sicstus, without color
+sicstus -l game.pl -- color   # Run with sicstus, with color
+swipl   -l game.pl            # Run with swipl, without color
+swipl   -l game.pl -- color   # Run with swipl, with color
 ```
 
 Under **Linux**, `sh` and `bash` should correctly present special characters; if the terminals are coloured, they should also correctly present colors.
