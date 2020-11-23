@@ -30,7 +30,11 @@ value_line([N|Line], I-J, Value):-  % Valid position
     value_line(Line, I-J1, Value1),
     % Current value
     position_value(I-J, F),
-    Value is Value1 + N*F.
+    (N =:= 0 ->
+    Value2 is 0; Value2 is F+(abs(N)**0.8 + 2)),
+    (N < 0 ->
+    (Value is Value1 - Value2); (Value is Value1 + Value2)).
+
 
 /**
  * position_value(+Pos, -Value)
@@ -46,9 +50,9 @@ position_value(I-J, 2) :-
 position_value(I-J, 3) :-
     I=:=2; J=:=2; I=:=6; J=:=6; abs(I-J) =:= 2.
 
-position_value(I-J, 4) :-
+position_value(I-J, 2) :-
     I=:=3; J=:=3; I=:=5; J=:=5; abs(I-J) =:= 1.
 
-position_value(4-4, 5).
+position_value(4-4, 3).
 
 position_value(_, 0).
