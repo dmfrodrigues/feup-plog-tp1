@@ -17,7 +17,14 @@ dfs(Board, Player, [U|Stack], Visited, Dest   ) :- % If U is under control, add 
     (
         member(U, Dest);
         (
-            findall(V, isAdj(U, V), AddToStack),
+            findall(
+                V, 
+                (
+                    isAdj(U, V),
+                    isControlledByPlayer(Board, Player, V)
+                ),
+                AddToStack
+            ),
             append(AddToStack, Stack, NewStack),
             dfs(Board, Player, NewStack, [U|Visited], Dest)
         )
