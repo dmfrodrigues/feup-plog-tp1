@@ -1,4 +1,5 @@
 :-
+    reconsult('utils.pl'),
     reconsult('valid_moves.pl').
 
 /**
@@ -21,7 +22,7 @@ get_move_value_pair(gamestate(Board, Player), Move, V-Move) :-
 best_N_moves(gamestate(Board, Turn), ListOfMoves, N, ListOfBestMoves) :-
     length(ListOfMoves, L),
     list_create(gamestate(Board,Turn), L, GameStates),
-    maplist(get_move_value_pair, GameStates, ListOfMoves, ListOfMovesPairs),
+    maplist_multi(get_move_value_pair, GameStates, ListOfMoves, ListOfMovesPairs),
     keysort(ListOfMovesPairs, SortedListOfMovesPairs),
     take(SortedListOfMovesPairs, N, ListOfBestMovesPairs),
     pairs_values(ListOfBestMovesPairs, ListOfBestMoves).

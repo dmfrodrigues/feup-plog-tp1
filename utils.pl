@@ -1,6 +1,9 @@
 :-
 	use_module(library(lists)).
 
+:-
+	reconsult('maplist_multi.pl').
+
 /**
  * list_create(+X, +N, -List)
  * 
