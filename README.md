@@ -48,6 +48,8 @@ To run this game you need a running Prolog environment, preferably one of the te
 - [SICStus Prolog](https://sicstus.sics.se/)
 - [SWI-Prolog](https://www.swi-prolog.org/)
 
+If you cloned this repository from GitHub, you should additionally run `git submodule update --init --recursive` to clone all submodules as well.
+
 After obtaining this project (or cloning it), you're set!
 
 ### Executing
