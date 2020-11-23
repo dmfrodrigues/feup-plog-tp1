@@ -10,10 +10,8 @@
  * Checks if any of the nodes in End are reachable from Start.
  */
 dfs(Board, Player, Start, End) :-
-    format("L13~n", []),
     findall(U, (member(U, Start), isControlledByPlayer(Board, Player, U)), StartFiltered),
     findall(U, (member(U, End  ), isControlledByPlayer(Board, Player, U)), EndFiltered  ),
-    write(StartFiltered), nl, write(EndFiltered), nl,
     dfs_(Board, Player, StartFiltered, [], EndFiltered).
 
 /**
