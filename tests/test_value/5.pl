@@ -6,7 +6,7 @@ get_value_recursive(InitialBoard,InitialTurn,N) :-
     get_value_recursive(InitialBoard, InitialTurn, N1).
 
 :-
-    reconsult('everything.pl'),
+    reconsult('../everything.pl'),
     initial_state(gamestate(InitialBoard,InitialTurn)),
     statistics(walltime, _),
     get_value_recursive(InitialBoard,InitialTurn,10000),

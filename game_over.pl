@@ -5,25 +5,39 @@
     reconsult('moves.pl'). 
 
 /**
- * dfs(+Board, +Player, +Stack, +Visited, -Ret)
+ * dfs(+Board, +Player, +Start, +End)
  * 
- * Finds nodes reachable from Stack.
+ * Checks if any of the nodes in End are reachable from Start.
  */
-dfs(Board, Player, [U|Stack], Visited, Dest   ) :- % Ignore if already in Visited
+dfs(Board, Player, Start, End) :-
+    findall(U, (member(U, Start), isControlledByPlayer(Board, Player, U)), StartFiltered),
+    findall(U, (member(U, End  ), isControlledByPlayer(Board, Player, U)), EndFiltered  ),
+    dfs_(Board, Player, StartFiltered, [], EndFiltered).
+
+/**
+ * dfs_(+Board, +Player, +Stack, +Visited, +Ret)
+ * 
+ * Checks if any of the nodes in Ret are reachable from Stack.
+ */
+dfs_(Board, Player, [U|Stack], Visited, Dest   ) :- % Ignore if already in Visited
     member(U, Visited), !,
-    dfs(Board, Player, Stack, Visited, Dest   ).
-dfs(Board, Player, [U|Stack], Visited, Dest   ) :- % If U is under control, add adjacent
-    isControlledByPlayer(Board, Player, U),
+    dfs_(Board, Player, Stack, Visited, Dest   ).
+dfs_(Board, Player, [U|Stack], Visited, Dest   ) :- % If U is under control, add adjacent
     (
         member(U, Dest);
         (
-            findall(V, isAdj(U, V), AddToStack),
+            findall(
+                V, 
+                (
+                    isAdj(U, V),
+                    isControlledByPlayer(Board, Player, V)
+                ),
+                AddToStack
+            ),
             append(AddToStack, Stack, NewStack),
-            dfs(Board, Player, NewStack, [U|Visited], Dest)
+            dfs_(Board, Player, NewStack, [U|Visited], Dest)
         )
     ).
-dfs(Board, Player, [_|Stack], Visited, Dest   ) :- % U is not under control, ignore
-    dfs(Board, Player, Stack, Visited, Dest   ).
 
 /**
  * has_valid_moves(+Board, +Player)
@@ -49,12 +63,12 @@ game_over_(gamestate(Board, Turn), Winner) :-
 
 game_over_top(gamestate(Board, _), Winner) :- 
     ground(Board),
-    dfs(Board, Winner, [0-0,0-1,0-2,0-3,0-4], [], [8-4,8-5,8-6,8-7,8-8]).
+    dfs(Board, Winner, [0-0,0-1,0-2,0-3,0-4], [8-4,8-5,8-6,8-7,8-8]).
 
 game_over_left(gamestate(Board, _), Winner) :- 
     ground(Board),
-    dfs(Board, Winner, [0-0,1-0,2-0,3-0,4-0], [], [4-8,5-8,6-8,7-8,8-8]).
+    dfs(Board, Winner, [0-0,1-0,2-0,3-0,4-0], [4-8,5-8,6-8,7-8,8-8]).
 
 game_over_diagonal(gamestate(Board, _), Winner) :-
     ground(Board),
-    dfs(Board, Winner, [4-0,5-1,6-2,7-3,8-4], [], [0-4,1-5,2-6,3-7,4-8]).
+    dfs(Board, Winner, [4-0,5-1,6-2,7-3,8-4], [0-4,1-5,2-6,3-7,4-8]).

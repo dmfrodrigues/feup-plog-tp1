@@ -36,6 +36,7 @@
     - [Practical approach](#practical-approach)
 - [Conclusions](#conclusions)
   - [Parallel programming](#parallel-programming)
+  - [Known issues](#known-issues)
 - [Bibliography](#bibliography)
 
 
@@ -47,19 +48,21 @@ To run this game you need a running Prolog environment, preferably one of the te
 - [SICStus Prolog](https://sicstus.sics.se/)
 - [SWI-Prolog](https://www.swi-prolog.org/)
 
+If you cloned this repository from GitHub, you should additionally run `git submodule update --init --recursive` to clone all submodules as well.
+
 After obtaining this project (or cloning it), you're set!
 
 ### Executing
 
 This program can be executed as per the project guidelines.
 
-To run the program using colored text, run `sicstus`/`swipl` with argument `-a color`:
+To run the program using colored text, run `sicstus`/`swipl` with argument `color`:
 
 ```sh
-sicstus            # Run with sicstus, without color
-sicstus -a color   # Run with sicstus, with color
-swipl              # Run with swipl, without color
-swipl   -a color   # Run with swipl, with color
+sicstus -l game.pl            # Run with sicstus, without color
+sicstus -l game.pl -- color   # Run with sicstus, with color
+swipl   -l game.pl            # Run with swipl, without color
+swipl   -l game.pl -- color   # Run with swipl, with color
 ```
 
 Under **Linux**, `sh` and `bash` should correctly present special characters; if the terminals are coloured, they should also correctly present colors.
@@ -72,6 +75,15 @@ Under **Windows**, when using any console you are advised to use one of the foll
 Under **Windows**, colors are correctly displayed in all situations, except at least on the SICStus console (where colors do not render but the rest is fine), and `sicstus` running on cmd/PowerShell (colors are rendered as unknown characters).
 
 ## The game
+
+```txt
+ ▟▀▀▀▙ █ ▗▄▄▖▄ ▀ ▗▄▄▄ █    ▗▄▄▖ ▄▗▄ 
+ █ ▄▄▄ █ █  ▜█ █ ▜▄▄▖ █▀▀▙ █▄▄█ █▀  
+ ▜▄▄▄▛ █ ▜▄▄▛█ █ ▄▄▄▛ █  █ ▜▄▄▖ █   
+
+ A game for two players by Ken Shoda
+ Developed by Breno Pimentel & Diogo Rodrigues, in SICStus/SWI Prolog
+```
 
 The game we implemented is called [Glaisher](https://nestorgames.com/#glaisher_detail) (the rules are available [here](https://nestorgames.com/rulebooks/GLAISHER_EN.pdf)), named after [Glaisher's theorem](https://en.wikipedia.org/wiki/Glaisher%27s_theorem).
 It is played on a hexagonal board ([hex map](https://en.wikipedia.org/wiki/Hex_map)) with a side of 5 hexagonal cells (hexes). Each player has a color, usually red for Player 1 and yellow for Player 2.
@@ -104,8 +116,7 @@ Firstly, some brief notes on how to work with this game.
 The board is internally represented as a list of lists that can be queried using predicate `board(Board, I-J, N)`, meaning in position `(I, J)` there is a stack of `N` pieces, with `N` positive if the stack is made of red pieces, and negative if it is made of yellow pieces.
 
 ```txt
-                     j=0 j=1 j=2 j=3 j=4 j=5 j=6 j=7 j=8
-                      /   /   /   /   /   /   /   /   /
+                    j=0 j=1 j=2 j=3 j=4 j=5 j=6 j=7 j=8
                      /   /   /   /   /   /   /   /   /
                                         /   /   /   /
                  / \ / \ / \ / \ / \   /   /   /   /
@@ -215,9 +226,14 @@ This state can be obtained by consulting `sample-states/final_state.pl` (from th
 
 ### Game state visualization
 
-The following states were obtained by running `make svg`, which runs the PROLOG programs to print each state in a computer-friendly way, parses it using a python script and renders as an SVG image.
+On entering the game, you can choose to play the game (`1.`), see the instructions (`2.`) or quit (`0.`). We highly recommend reading the instructions, as they specify the correct input formats. If you choose to play the game, you are prompted to choose one of three game modes, or quit (`0.`):
+- Human vs Human (`1.`)
+- Human vs Computer (`2.`)
+- Computer vs Computer (`3.`)
 
-<!-- TODO: menus -->
+If you select `2.` or `3.` you are prompted about the difficulty level of the autonomous player (from 1 to 3). Then the game starts; the game state is shown at the beginning of each turn, and human players are prompted to introduce the information necessary to make up a complete move. If the move is invalid the player is reprompted. A player can press `q.` to quit a game.
+
+The following states were obtained by running `make svg`, which runs the PROLOG programs to print each state in a computer-friendly way, parses it using a python script and renders as an SVG image.
 
 #### Initial state <!-- omit in toc -->
 
@@ -272,7 +288,7 @@ A player can get his list of valid moves by evaluating predicate `valid_moves(+G
 
 It firstly evaluates if the player has any valid moves left, by using predicate `has_valid_moves(+Board, +Player)` (finds the first valid move).
 
-It then goes on to check if the player successfully connected opposite sides of the board with a bridge of his/her color, by using a Depth-First Search algorithm `dfs(+Board, +Player, +Stack, +Visited, -Ret)` which takes as arguments the Board, the Player presumed to have won, the DFS stack so far (is initialized with all cells of a board side), the Visited nodes (starts empty) and returns the cells that can be reached by using cells controlled by the Player in the given Board. Then it is checked if any cell of the opposite side are in the reachable cells Ret.
+It then goes on to check if the player successfully connected opposite sides of the board with a bridge of his/her color, by using a Depth-First Search algorithm `dfs(+Board, +Player, +Stack, +Visited, -Ret)` which takes as arguments the Board, the Player presumed to have won, the DFS stack so far (is initialized with all cells of a board side), the Visited nodes (starts empty) and stops when one of the nodes in Ret is visited (initialized with the cells of the opposite side).
 
 ### Board evaluation
 
@@ -336,12 +352,18 @@ These two predicates are used to implement `choose_move(+GameState, +Turn, +Leve
 
 This was a challenging project, due not only to the fact it uses Prolog which greatly differs from imperative programming, but also because the [nature of this game](#computer-move) made it very distinct from other board games since in this game a turn has two actions and not one as usual.
 
-<!-- TODO -->
-
 ### Parallel programming
 
 Prolog programs can very much benefit from parallel programming; however, SICStus Prolog does not support parallel programming out-of-the-box. Nevertheless, one can possibly implement some predicates to perform parallel programming by using the `process` library to create and manage processes.
 
+### Known issues
+
+Autonomous players are a bit slow. In particular, autonomous players become increasingly slow as the game progresses although they tend to stabilize at around the tens of seconds per turn. However, they become extremely slow on the last 1-2 rounds before end game, or when stacks become particularly tall (generally above or around 20 pieces).
+
+On Computer vs Computer mode, only level 2 autonomous players are known to end the game (in about 50min); it is unknown if level 1 and level 3 autonomous players can end the game (as the game has not ended after at least 1h in both cases).
+
 ## Bibliography
 
-<!-- TODO -->
+- RISE (2020, Apr). [SICStus Prolog 4.6.0](https://sicstus.sics.se/sicstus/docs/latest4/html/sicstus.html/) \[Documentation\]. Gothenburg, Sweden: RISE Research Institutes of Sweden AB.
+- Shoda, K. (2015). [Glaisher](https://nestorgames.com/rulebooks/GLAISHER_EN.pdf) \[Game rules\]. Spain: nestorgames.
+- Wielemaker, J. et al. (2020). [SWI Prolog 8.3.13](https://www.swi-prolog.org/pldoc/doc_for?object=root) \[Documentation\]. Amsterdam, Netherlands: Sociaal-Wetenschappelijke Informatica, University of Amsterdam.

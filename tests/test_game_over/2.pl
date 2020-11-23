@@ -1,5 +1,5 @@
 :-
-    reconsult('everything.pl'),
+    reconsult('../everything.pl'),
     intermediate_state(GameState),
     \+(game_over(GameState, _)),
     halt(0).

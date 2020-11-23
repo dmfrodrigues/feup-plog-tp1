@@ -1,5 +1,5 @@
 :-
-    reconsult('everything.pl'),
+    reconsult('../everything.pl'),
     initial_state(gamestate(Board1,_)),
     display_game(gamestate(Board1,1)),
     move(Board1,playermove(1,0-1,[1,2,3],6,0-0),Board2),

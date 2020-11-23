@@ -1,3 +1,6 @@
+:-
+    use_module(library(system)).
+
 /*
  * display_menu
  *
@@ -21,11 +24,11 @@ display_menu :-
     format("2. Instructions~n", []),
     format("0. Quit~n~n", []).
 
-/*
+/**
  * display_play_options
  *
  * Displays play modes.
-*/
+ */
 display_play_options :-
     nl,
     format("1. Human vs Human~n", []),
@@ -199,3 +202,17 @@ read_input(Input):-
     repeat,
     catch(read(Input), _Error, false),
     !.
+
+% SICStus
+display_time_taken(TimeMillis) :-
+    current_prolog_flag(dialect, sicstus),
+    TimeSeconds is TimeMillis/1000,
+    datime(datime(Year,Month,Day,Hour,Min,Sec)), !,
+    format("~d-~d-~d ~d:~d:~d, took ~3fs~n", [Year,Month,Day,Hour,Min,Sec,TimeSeconds]).
+% SWI
+display_time_taken(TimeMillis) :-
+    current_prolog_flag(dialect, swi),
+    TimeSeconds is TimeMillis/1000,
+    get_time(TimeStamp),
+    format_time(chars(In), "%Y-%m-%d %H:%M:%S", TimeStamp),
+    format("~s, took ~3fs~n", [In,TimeSeconds]).
