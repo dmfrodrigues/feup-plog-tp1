@@ -61,12 +61,12 @@ position_value(_, 0).
 % add 2 points if cell is adjacent to another
 adjacent_to_another_cell(gamestate(Board, 1), I1-J1, 2):-
     isControlledByPlayer(Board, 1, I1-J1),
-    isAdj(I1-J1, 0-1),
-    isControlledByPlayer(Board, 1, 0-1),
+    isAdj(I1-J1, I2-J2),
+    isControlledByPlayer(Board, 1, I2-J2),
     !.
 adjacent_to_another_cell(gamestate(Board, 2), I1-J1, -2):-
     isControlledByPlayer(Board, 2, I1-J1),
-    isAdj(I1-J1, 0-1),
-    isControlledByPlayer(Board, 2, 0-1),
+    isAdj(I1-J1, I2-J2),
+    isControlledByPlayer(Board, 2, I2-J2),
     !.
 adjacent_to_another_cell(_, _, 0).
