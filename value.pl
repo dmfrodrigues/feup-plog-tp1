@@ -10,16 +10,17 @@ value(gamestate(Board, _), 1, 999999) :-
 value(gamestate(Board, _), 2, -999999) :-
     game_over(gamestate(Board, _), 2), !.
 
-value(gamestate([L0, L1, L2, L3, L4, [_|L5], [_,_|L6], [_,_,_|L7], [_,_,_,_|L8]], _), _, Value) :-
-    value_line(gamestate([L0, L1, L2, L3, L4, [_|L5], [_,_|L6], [_,_,_|L7], [_,_,_,_|L8]], _), L0, 0-0, V0),
-    value_line(gamestate([L0, L1, L2, L3, L4, [_|L5], [_,_|L6], [_,_,_|L7], [_,_,_,_|L8]], _), L1, 1-0, V1),
-    value_line(gamestate([L0, L1, L2, L3, L4, [_|L5], [_,_|L6], [_,_,_|L7], [_,_,_,_|L8]], _), L2, 2-0, V2),
-    value_line(gamestate([L0, L1, L2, L3, L4, [_|L5], [_,_|L6], [_,_,_|L7], [_,_,_,_|L8]], _), L3, 3-0, V3),
-    value_line(gamestate([L0, L1, L2, L3, L4, [_|L5], [_,_|L6], [_,_,_|L7], [_,_,_,_|L8]], _), L4, 4-0, V4),
-    value_line(gamestate([L0, L1, L2, L3, L4, [_|L5], [_,_|L6], [_,_,_|L7], [_,_,_,_|L8]], _), L5, 5-1, V5),
-    value_line(gamestate([L0, L1, L2, L3, L4, [_|L5], [_,_|L6], [_,_,_|L7], [_,_,_,_|L8]], _), L6, 6-2, V6),
-    value_line(gamestate([L0, L1, L2, L3, L4, [_|L5], [_,_|L6], [_,_,_|L7], [_,_,_,_|L8]], _), L7, 7-3, V7),
-    value_line(gamestate([L0, L1, L2, L3, L4, [_|L5], [_,_|L6], [_,_,_|L7], [_,_,_,_|L8]], _), L8, 8-4, V8),
+value(gamestate([L0, L1, L2, L3, L4, [P0|L5], [P1,P2|L6], [P0,P1,P2|L7], [P0,P1,P2,P3|L8]], P), _, Value) :-
+    GameState = gamestate([L0, L1, L2, L3, L4, [P0|L5], [P1,P2|L6], [P0,P1,P2|L7], [P0,P1,P2,P3|L8]], P),
+    value_line(GameState, L0, 0-0, V0),
+    value_line(GameState, L1, 1-0, V1),
+    value_line(GameState, L2, 2-0, V2),
+    value_line(GameState, L3, 3-0, V3),
+    value_line(GameState, L4, 4-0, V4),
+    value_line(GameState, L5, 5-1, V5),
+    value_line(GameState, L6, 6-2, V6),
+    value_line(GameState, L7, 7-3, V7),
+    value_line(GameState, L8, 8-4, V8),
     Value is V0+V1+V2+V3+V4+V5+V6+V7+V8.
 
 value_line(_, _, I-J, 0) :-            % End of line
@@ -41,26 +42,31 @@ value_line(GameState, [N|Line], I-J, Value):-  % Valid position
  * 
  * Value of position
  */
-position_value(I-J, 3) :-
+position_value(I-J, 1) :-
     I=:=0; J=:=0; I=:=8; J=:=8; abs(I-J) =:= 4. 
     
 position_value(I-J, 2) :-
     I=:=1; J=:=1; I=:=7; J=:=7; abs(I-J) =:= 3.
 
-position_value(I-J, 3) :-
+position_value(I-J, 2) :-
     I=:=2; J=:=2; I=:=6; J=:=6; abs(I-J) =:= 2.
 
-position_value(I-J, 4) :-
+position_value(I-J, 3) :-
     I=:=3; J=:=3; I=:=5; J=:=5; abs(I-J) =:= 1.
 
-position_value(4-4, 5).
+position_value(4-4, 4).
 
 position_value(_, 0).
 
-% add 3 points if cell is adjacent to another
-adjacent_to_another_cell(gamestate(Board, Player), I1-J1, 3):-
-    isControlledByPlayer(Board, Player, I1-J1),
-    isAdj(I1-J1, I2-J2),
-    isControlledByPlayer(Board, Player, I2-J2),
+% add 2 points if cell is adjacent to another
+adjacent_to_another_cell(gamestate(Board, 1), I1-J1, 2):-
+    isControlledByPlayer(Board, 1, I1-J1),
+    isAdj(I1-J1, 0-1),
+    isControlledByPlayer(Board, 1, 0-1),
     !.
-adjacent_to_another_cell(_, _, 2).
+adjacent_to_another_cell(gamestate(Board, 2), I1-J1, -2):-
+    isControlledByPlayer(Board, 2, I1-J1),
+    isAdj(I1-J1, 0-1),
+    isControlledByPlayer(Board, 2, 0-1),
+    !.
+adjacent_to_another_cell(_, _, 0).
