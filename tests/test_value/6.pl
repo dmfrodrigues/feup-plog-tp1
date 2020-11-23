@@ -12,7 +12,6 @@
         [nan,nan,nan,0,0,0,0,0,0],
         [nan,nan,nan,nan,0,0,0,0,0]
     ],
-    display_game(gamestate(Board, Player)),
     statistics(walltime, _),
     value(gamestate(Board, Player), Player, Value),
     statistics(walltime, [_|[ExecutionTime]]),

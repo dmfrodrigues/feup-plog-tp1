@@ -12,14 +12,11 @@
         [nan,nan,nan,  0,  0,  0,  0,  0,  0],
         [nan,nan,nan,nan,  0,  0,  0,  0,  0]
     ],
-    display_game(gamestate(InitialBoard,InitialTurn)),
     statistics(walltime, _),
     choose_move(gamestate(InitialBoard,InitialTurn), InitialTurn, 3, 5, Move),
     statistics(walltime, [_|[ExecutionTime]]),
     TimeSeconds is ExecutionTime/1000,
     write(TimeSeconds),nl,
-    move(InitialBoard, Move, NewBoard),
-    GameState = gamestate(NewBoard, 1),
-    display_game(GameState),
+    move(InitialBoard, Move, _NewBoard),
     halt(0).
 :-  halt(1).
