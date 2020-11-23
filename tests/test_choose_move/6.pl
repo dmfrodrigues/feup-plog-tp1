@@ -1,5 +1,9 @@
 :-
     reconsult('../everything.pl'),
+    current_working_directory(CWD),
+    BASE = CWD,
+    assert(base_directory(BASE)),
+
     InitialTurn = 2,
     InitialBoard = [
         [  0, -1,  0,  0,  1,nan,nan,nan,nan],
@@ -13,7 +17,7 @@
         [nan,nan,nan,nan,  0,  0,  0,  0,  0]
     ],
     statistics(walltime, _),
-    choose_move(gamestate(InitialBoard,InitialTurn), InitialTurn, 3, 5, Move),
+    choose_move(gamestate(InitialBoard,InitialTurn), InitialTurn, 5, 10, Move),
     statistics(walltime, [_|[ExecutionTime]]),
     TimeSeconds is ExecutionTime/1000,
     write(TimeSeconds),nl,

@@ -8,5 +8,5 @@ wait_busy(N) :-
         EndTimer-StartTimer >= N,
     !.
 
-print_me(L, L, hey) :-
+print_me(N, N, M) :- M is 2*N,
     wait_busy(1000).

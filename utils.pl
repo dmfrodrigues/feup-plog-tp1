@@ -133,4 +133,5 @@ current_working_directory(CWD) :-
 current_working_directory(CWD) :-
 	current_prolog_flag(dialect, swi),
 	working_directory(CWD, CWD).
-	
+
+:- dynamic base_directory/1.

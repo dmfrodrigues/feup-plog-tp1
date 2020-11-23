@@ -1,3 +1,6 @@
+:-
+    reconsult('game_over.pl').
+
 /**
  * value(+GameState, +Player, -Value).
  * 
