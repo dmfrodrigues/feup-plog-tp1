@@ -1,5 +1,6 @@
 :-
-	use_module(library(lists)).
+	use_module(library(lists)),
+	use_module(library(system)).
 
 :-
 	reconsult('maplist_multi.pl').
@@ -124,3 +125,12 @@ maplist(Predicate, [X1|L1], [X2|L2], [X3|L3], [X4|L4]) :-
 	T =.. [Predicate, X1, X2, X3, X4],
 	T,
 	maplist(Predicate, L1, L2, L3, L4).
+
+current_working_directory(CWD) :-
+	current_prolog_flag(dialect, sicstus),
+	environ('SP_STARTUP_DIR', CWD).
+
+current_working_directory(CWD) :-
+	current_prolog_flag(dialect, swi),
+	working_directory(CWD, CWD).
+	
