@@ -25,28 +25,31 @@ get_move_value_pair(gamestate(Board, Player), Move, V-Move) :-
 best_N_moves(gamestate(Board, Turn), ListOfMoves, N, ListOfBestMoves) :-
     length(ListOfMoves, L),
     list_create(gamestate(Board,Turn), L, GameStates),
-    /*
-    base_directory(BASE),
-    atom_concat(BASE, 'choose_move_common.pl', CHOOSE_MOVE_COMMON),
-    maplist_multi(
+    (L >= 512 -> 
         (
-            reconsult(CHOOSE_MOVE_COMMON),
-            assert(base_directory(BASE))
-        ),
-        get_move_value_pair,
-        GameStates,
-        ListOfMoves,
-        ListOfMovesPairs
+            base_directory(BASE),
+            atom_concat(BASE, 'choose_move_common.pl', CHOOSE_MOVE_COMMON),
+            maplist_multi(
+                (
+                    reconsult(CHOOSE_MOVE_COMMON),
+                    assert(base_directory(BASE))
+                ),
+                8,
+                get_move_value_pair,
+                GameStates,
+                ListOfMoves,
+                ListOfMovesPairs
+            )
+        );
+        (
+            maplist(
+                get_move_value_pair,
+                GameStates,
+                ListOfMoves,
+                ListOfMovesPairs
+            )
+        )
     ),
-    */
-    
-    maplist(
-        get_move_value_pair,
-        GameStates,
-        ListOfMoves,
-        ListOfMovesPairs
-    ),
-    
     keysort(ListOfMovesPairs, SortedListOfMovesPairs),
     take(SortedListOfMovesPairs, N, ListOfBestMovesPairs),
     pairs_values(ListOfBestMovesPairs, ListOfBestMoves).

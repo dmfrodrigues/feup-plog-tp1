@@ -1,4 +1,5 @@
 :-
+    reconsult('utils.pl'),
     reconsult('valid_moves.pl'),
     reconsult('choose_move_common.pl').
 
@@ -110,5 +111,31 @@ choose_move_2(gamestate(Board, Turn), Turn, Level, N, Move, Value) :-
     best_N_moves(gamestate(Board, Turn), ListOfBestMovesExpanded, N, ListOfBestestMoves),
     list_create(gamestate(Board, Turn), N, GameStates),
     list_create(Level, N, Levels),
-    maplist(best_opponent_move2, GameStates, ListOfBestestMoves, Levels, Result),
+
+    base_directory(BASE),
+    atom_concat(BASE, 'choose_move_2.pl', CHOOSE_MOVE_2),
+    (N =:= 1 -> Nthreads is 1 ; Nthreads is 12),
+    maplist_multi(
+        (
+            reconsult(CHOOSE_MOVE_2),
+            assert(base_directory(BASE))
+        ),
+        Nthreads,
+        best_opponent_move2,
+        GameStates,
+        ListOfBestestMoves,
+        Levels,
+        Result
+    ),
+
+    /*
+    maplist(
+        best_opponent_move2,
+        GameStates,
+        ListOfBestestMoves,
+        Levels,
+        Result
+    ),
+    */
+
     (Turn =:= 1 -> min_member(Value-Move, Result) ; max_member(Value-Move, Result)).
