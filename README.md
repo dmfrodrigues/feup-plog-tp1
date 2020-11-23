@@ -36,6 +36,7 @@
     - [Practical approach](#practical-approach)
 - [Conclusions](#conclusions)
   - [Parallel programming](#parallel-programming)
+  - [Known issues](#known-issues)
 - [Bibliography](#bibliography)
 
 
@@ -285,7 +286,7 @@ A player can get his list of valid moves by evaluating predicate `valid_moves(+G
 
 It firstly evaluates if the player has any valid moves left, by using predicate `has_valid_moves(+Board, +Player)` (finds the first valid move).
 
-It then goes on to check if the player successfully connected opposite sides of the board with a bridge of his/her color, by using a Depth-First Search algorithm `dfs(+Board, +Player, +Stack, +Visited, -Ret)` which takes as arguments the Board, the Player presumed to have won, the DFS stack so far (is initialized with all cells of a board side), the Visited nodes (starts empty) and returns the cells that can be reached by using cells controlled by the Player in the given Board. Then it is checked if any cell of the opposite side are in the reachable cells Ret.
+It then goes on to check if the player successfully connected opposite sides of the board with a bridge of his/her color, by using a Depth-First Search algorithm `dfs(+Board, +Player, +Stack, +Visited, -Ret)` which takes as arguments the Board, the Player presumed to have won, the DFS stack so far (is initialized with all cells of a board side), the Visited nodes (starts empty) and stops when one of the nodes in Ret is visited (initialized with the cells of the opposite side).
 
 ### Board evaluation
 
@@ -337,12 +338,18 @@ These two predicates are used to implement `choose_move(+GameState, +Turn, +Leve
 
 This was a challenging project, due not only to the fact it uses Prolog which greatly differs from imperative programming, but also because the [nature of this game](#computer-move) made it very distinct from other board games since in this game a turn has two actions and not one as usual.
 
-<!-- TODO -->
-
 ### Parallel programming
 
 Prolog programs can very much benefit from parallel programming; however, SICStus Prolog does not support parallel programming out-of-the-box. Nevertheless, one can possibly implement some predicates to perform parallel programming by using the `process` library to create and manage processes.
 
+### Known issues
+
+Autonomous players are a bit slow. In particular, autonomous players become increasingly slow as the game progresses although they tend to stabilize at around the tens of seconds per turn. However, they become extremely slow on the last 1-2 rounds before end game, or when stacks become particularly tall (generally above or around 20 pieces).
+
+On Computer vs Computer mode, only level 2 autonomous players are known to end the game (in about 50min); it is unknown if level 1 and level 3 autonomous players can end the game (as the game has not ended after at least 1h in both cases).
+
 ## Bibliography
 
-<!-- TODO -->
+- RISE (2020, Apr). [SICStus Prolog 4.6.0](https://sicstus.sics.se/sicstus/docs/latest4/html/sicstus.html/) \[Documentation\]. Gothenburg, Sweden: RISE Research Institutes of Sweden AB.
+- Shoda, K. (2015). [Glaisher](https://nestorgames.com/rulebooks/GLAISHER_EN.pdf) \[Game rules\]. Spain: nestorgames.
+- Wielemaker, J. et al. (2020). [SWI Prolog 8.3.13](https://www.swi-prolog.org/pldoc/doc_for?object=root) \[Documentation\]. Amsterdam, Netherlands: Sociaal-Wetenschappelijke Informatica, University of Amsterdam.
