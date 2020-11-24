@@ -1,11 +1,14 @@
 :-
    reconsult('prolog-multiprocessing/multiprocessing.pl'). 
 
+isParallel :- current_prolog_flag(argv, Arguments), member(parallel, Arguments).
+
 % maplist_multi/5
 maplist_multi(_, 1, Predicate, L1, L2, L3) :- 
     !,
     maplist(Predicate, L1, L2, L3).
 maplist_multi(Includes, Nthreads, Predicate, L1, L2, L3) :-
+    isParallel, !,
     length(L1, S),
     (mod(S, Nthreads) =:= 0 -> Si is div(S, Nthreads) ; Si is div(S, Nthreads)+1),
     length(L1left, Si), append(L1left, L1right, L1),
@@ -25,12 +28,15 @@ maplist_multi(Includes, Nthreads, Predicate, L1, L2, L3) :-
     maplist_multi(Includes, NthreadsRight, Predicate, L1right, L2right, L3right),
     read(Out, L3left),
     close(Out).
+maplist_multi(_, _, Predicate, L1, L2, L3) :-
+    maplist(Predicate, L1, L2, L3).
 
 % maplist_multi/6
 maplist_multi(_, 1, Predicate, L1, L2, L3, L4) :-
     !,
     maplist(Predicate, L1, L2, L3, L4).
 maplist_multi(Includes, Nthreads, Predicate, L1, L2, L3, L4) :-
+    isParallel,!,
     length(L1, S),
     Si is div(S, Nthreads),
     length(L1left, Si), append(L1left, L1right, L1),
@@ -51,3 +57,5 @@ maplist_multi(Includes, Nthreads, Predicate, L1, L2, L3, L4) :-
     maplist_multi(Includes, NthreadsRight, Predicate, L1right, L2right, L3right, L4right),
     read(Out, L4left),
     close(Out).
+maplist_multi(_, _, Predicate, L1, L2, L3, L4):-
+    maplist(Predicate, L1, L2, L3, L4).

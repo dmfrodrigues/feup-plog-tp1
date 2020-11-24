@@ -28,7 +28,7 @@ jobs:
         git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
 
     - name: Test
-      run: make test
+      run: make test PARALLEL=1
 
     - name: Zip
       run: make zip
