@@ -20,7 +20,7 @@ jobs:
     - name: Unzip sicstus-prolog
       shell: cmd
       run: |
-        7z e sicstus-win.7z -oC:\
+        7z e sicstus-win.7z -oC:\sicstus\
 
     - name: Check how sicstus-prolog was unzipped
       shell: PowerShell
