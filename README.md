@@ -3,6 +3,8 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ![Test](https://github.com/dmfrodrigues/feup-plog-tp1/workflows/Test/badge.svg)
+![Test Windows](https://github.com/dmfrodrigues/feup-plog-tp1/workflows/Test%20Windows/badge.svg)
+![Zip](https://github.com/dmfrodrigues/feup-plog-tp1/workflows/Zip/badge.svg)
 
 - **Project name:** Glaisher
 - **Short description:** Board game implemented in PROLOG
