@@ -12,17 +12,25 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Install 7Zip4Powershell
+    - name: Download sicstus-prolog
       shell: PowerShell
       run: |
-        Install-Module -Force -Name 7Zip4Powershell -RequiredVersion 1.9.0
+        curl.exe -k -L "https://drive.google.com/uc?id=1SlRv3lbD5wpE-6sHa9BD2FaqcJbx11uz" --output sicstus-win.7z
+    
+    - name: Unzip sicstus-prolog
+      uses: edgarrc/action-7z@v1.0.4
+      with:
+        args: 7z e sicstus-win.7z -oC:\
 
-    - name: Install sicstus-prolog
+    - name: Check how sicstus-prolog was unzipped
       shell: PowerShell
       run: |
         cd C:\
-        curl.exe -k -L "https://drive.google.com/uc?id=1SlRv3lbD5wpE-6sHa9BD2FaqcJbx11uz" --output sicstus-win.7z
-        Expand-7Zip .\sicstus-win.7z C:\sicstus\
+        ls
+
+    - name: Add sicstus-prolog to PATH
+      shell: PowerShell
+      run: |
         echo "C:\sicstus\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
     - name: Test sicstus-prolog
