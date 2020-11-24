@@ -2,12 +2,12 @@ name: Test Windows
 
 on:
   push:
-    branches: [ master , dev ]
+    branches: [ master , dev , parallel-fix ]
   pull_request:
     branches: [ master, dev ]
 
 jobs:
-  build:
+  test:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
@@ -37,13 +37,3 @@ jobs:
     - name: Test
       shell: cmd
       run: make test
-
-    - name: Zip
-      shell: cmd
-      run: make zip
-
-    - name: Upload zip
-      uses: actions/upload-artifact@v2
-      with:
-        name: PLOG_TP1_RI_T2_Glaisher4.zip
-        path: PLOG_TP1_RI_T2_Glaisher4.zip
