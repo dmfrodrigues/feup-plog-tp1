@@ -30,6 +30,11 @@ jobs:
     - name: Test
       run: make test
 
+  zip:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+
     - name: Zip
       run: make zip
 
