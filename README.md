@@ -74,7 +74,7 @@ Under **Windows**, when using any console you are advised to use one of the foll
 
 Under **Windows**, the SICStus console does not render color.
 
-These are the situations where colors should be correctly rendered:
+These are the situations where colors should be correctly rendered (the Windows alternatives are under Microsoft Windows 10, the Linux alternatives are under Ubuntu 20.04.1 LTS):
 
 | Environment             | cmd                | Powershell         | VSCode cmd         | VSCode Powershell  | GNOME terminal     | Terminator         | XTerm              |
 |-------------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|
