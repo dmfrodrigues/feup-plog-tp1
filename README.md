@@ -300,7 +300,7 @@ It then goes on to check if the player successfully connected opposite sides of 
 
 Say that an autonomous player with level 0 evaluates the best move he can take, level 1 evaluates the best move he can take taking into consideration the best move his adversary can make, level 2 evaluates the best move he can take taking into consideration the best move his adversary can make and his own best move in the next round, and so on.
 
-All programs that use `choose_move` must have defined dynamic predicate `base_directory`, since `choose_move` launches multiple processes and as such it must know the repository's base directory so it can import files correctly. `base_directory` is most usually initialized with
+`choose_move` was implemented using predicate `maplist_multi`, which uses `multiprocessing_create` to create new processes that run in parallel, in order to decrease running time. To use multiprocessing you should start your Prolog environment with argument `parallel` (e.g., `sicstus -l game.pl -- color parallel`), otherwise a regular `maplist` will be used. All programs that use `choose_move` should have defined dynamic predicate `base_directory`, since `choose_move` launches multiple processes and as such it must know the repository's base directory so it can import files correctly. `base_directory` is most usually initialized with
 
 ```prolog
 :-
