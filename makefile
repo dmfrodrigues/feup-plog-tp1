@@ -17,7 +17,7 @@ $(ZIPNAME).zip:
 	cd $(ZIPNAME) && zip ../$@ -r .
 	rm -rf $(ZIPNAME)
 
-test: test_samples test_game_over test_move test_has_valid_moves test_value test_valid_moves test_choose_move
+test: test_samples test_game_over test_move test_has_valid_moves test_value test_valid_moves test_choose_move test_maplist_multi
 
 test_samples:
 	$(PROLOG_CMD) -l sample-states/display_initial_state.pl
@@ -68,6 +68,9 @@ test_choose_move:
 	$(PROLOG_CMD) -l tests/test_choose_move/4.pl -- color
 	$(PROLOG_CMD) -l tests/test_choose_move/5.pl -- color
 	$(PROLOG_CMD) -l tests/test_choose_move/6.pl -- color
+
+test_maplist_multi:
+	$(PROLOG_CMD) -l tests/test_maplist_multi/1.pl -- color
 
 svg: img/initial_print_simple.svg img/intermediate_print_simple.svg img/final_print_simple.svg
 

@@ -1,5 +1,6 @@
 :-
-    reconsult('../everything.pl'),
+    reconsult('../../maplist_multi.pl'),
+    reconsult('../../utils.pl'),
     reconsult('print_me.pl'),
 
     current_working_directory(CWD),

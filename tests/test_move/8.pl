@@ -1,5 +1,7 @@
 :-
-    reconsult('../everything.pl'),
+    reconsult('../../move.pl'),
+    reconsult('../../sample-states/initial_state.pl'),
+    reconsult('../../print.pl'),
     initial_state(gamestate(Board,Turn)),
     move(Board, playermove(Turn, 7-3, [6], 2, 8-8), NewBoard),
     next_player(Turn, NewTurn),

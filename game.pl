@@ -2,7 +2,7 @@
    consult('print.pl'),
    consult('user_interface.pl'),
    consult('game_over.pl'),
-   consult('moves.pl'),
+   consult('move.pl'),
    consult('choose_move.pl'),
    consult('value.pl').
 

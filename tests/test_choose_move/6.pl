@@ -1,5 +1,5 @@
 :-
-    reconsult('../everything.pl'),
+    reconsult('../../choose_move.pl'),
     current_working_directory(CWD),
     BASE = CWD,
     assert(base_directory(BASE)),

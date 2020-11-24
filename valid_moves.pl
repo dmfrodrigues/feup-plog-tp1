@@ -1,5 +1,5 @@
 :-
-    reconsult('moves.pl').
+    reconsult('move.pl').
 
 /**
  * valid_moves(+GameState, +Player, -ListOfMoves)
