@@ -29,7 +29,7 @@ value(gamestate([L0, L1, L2, L3, L4, [P0|L5], [P1,P2|L6], [P0,P1,P2|L7], [P0,P1,
     value_line(GameState, L6, 6-2, V6),
     value_line(GameState, L7, 7-3, V7),
     value_line(GameState, L8, 8-4, V8),
-    Value is V0+V1+V2+V3+V4+V5+V6+V7+V8.
+    Value is V0+V1+V2+V3+V4+V5+V6+V7+V8, !.
 
 value_line(_, _, I-J, 0) :-            % End of line
     J > min(8, 4+I), !.
