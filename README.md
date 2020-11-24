@@ -67,14 +67,19 @@ swipl   -l game.pl            # Run with swipl, without color
 swipl   -l game.pl -- color   # Run with swipl, with color
 ```
 
-Under **Linux**, `sh` and `bash` should correctly present special characters; if the terminals are coloured, they should also correctly present colors.
-
 Under **Windows**, when using any console you are advised to use one of the following fonts, which have been confirmed to correctly render all characters:
 - Consolas
 - DejaVu Sans Mono (preferred)
 - Source Code Pro
 
-Under **Windows**, colors are correctly displayed in all situations, except at least on the SICStus console (where colors do not render but the rest is fine), and `sicstus` running on cmd/PowerShell (colors are rendered as unknown characters).
+Under **Windows**, the SICStus console does not render color.
+
+These are the situations where colors should be correctly rendered:
+
+| Environment             | cmd        | Powershell | VSCode cmd | VSCode Powershell | bash | sh |
+|-------------------------|------------|------------|------------|-------------------|------|----|
+| SICStus                 | ❌        | ❌         | ✔         | ✔                 | ✔   | ✔  |
+| SWI                     | ✔         | ✔          | ✔         | ✔                 | ✔   | ✔  |
 
 ## The game
 
@@ -308,6 +313,13 @@ Say that an autonomous player with level 0 evaluates the best move he can take, 
     BASE = CWD,
     assert(base_directory(BASE)).
 ```
+
+These are the situations under which multiprocessing currently works:
+
+| Environment             | Microsoft Windows 10 | Ubuntu 20.04 |
+|-------------------------|----------------------|--------------|
+| SICStus                 | ✔                   | ✔            |
+| SWI                     | ❌                  | ✔            |
 
 #### Classical approach
 
