@@ -25,6 +25,8 @@ play :-
  */
 play_game(P1-P2, Level, N):-
     initial(InitialState),
+    (retract(round_dynamic(_)); true),
+    (retract(gamestate_dynamic(_)); true),
     assertz(round_dynamic(1)),
     assertz(gamestate_dynamic(InitialState)),
     !,
