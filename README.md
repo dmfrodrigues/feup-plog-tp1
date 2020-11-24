@@ -298,6 +298,15 @@ It then goes on to check if the player successfully connected opposite sides of 
 
 Say that an autonomous player with level 0 evaluates the best move he can take, level 1 evaluates the best move he can take taking into consideration the best move his adversary can make, level 2 evaluates the best move he can take taking into consideration the best move his adversary can make and his own best move in the next round, and so on.
 
+All programs that use `choose_move` must have defined dynamic predicate `base_directory`, since `choose_move` launches multiple processes and as such it must know the repository's base directory so it can import files correctly. `base_directory` is most usually initialized with
+
+```prolog
+:-
+    current_working_directory(CWD),
+    BASE = CWD,
+    assert(base_directory(BASE)).
+```
+
 #### Classical approach
 
 In most games, a move is simply just that: moving one piece according to the game's rules. This usually implies the number of possible moves is approximately equal to the number of player pieces in the board (estimated from the board size) times the number of possible moves for a piece (usually restricted by game rules).

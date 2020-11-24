@@ -4,7 +4,7 @@ CLASS=T2
 GROUP=Glaisher4
 ZIPNAME=PLOG_TP1_RI_$(CLASS)_$(GROUP)
 
-PROLOG_CMD=$(PROLOG) -f --noinfo -q --goal 'halt(1)'
+PROLOG_CMD=$(PROLOG) -f --noinfo -q
 
 all:
 
