@@ -1,5 +1,7 @@
 :-
-    use_module(library(lists)),
+    use_module(library(lists)).
+
+:-
     reconsult('utils.pl').
 
 /**

@@ -6,12 +6,13 @@ get_value_recursive(InitialBoard,InitialTurn,N) :-
     get_value_recursive(InitialBoard, InitialTurn, N1).
 
 :-
-    reconsult('../everything.pl'),
+    reconsult('../../value.pl'),
+    reconsult('../../sample-states/initial_state.pl'),
     initial_state(gamestate(InitialBoard,InitialTurn)),
     statistics(walltime, _),
     get_value_recursive(InitialBoard,InitialTurn,10000),
     statistics(walltime, [_|[ExecutionTime]]),
     TimeSeconds is ExecutionTime/1000,
-    write(TimeSeconds),
+    write(TimeSeconds),nl,
     halt(0).
 :-  halt(1).

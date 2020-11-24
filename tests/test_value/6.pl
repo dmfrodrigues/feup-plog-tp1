@@ -1,5 +1,5 @@
 :-
-    reconsult('../everything.pl'),
+    reconsult('../../value.pl'),
     Player = 1,
     Board = [
         [0,-1,0,0,1,nan,nan,nan,nan],

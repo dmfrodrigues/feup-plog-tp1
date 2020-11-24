@@ -8,11 +8,11 @@ isColor :- current_prolog_flag(argv, Arguments), member(color, Arguments).
  * 
  * Prints cell in Pos=(I, J) position. 
  */
-print_cell(Board, I-J) :- board(Board, I-J, 0), !, format('\x2502\   ', []).
+print_cell(Board, I-J) :- board(Board, I-J, 0), !, format('\x2502\~|~t~3+', []).
 print_cell(Board, I-J) :- board(Board, I-J, V),
 	((V > 0) ->
-		(isColor -> format('\x2502\~|\e[41m\e[97m~t ~d~t~13+\e[0m', [V]) ; format('~|\x2502\~t ~d~t~4+', [V]));
-		(isColor -> format('\x2502\~|\e[43m\e[30m~t~d~t~13+\e[0m' , [V]) ; format('~|\x2502\~t~d~t~4+' ,  [V]))
+		(isColor -> format('\x2502\\e[41m\e[97m~|~t ~d~t~3+\e[0m', [V]) ; format('\x2502\~|~t ~d~t~3+', [V]));
+		(isColor -> format('\x2502\\e[43m\e[30m~|~t~d~t~3+\e[0m' , [V]) ; format('\x2502\~|~t~d~t~3+' ,  [V]))
 	).
 
 /**

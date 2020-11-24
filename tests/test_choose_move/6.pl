@@ -1,5 +1,9 @@
 :-
-    reconsult('../everything.pl'),
+    reconsult('../../choose_move.pl'),
+    current_working_directory(CWD),
+    BASE = CWD,
+    assert(base_directory(BASE)),
+
     InitialTurn = 2,
     InitialBoard = [
         [  0, -1,  0,  0,  1,nan,nan,nan,nan],

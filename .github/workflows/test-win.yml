@@ -1,0 +1,39 @@
+name: Test Windows
+
+on:
+  push:
+    branches: [ master , dev , parallel-fix ]
+  pull_request:
+    branches: [ master, dev ]
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install swi-prolog
+      shell: PowerShell
+      run: |
+        cd C:\
+        curl.exe -k -L "https://drive.google.com/uc?id=1bYQPiHN3_T8DoWYsdpeK0NsKrHzlCxcJ" --output swipl.zip
+        Expand-Archive -Force .\swipl.zip C:\
+        echo "C:\swipl\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+    - name: Test swi-prolog
+      shell: cmd
+      run: |
+        swipl -g "write(hello),nl,halt"
+
+    - name: Checkout submodules
+      shell: cmd
+      run: |
+        # If your submodules are configured to use SSH instead of HTTPS please uncomment the following line
+        # git config --global url."https://github.com/".insteadOf "git@github.com:"
+        auth_header="$(git config --local --get http.https://github.com/.extraheader)"
+        git submodule sync --recursive
+        git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
+
+    - name: Test
+      shell: cmd
+      run: make test

@@ -1,8 +1,9 @@
-:- reconsult('board.pl').
+:-
+    use_module(library(lists)).
 
-:- use_module(library(lists)).
-:- reconsult('utils.pl').
-
+:- 
+    reconsult('utils.pl'),
+    reconsult('board.pl').
 
 /**
  * board_create(-Board)

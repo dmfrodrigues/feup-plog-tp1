@@ -3,6 +3,8 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ![Test](https://github.com/dmfrodrigues/feup-plog-tp1/workflows/Test/badge.svg)
+![Test Windows](https://github.com/dmfrodrigues/feup-plog-tp1/workflows/Test%20Windows/badge.svg)
+![Zip](https://github.com/dmfrodrigues/feup-plog-tp1/workflows/Zip/badge.svg)
 
 - **Project name:** Glaisher
 - **Short description:** Board game implemented in PROLOG
@@ -65,14 +67,19 @@ swipl   -l game.pl            # Run with swipl, without color
 swipl   -l game.pl -- color   # Run with swipl, with color
 ```
 
-Under **Linux**, `sh` and `bash` should correctly present special characters; if the terminals are coloured, they should also correctly present colors.
-
 Under **Windows**, when using any console you are advised to use one of the following fonts, which have been confirmed to correctly render all characters:
 - Consolas
 - DejaVu Sans Mono (preferred)
 - Source Code Pro
 
-Under **Windows**, colors are correctly displayed in all situations, except at least on the SICStus console (where colors do not render but the rest is fine), and `sicstus` running on cmd/PowerShell (colors are rendered as unknown characters).
+Under **Windows**, the SICStus console does not render color.
+
+These are the situations where colors should be correctly rendered (the Windows alternatives are under Microsoft Windows 10, the Linux alternatives are under Ubuntu 20.04.1 LTS):
+
+| Environment             | cmd                | Powershell         | VSCode cmd         | VSCode Powershell  | GNOME terminal     | Terminator         | XTerm              |
+|-------------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|
+| SICStus                 | :x:                | :x:                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| SWI                     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 ## The game
 
@@ -309,6 +316,22 @@ If the total value is positive, player 1 has the advantage, if negative, player 
 ### Computer move
 
 Say that an autonomous player with level 0 evaluates the best move he can take, level 1 evaluates the best move he can take taking into consideration the best move his adversary can make, level 2 evaluates the best move he can take taking into consideration the best move his adversary can make and his own best move in the next round, and so on.
+
+`choose_move` was implemented using predicate `maplist_multi`, which uses `multiprocessing_create` to create new processes that run in parallel, in order to decrease running time. To use multiprocessing you should start your Prolog environment with argument `parallel` (e.g., `sicstus -l game.pl -- color parallel`), otherwise a regular `maplist` will be used. All programs that use `choose_move` should have defined dynamic predicate `base_directory`, since `choose_move` launches multiple processes and as such it must know the repository's base directory so it can import files correctly. `base_directory` is most usually initialized with
+
+```prolog
+:-
+    current_working_directory(CWD),
+    BASE = CWD,
+    assert(base_directory(BASE)).
+```
+
+These are the situations under which multiprocessing currently works:
+
+| Environment             | Microsoft Windows 10 | Ubuntu 20.04       |
+|-------------------------|----------------------|--------------------|
+| SICStus                 | :heavy_check_mark:   | :heavy_check_mark: |
+| SWI                     | :x:                  | :heavy_check_mark: |
 
 #### Classical approach
 

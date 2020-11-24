@@ -4,7 +4,13 @@ CLASS=T2
 GROUP=Glaisher4
 ZIPNAME=PLOG_TP1_RI_$(CLASS)_$(GROUP)
 
-PROLOG_CMD=$(PROLOG) -f --noinfo -q --goal 'halt(1)'
+PROLOG_CMD=$(PROLOG) -f --noinfo -q
+
+PARALLEL_CMD=
+ifeq ($(PARALLEL),)
+else
+	PARALLEL_CMD=parallel
+endif
 
 all:
 
@@ -17,7 +23,7 @@ $(ZIPNAME).zip:
 	cd $(ZIPNAME) && zip ../$@ -r .
 	rm -rf $(ZIPNAME)
 
-test: test_samples test_game_over test_move test_has_valid_moves test_value test_valid_moves test_choose_move
+test: test_samples test_game_over test_move test_has_valid_moves test_value test_valid_moves test_maplist_multi test_choose_move
 
 test_samples:
 	$(PROLOG_CMD) -l sample-states/display_initial_state.pl
@@ -62,12 +68,15 @@ test_value:
 	$(PROLOG_CMD) -l tests/test_value/6.pl -- color
 
 test_choose_move:
-	$(PROLOG_CMD) -l tests/test_choose_move/1.pl -- color 
-	$(PROLOG_CMD) -l tests/test_choose_move/2.pl -- color
-	$(PROLOG_CMD) -l tests/test_choose_move/3.pl -- color
-	$(PROLOG_CMD) -l tests/test_choose_move/4.pl -- color
-	$(PROLOG_CMD) -l tests/test_choose_move/5.pl -- color
-	$(PROLOG_CMD) -l tests/test_choose_move/6.pl -- color
+	$(PROLOG_CMD) -l tests/test_choose_move/1.pl -- color $(PARALLEL_CMD)
+	$(PROLOG_CMD) -l tests/test_choose_move/2.pl -- color $(PARALLEL_CMD)
+	$(PROLOG_CMD) -l tests/test_choose_move/3.pl -- color $(PARALLEL_CMD)
+	$(PROLOG_CMD) -l tests/test_choose_move/4.pl -- color $(PARALLEL_CMD)
+	$(PROLOG_CMD) -l tests/test_choose_move/5.pl -- color $(PARALLEL_CMD)
+	$(PROLOG_CMD) -l tests/test_choose_move/6.pl -- color $(PARALLEL_CMD)
+
+test_maplist_multi:
+	$(PROLOG_CMD) -l tests/test_maplist_multi/1.pl -- color $(PARALLEL_CMD)
 
 svg: img/initial_print_simple.svg img/intermediate_print_simple.svg img/final_print_simple.svg
 

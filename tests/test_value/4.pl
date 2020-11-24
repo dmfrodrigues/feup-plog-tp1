@@ -1,5 +1,6 @@
 :-
-    reconsult('../everything.pl'),
+    reconsult('../../value.pl'),
+    reconsult('../../sample-states/initial_state.pl'),
     initial_state(gamestate(InitialBoard,_)),
     move(InitialBoard, playermove(1, 7-3, [6], 2, 8-8), NewBoard),
     GameState = gamestate(NewBoard, 2),
