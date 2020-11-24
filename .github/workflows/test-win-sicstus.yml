@@ -15,7 +15,7 @@ jobs:
     - name: Install 7Zip4Powershell
       shell: PowerShell
       run: |
-        Install-Module -Name 7Zip4Powershell -RequiredVersion 1.9.0
+        Install-Module -Force -Name 7Zip4Powershell -RequiredVersion 1.9.0
 
     - name: Install sicstus-prolog
       shell: PowerShell
