@@ -76,10 +76,10 @@ Under **Windows**, the SICStus console does not render color.
 
 These are the situations where colors should be correctly rendered:
 
-| Environment             | cmd        | Powershell | VSCode cmd | VSCode Powershell | bash | sh |
-|-------------------------|------------|------------|------------|-------------------|------|----|
-| SICStus                 | ❌        | ❌         | ✔         | ✔                 | ✔   | ✔  |
-| SWI                     | ✔         | ✔          | ✔         | ✔                 | ✔   | ✔  |
+| Environment             | cmd                | Powershell         | VSCode cmd         | VSCode Powershell  | GNOME terminal     | Terminator         | XTerm              |
+|-------------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|--------------------|
+| SICStus                 | :x:                | :x:                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| SWI                     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 ## The game
 
@@ -316,10 +316,10 @@ Say that an autonomous player with level 0 evaluates the best move he can take, 
 
 These are the situations under which multiprocessing currently works:
 
-| Environment             | Microsoft Windows 10 | Ubuntu 20.04 |
-|-------------------------|----------------------|--------------|
-| SICStus                 | ✔                   | ✔            |
-| SWI                     | ❌                  | ✔            |
+| Environment             | Microsoft Windows 10 | Ubuntu 20.04       |
+|-------------------------|----------------------|--------------------|
+| SICStus                 | :heavy_check_mark:   | :heavy_check_mark: |
+| SWI                     | :x:                  | :heavy_check_mark: |
 
 #### Classical approach
 
