@@ -16,7 +16,12 @@ jobs:
       shell: cmd
       run: |
         curl.exe -k -L "https://drive.google.com/uc?id=1SlRv3lbD5wpE-6sHa9BD2FaqcJbx11uz" --output sicstus-win.7z
+        curl.exe -k -L "https://drive.google.com/uc?id=1SlRv3lbD5wpE-6sHa9BD2FaqcJbx11uz" --output sicstus-win.7z
         dir
+
+    - name: Unzip sicstus-prolog
+      shell: cmd
+      run: |
         7z x .\sicstus-win.7z -oC:\sicstus\
 
     - name: Check how sicstus-prolog was unzipped
