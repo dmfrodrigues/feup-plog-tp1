@@ -23,6 +23,7 @@ jobs:
     - name: Test swi-prolog
       shell: cmd
       run: |
+        dir C:\swipl\bin
         swipl -g "write(hello),nl,halt"
 
     - name: Checkout submodules
