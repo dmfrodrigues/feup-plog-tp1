@@ -7,6 +7,11 @@
  * Evaluates the GameState for the Player. If Value is positive, player 1 has the advantage,
  * if Value is negative, player 2 has the advantage.
  */
+value(GameState, Player, Value) :-
+    ground(Value), !,
+    value(GameState, Player, V),
+    Value =:= V.
+
 value(gamestate(Board, _), 1, 999999) :-
     game_over(gamestate(Board, _), 1), !.
 
