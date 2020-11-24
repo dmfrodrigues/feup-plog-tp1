@@ -17,7 +17,7 @@ maplist_multi(Includes, Nthreads, Predicate, L1, L2, L3) :-
             Includes,
             maplist(Predicate, L1left, L2left, Ret),
             write(Ret),
-            format(".~n", [])
+            format('.~n', [])
         ),
         Out
     ),
