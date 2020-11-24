@@ -18,13 +18,11 @@ jobs:
         cd C:\
         curl.exe -k -L "https://drive.google.com/uc?id=1bYQPiHN3_T8DoWYsdpeK0NsKrHzlCxcJ" --output swipl.zip
         Expand-Archive -Force .\swipl.zip C:\
-        echo "C:\swipl\bin" >> $GITHUB_PATH
 
     - name: Test swi-prolog
       shell: cmd
       run: |
-        dir C:\swipl\bin
-        swipl -g "write(hello),nl,halt"
+        C:\swipl\bin\swipl.exe -g "write(hello),nl,halt"
 
     - name: Checkout submodules
       shell: cmd
@@ -37,7 +35,7 @@ jobs:
 
     - name: Test
       shell: cmd
-      run: make test
+      run: make test PROLOG=C:\swipl\bin\swipl.exe
 
     - name: Zip
       shell: cmd
