@@ -56,10 +56,9 @@ has_valid_moves(Board, Player) :-
 game_over(gamestate(Board, Turn), 1) :- game_over_(gamestate(Board, Turn), 1).
 game_over(gamestate(Board, Turn), 2) :- game_over_(gamestate(Board, Turn), 2).
 game_over_(gamestate(Board, _), Winner) :- next_player(Winner, P), \+(has_valid_moves(Board, P)).
-game_over_(gamestate(Board, Turn), Winner) :-
-    game_over_top(gamestate(Board, Turn), Winner);
-    game_over_left(gamestate(Board, Turn), Winner);
-    game_over_diagonal(gamestate(Board, Turn), Winner).
+game_over_(gamestate(Board, Turn), Winner) :- game_over_top(gamestate(Board, Turn), Winner).
+game_over_(gamestate(Board, Turn), Winner) :- game_over_left(gamestate(Board, Turn), Winner).
+game_over_(gamestate(Board, Turn), Winner) :- game_over_diagonal(gamestate(Board, Turn), Winner).
 
 game_over_top(gamestate(Board, _), Winner) :- 
     ground(Board),

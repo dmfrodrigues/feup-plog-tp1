@@ -10,6 +10,11 @@
       gamestate_dynamic/1,
       round_dynamic/1.
 
+:-
+    current_working_directory(CWD),
+    BASE = CWD,
+    assert(base_directory(BASE)).
+
 /**
  * play()
  * 
@@ -30,8 +35,7 @@ play_game(P1-P2, Level, N):-
     !,
     play_loop(P1-P2, Level, N),
     retract(round_dynamic(_)),
-    retract(gamestate_dynamic(_))
-    .
+    retract(gamestate_dynamic(_)).
 
 human_turn_action(gamestate(Board, Turn), NewGameState) :-
     display_game(gamestate(Board, Turn)),
