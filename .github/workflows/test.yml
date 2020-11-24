@@ -52,17 +52,3 @@ jobs:
 
     - name: Test
       run: make test PARALLEL=1
-
-  zip:
-    runs-on: ubuntu-20.04
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Zip
-      run: make zip
-
-    - name: Upload zip
-      uses: actions/upload-artifact@v2
-      with:
-        name: PLOG_TP1_RI_T2_Glaisher4.zip
-        path: PLOG_TP1_RI_T2_Glaisher4.zip
