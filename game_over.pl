@@ -2,7 +2,7 @@
     use_module(library(lists)).
 :-
     reconsult('board.pl'),
-    reconsult('move.pl'). 
+    reconsult('move.pl').
 
 /**
  * dfs(+Board, +Player, +Start, +End)

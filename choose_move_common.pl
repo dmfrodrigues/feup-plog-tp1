@@ -1,8 +1,5 @@
 :-
     reconsult('utils.pl'),
-    reconsult('valid_moves.pl').
-
-:-
     reconsult('value.pl').
 
 /**

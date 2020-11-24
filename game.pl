@@ -1,14 +1,14 @@
-:- consult('board_create.pl'),
-   consult('print.pl'),
-   consult('user_interface.pl'),
-   consult('game_over.pl'),
-   consult('move.pl'),
-   consult('choose_move.pl'),
-   consult('value.pl').
+:-
+    consult('board_create.pl'),
+    consult('print.pl'),
+    consult('user_interface.pl'),
+    consult('game_over.pl'),
+    consult('move.pl'),
+    consult('choose_move.pl').
 
 :- dynamic
-      gamestate_dynamic/1,
-      round_dynamic/1.
+    gamestate_dynamic/1,
+    round_dynamic/1.
 
 :-
     current_working_directory(CWD),
