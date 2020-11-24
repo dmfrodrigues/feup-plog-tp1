@@ -20,6 +20,11 @@ jobs:
         Expand-Archive -Force .\swipl.zip C:\
         echo "C:\swipl\bin" >> $GITHUB_PATH
 
+    - name: Test swi-prolog
+      shell: cmd
+      run: |
+        swipl -g "write(hello),nl,halt"
+
     - name: Checkout submodules
       shell: cmd
       run: |
