@@ -1,0 +1,107 @@
+<?xml version='1.0' standalone='yes'?>
+<!DOCTYPE svg>
+<svg version='1.0' xmlns='http://www.w3.org/2000/svg' width='720px' height='506px'>
+  <style>
+    text      { font-size: 15px; font-weight: bold; }
+    text.stack{ font-size: 18px; font-weight: bold; }
+    tspan.var{ font-style: italic; }
+    ellipse.red    {fill: red   ; stroke: black;} text.red    {fill: white;}
+    ellipse.yellow {fill: yellow; stroke: black;} text.yellow {fill: black;}
+    path.cell      {fill: white; stroke: black;}
+  </style>
+  <g transform="scale(1.5, 1.5)">
+    <g transform="scale(0.86602540378,1) translate(75, 55)">
+      <path class="cell" transform="translate(080,000)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(120,000)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(160,000)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(200,000)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(240,000)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(060,030)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(100,030)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(140,030)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(180,030)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(220,030)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(260,030)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(040,060)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(080,060)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(120,060)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(160,060)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(200,060)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(240,060)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(280,060)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(020,090)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(060,090)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(100,090)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(140,090)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(180,090)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(220,090)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(260,090)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(300,090)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(000,120)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(040,120)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(080,120)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(120,120)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(160,120)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(200,120)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(240,120)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(280,120)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(320,120)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(020,150)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(060,150)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(100,150)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(140,150)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(180,150)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(220,150)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(260,150)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(300,150)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(040,180)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(080,180)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(120,180)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(160,180)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(200,180)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(240,180)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(280,180)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(060,210)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(100,210)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(140,210)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(180,210)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(220,210)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(260,210)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(080,240)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(120,240)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(160,240)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(200,240)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <path class="cell" transform="translate(240,240)" d="M 0 0 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+    
+      <g transform="translate(140,020)"><ellipse rx="17" ry="14.45" class="red"   /><g transform="translate(0, 6) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle" class="red"   >6</text></g></g>
+      <g transform="translate(080,230)"><ellipse rx="17" ry="14.45" class="red"   /><g transform="translate(0, 6) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle" class="red"   >6</text></g></g>
+      <g transform="translate(320,170)"><ellipse rx="17" ry="14.45" class="red"   /><g transform="translate(0, 6) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle" class="red"   >6</text></g></g>
+      <g transform="translate(040,110)"><ellipse rx="17" ry="14.45" class="yellow"/><g transform="translate(0, 6) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle" class="yellow">6</text></g></g>
+      <g transform="translate(220,260)"><ellipse rx="17" ry="14.45" class="yellow"/><g transform="translate(0, 6) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle" class="yellow">6</text></g></g>
+      <g transform="translate(280,050)"><ellipse rx="17" ry="14.45" class="yellow"/><g transform="translate(0, 6) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle" class="yellow">6</text></g></g>
+      
+      <g transform="translate(-50, 0)">
+        <g transform="translate(0, 026) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle"><tspan class="var">i</tspan> = 0</text></g><path d="M 025 020 l 100 0 l -5 -5 l 5 5 l -5 5" stroke="black" fill="transparent"/>
+        <g transform="translate(0, 056) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle"><tspan class="var">i</tspan> = 1</text></g><path d="M 025 050 l 080 0 l -5 -5 l 5 5 l -5 5" stroke="black" fill="transparent"/>
+        <g transform="translate(0, 086) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle"><tspan class="var">i</tspan> = 2</text></g><path d="M 025 080 l 060 0 l -5 -5 l 5 5 l -5 5" stroke="black" fill="transparent"/>
+        <g transform="translate(0, 116) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle"><tspan class="var">i</tspan> = 3</text></g><path d="M 025 110 l 040 0 l -5 -5 l 5 5 l -5 5" stroke="black" fill="transparent"/>
+        <g transform="translate(0, 146) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle"><tspan class="var">i</tspan> = 4</text></g><path d="M 025 140 l 020 0 l -5 -5 l 5 5 l -5 5" stroke="black" fill="transparent"/>
+        <g transform="translate(0, 176) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle"><tspan class="var">i</tspan> = 5</text></g><path d="M 025 170 l 040 0 l -5 -5 l 5 5 l -5 5" stroke="black" fill="transparent"/>
+        <g transform="translate(0, 206) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle"><tspan class="var">i</tspan> = 6</text></g><path d="M 025 200 l 060 0 l -5 -5 l 5 5 l -5 5" stroke="black" fill="transparent"/>
+        <g transform="translate(0, 236) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle"><tspan class="var">i</tspan> = 7</text></g><path d="M 025 230 l 080 0 l -5 -5 l 5 5 l -5 5" stroke="black" fill="transparent"/>
+        <g transform="translate(0, 266) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle"><tspan class="var">i</tspan> = 8</text></g><path d="M 025 260 l 100 0 l -5 -5 l 5 5 l -5 5" stroke="black" fill="transparent"/>
+      </g>
+      <g transform="translate(136, -40)">
+        <g transform="translate(000, 0) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle"><tspan class="var">j</tspan> = 0</text></g><path d="M 000 6 l -020 030 l 0 -10 l 0 10 l 10 -5 l" stroke="black" fill="transparent"/>
+        <g transform="translate(040, 0) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle"><tspan class="var">j</tspan> = 1</text></g><path d="M 040 6 l -020 030 l 0 -10 l 0 10 l 10 -5 l" stroke="black" fill="transparent"/>
+        <g transform="translate(080, 0) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle"><tspan class="var">j</tspan> = 2</text></g><path d="M 080 6 l -020 030 l 0 -10 l 0 10 l 10 -5 l" stroke="black" fill="transparent"/>
+        <g transform="translate(120, 0) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle"><tspan class="var">j</tspan> = 3</text></g><path d="M 120 6 l -020 030 l 0 -10 l 0 10 l 10 -5 l" stroke="black" fill="transparent"/>
+        <g transform="translate(160, 0) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle"><tspan class="var">j</tspan> = 4</text></g><path d="M 160 6 l -020 030 l 0 -10 l 0 10 l 10 -5 l" stroke="black" fill="transparent"/>
+        <g transform="translate(200, 0) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle"><tspan class="var">j</tspan> = 5</text></g><path d="M 200 6 l -040 060 l 0 -10 l 0 10 l 10 -5 l" stroke="black" fill="transparent"/>
+        <g transform="translate(240, 0) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle"><tspan class="var">j</tspan> = 6</text></g><path d="M 240 6 l -060 090 l 0 -10 l 0 10 l 10 -5 l" stroke="black" fill="transparent"/>
+        <g transform="translate(280, 0) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle"><tspan class="var">j</tspan> = 7</text></g><path d="M 280 6 l -080 120 l 0 -10 l 0 10 l 10 -5 l" stroke="black" fill="transparent"/>
+        <g transform="translate(320, 0) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle"><tspan class="var">j</tspan> = 8</text></g><path d="M 320 6 l -100 150 l 0 -10 l 0 10 l 10 -5 l" stroke="black" fill="transparent"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -126,7 +126,7 @@ There are 75 double-sided pieces painted red on one side and yellow on the other
 Each player places three 6-stacks (stacks of 6 pieces) of his/her color (all pieces with his/her color facing up) on the board as per the following image.
 The rest of the pieces are kept in a shared reserve.
 
-<img src="img/initial.jpg" width="300">
+<img src="img/preparation.svg" width="300">
 
 ### Game play
 
@@ -147,30 +147,7 @@ Firstly, some brief notes on how to work with this game.
 
 The board is internally represented as a list of lists that can be queried using predicate `board(Board, I-J, N)`, meaning in position `(I, J)` there is a stack of `N` pieces, with `N` positive if the stack is made of red pieces, and negative if it is made of yellow pieces.
 
-```txt
-                    j=0 j=1 j=2 j=3 j=4 j=5 j=6 j=7 j=8
-                     /   /   /   /   /   /   /   /   /
-                                        /   /   /   /
-                 / \ / \ / \ / \ / \   /   /   /   /
-i=0 ----------> |   | 6 |   |   |   |     /   /   /
-               / \ / \ / \ / \ / \ / \   /   /   /
-i=1 --------> |   |   |   |   |   |-6 |     /   /
-             / \ / \ / \ / \ / \ / \ / \   /   /
-i=2 ------> |   |   |   |   |   |   |   |     /
-           / \ / \ / \ / \ / \ / \ / \ / \   /
-i=3 ----> |-6 |   |   |   |   |   |   |   |  
-         / \ / \ / \ / \ / \ / \ / \ / \ / \ 
-i=4 --> |   |   |   |   |   |   |   |   |   |
-         \ / \ / \ / \ / \ / \ / \ / \ / \ / 
-i=5 ----> |   |   |   |   |   |   |   | 6 |
-           \ / \ / \ / \ / \ / \ / \ / \ /
-i=6 ------> |   |   |   |   |   |   |   |
-             \ / \ / \ / \ / \ / \ / \ /
-i=7 --------> | 6 |   |   |   |   |   |
-               \ / \ / \ / \ / \ / \ /
-i=8 ----------> |   |   |   |-6 |   |
-                 \ / \ / \ / \ / \ /
-```
+<img src="img/gamestate-representation.svg" width="460">
 
 The cells adjacent to `(I, J)` are:
 - `(I-1, J)` (below left)
@@ -296,15 +273,7 @@ A move `playermove(Player, Pos, Substacks, Direction, NewPos)` is valid iff:
 
 Directions:
 
-```
-      3     2      
-       ╲   ╱       
-        ╱ ╲        
- 4 <── │ # │ ──> 1 
-        ╲ ╱        
-       ╱   ╲       
-      5     6
-```
+<img src="img/directions.svg" width="200">
 
 A player can perform a move by calling `move(+GameState, ?Playermove, -NewGameState)`, which returns the new game state if the move is valid, or fails if the move is not valid.
 

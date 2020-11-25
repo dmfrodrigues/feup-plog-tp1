@@ -1,0 +1,22 @@
+<?xml version='1.0' standalone='yes'?>
+<!DOCTYPE svg>
+<svg version='1.0' xmlns='http://www.w3.org/2000/svg' width='210px' height='220px'>
+  <style>
+    text{ font-size: 18px; font-weight: bold; }
+    ellipse.red    {fill: red   ; stroke: black;} text.red    {fill: white;}
+    ellipse.yellow {fill: yellow; stroke: black;} text.yellow {fill: black;}
+    path.cell      {fill: white; stroke: black;}
+  </style>
+  <g transform="translate(80, 110) scale(1.5, 1.5)">
+    <g transform="scale(0.86602540378,1)">
+      <path class="cell" d="M 0 -20 m 20 0 l 20 10 l 0 20 l -20 10 l -20 -10 l 0 -20 Z"/>
+      <g transform="translate(20,0)"><ellipse rx="17" ry="14.45" class="red"   /><g transform="translate(0, 6) scale(1.15470053838, 1)"><text x='0' y='0' text-anchor="middle" class="red"   >6</text></g></g>
+      <g transform="translate(+092,000) scale(1.15470053838, 1)"><text x='0' y='6' text-anchor="middle">1</text></g><path d="M +45 000 l +035 +000 l -5 -05 l +5 +05 l -05 +05 l" stroke="black" fill="transparent"/>
+      <g transform="translate(+060,-60) scale(1.15470053838, 1)"><text x='0' y='6' text-anchor="middle">2</text></g><path d="M +35 -20 l +018 -027 l +0 +10 l +0 -10 l -10 +05 l" stroke="black" fill="transparent"/>
+      <g transform="translate(-020,-60) scale(1.15470053838, 1)"><text x='0' y='6' text-anchor="middle">3</text></g><path d="M +05 -20 l -018 -027 l +0 +10 l +0 -10 l +10 +05 l" stroke="black" fill="transparent"/>
+      <g transform="translate(-052,000) scale(1.15470053838, 1)"><text x='0' y='6' text-anchor="middle">4</text></g><path d="M -05 000 l -035 +000 l +5 -05 l -5 +05 l +05 +05 l" stroke="black" fill="transparent"/>
+      <g transform="translate(-020,+60) scale(1.15470053838, 1)"><text x='0' y='6' text-anchor="middle">5</text></g><path d="M +05 +20 l -018 +027 l +0 -10 l +0 +10 l +10 -05 l" stroke="black" fill="transparent"/>
+      <g transform="translate(+060,+60) scale(1.15470053838, 1)"><text x='0' y='6' text-anchor="middle">6</text></g><path d="M +35 +20 l +018 +027 l +0 -10 l +0 +10 l -10 -05 l" stroke="black" fill="transparent"/>
+    </g>
+  </g>
+</svg>
