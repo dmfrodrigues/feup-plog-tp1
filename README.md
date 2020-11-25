@@ -20,7 +20,14 @@
 
 ## License <!-- omit in toc -->
 
-<!-- TODO -->
+© 2020 Diogo Rodrigues, Breno Pimentel
+
+All files are licensed under GNU General Public License v3, to the exception of:
+- submodules, which are subject to specific licenses
+
+Based the homonymous game by Nestor Romeral Andres and Ken Shoda, publicly available through nestorgames.  
+We lay claim only over the software; this software cannot be used for commercial purposes.  
+Made available under [GNU General Public License v3](LICENSE), copyrighted material used under *fair use for education*.
 
 ## Index <!-- omit in toc -->
 
