@@ -7,7 +7,8 @@
  * 
  * Gets value of board after performing Move, and returns a value-move pair.
  *
- * To be used in best_N_moves.
+ * To be used in best_N_moves. If it is player 1, V is the symmetric of the actual value,
+ * because it is to be sorted in descending order, but keysort sorts in ascending order.
  */
 get_move_value_pair(gamestate(Board, Player), Move, V-Move) :-
     move(Board, Move, NewBoard),
@@ -56,36 +57,14 @@ best_N_moves(gamestate(Board, Turn), ListOfMoves, N, ListOfBestMoves) :-
  * 
  * Choose best move from list.
  */
-best_move(gamestate(Board, Turn), ListOfMoves, Move, Value) :-
-    best_move_(gamestate(Board, Turn), ListOfMoves, Move, Value).
-
-/**
- * best_move_(+GameState, +ListOfMoves, -Move, -Value)
- * 
- * Get best move from list, where best move so far is Move, with value Value
- */
-best_move_(gamestate(Board, Turn), [X], X, V) :-
-    !,
-    move(Board, X, NewBoard),
-    next_player(Turn, Turn1),
-    value(gamestate(NewBoard, Turn1), Turn, V).
-best_move_(gamestate(Board, Turn), [X1|ListOfMoves], X, V) :-
-    % To the right
-    best_move_(gamestate(Board, Turn), ListOfMoves, X2, V2),
-    % Current element
-    best_move_(gamestate(Board, Turn), [X1], X1, V1),
-    % Evaluate
-    (
-        (Turn =:= 1,
-            (V2 > V1 ->
-                (X = X2, V is V2) ;
-                (X = X1, V is V1)
-            )
-        );
-        (Turn =:= 2,
-            (V2 < V1 ->
-                (X = X2, V is V2) ;
-                (X = X1, V is V1)
-            )
-        )
-    ).
+best_move(gamestate(Board, Turn), ListOfMoves, Move, V) :-
+    length(ListOfMoves, L),
+    list_create(gamestate(Board,Turn), L, GameStates),
+    maplist(
+        get_move_value_pair,
+        GameStates,
+        ListOfMoves,
+        ListOfMovesPairs
+    ),
+    min_member(V1-Move, ListOfMovesPairs),
+    (Turn =:= 1 -> V is -V1 ; V is V1).
