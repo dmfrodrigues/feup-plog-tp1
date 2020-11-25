@@ -18,6 +18,10 @@
     - [Breno Accioly de Barros Pimentel](https://github.com/BrenoAccioly) (<up201800170@fe.up.pt>)
     - [Diogo Miguel Ferreira Rodrigues](https://github.com/dmfrodrigues) (<up201806429@fe.up.pt>)
 
+## License <!-- omit in toc -->
+
+<!-- TODO -->
+
 ## Index <!-- omit in toc -->
 
 - [Installing and executing](#installing-and-executing)
@@ -37,7 +41,8 @@
     - [Classical approach](#classical-approach)
     - [Practical approach](#practical-approach)
 - [Conclusions](#conclusions)
-  - [Parallel programming](#parallel-programming)
+  - [Features](#features)
+  - [Challenges](#challenges)
   - [Known issues](#known-issues)
 - [Bibliography](#bibliography)
 
@@ -373,13 +378,25 @@ These two predicates are used to implement `choose_move(+GameState, +Turn, +Leve
 
 ## Conclusions
 
+### Features
+
+#### Precompilation <!-- omit in toc -->
+
+<!-- TODO -->
+
+#### Parallel programming <!-- omit in toc -->
+
+SICStus Prolog does not support parallel programming out-of-the-box. However, as this project would very much benefit from parallel programming, we implemented a simple multiprocessing interface using the `process` library. This interface is kept under submodule [prolog-multiprocessing](https://github.com/dmfrodrigues/prolog-multiprocessing), kept public and as a separate GitHub repository for the benefit of future students that might benefit from this simple contribution.
+
+### Challenges
+
 This was a challenging project, due not only to the fact it uses Prolog which greatly differs from imperative programming, but also because the [nature of this game](#computer-move) made it very distinct from other board games since in this game a turn has two actions and not one as usual.
 
-Also, was noted a difference in float point precision in the Prolog systems used. Due to this difference in accuracy in SWI and SICStus Prolog, and with the objective to make both give the same results for the autonomous player results, it was necessary to add a small error in the evaluation board, so both systems would match.
+#### Floating-point arithmetics <!-- omit in toc -->
 
-### Parallel programming
+We initially set the objective of developing this project targeting not only the required Prolog environment SICStus, but also targeting a free Prolog environment (SWI). With that in mind, we developed the code in the most compatible way possible; it was thus with surprise that we were met with the fact that, running exactly the same code, the autonomous player was making different choices in SWI and SICStus. We did not formally investigate the cause of this issue, but we deduced it was caused by different precisions on calculating the value (which is a float), and that the two environments were accumulating errors in different directions such that the final answers were different.
 
-Prolog programs can very much benefit from parallel programming; however, SICStus Prolog does not support parallel programming out-of-the-box. Nevertheless, one can possibly implement some predicates to perform parallel programming by using the `process` library to create and manage processes.
+ Also, was noted a difference in float point precision in the Prolog systems used. Due to this difference in accuracy in SWI and SICStus Prolog, and with the objective to make both give the same results for the autonomous player results, it was necessary to add a small error in the evaluation board, so both systems would match.
 
 ### Known issues
 
