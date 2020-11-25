@@ -1,3 +1,6 @@
+% (C) 2020 Diogo Rodrigues, Breno Pimentel
+% Distributed under the terms of the GNU General Public License, version 3
+
 :-
     reconsult('../../valid_moves.pl'),
     reconsult('../../sample-states/initial_state.pl'),

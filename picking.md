@@ -1,3 +1,8 @@
+<!--
+(C) 2020 Diogo Rodrigues, Breno Pimentel
+Distributed under the terms of the GNU General Public License, version 3
+-->
+
 | No. | Name/ Image | Description | BP | DR | Why (DR) |
 |-----|-------------|-------------|-------|-------|-------------|
 |   1 | [Alliances](https://nestorgames.com/#alliances_detail)                      <img src="https://nestorgames.com/gameimages/alliances.jpg" width="100px"/>                                                                                         | Hexagon. Connect opposite sides with that color or an *allied* color, or fence that color.                                                                                                      |  ✖ | ± | Complicated                        |

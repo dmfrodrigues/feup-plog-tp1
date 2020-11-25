@@ -1,3 +1,6 @@
+% (C) 2020 Diogo Rodrigues, Breno Pimentel
+% Distributed under the terms of the GNU General Public License, version 3
+
 :-
     use_module(library(lists)),
     (current_predicate(list_to_set/2) -> true ; use_module(library(sets))).

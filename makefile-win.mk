@@ -1,3 +1,6 @@
+# (C) 2020 Diogo Rodrigues, Breno Pimentel
+# Distributed under the terms of the GNU General Public License, version 3
+
 # To test with SICStus PROLOG, run make test PROLOG=sicstus
 PROLOG=swipl
 CLASS=T2
