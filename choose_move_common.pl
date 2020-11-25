@@ -15,7 +15,7 @@ get_move_value_pair(gamestate(Board, Player), Move, V-Move) :-
     move(Board, Move, NewBoard),
     value(gamestate(NewBoard, Player), Player, V1),
     length(Substacks, SubLen),
-    V2 is V1 + (P + PI + PJ + + Dir + SubLen + NewPosI + NewPosJ)/10000000,
+    V2 is V1 + (P + PI + PJ + Dir + SubLen + NewPosI + NewPosJ)/10000000,
     (Player =:= 1 -> V is -V2 ; V is V2).
 
 /**
