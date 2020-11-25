@@ -29,10 +29,12 @@ best_N_moves(gamestate(Board, Turn), ListOfMoves, N, ListOfBestMoves) :-
     (L >= 512 -> 
         (
             base_directory(BASE),
-            atom_concat(BASE, 'choose_move_common.pl', CHOOSE_MOVE_COMMON),
+            % atom_concat(BASE, 'choose_move_common.pl', CHOOSE_MOVE_COMMON),
+            atom_concat(BASE, 'obj/choose_move_common.po', CHOOSE_MOVE_COMMON),
             maplist_multi(
                 (
-                    reconsult(CHOOSE_MOVE_COMMON),
+                    % reconsult(CHOOSE_MOVE_COMMON),
+                    load_files([CHOOSE_MOVE_COMMON]),
                     assert(base_directory(BASE))
                 ),
                 8,

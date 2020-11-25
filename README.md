@@ -52,7 +52,11 @@ To run this game you need a running Prolog environment, preferably one of the te
 
 If you cloned this repository from GitHub, you should additionally run `git submodule update --init --recursive` to clone all submodules as well.
 
-After obtaining this project (or cloning it), you're set!
+After obtaining this project (or cloning it), you need to compile some files. To do that, run
+```sh
+make                # Compile for SWI
+make PROLOG=sicstus # Compile for SICStus
+```
 
 ### Executing
 
