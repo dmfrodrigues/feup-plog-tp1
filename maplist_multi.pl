@@ -20,8 +20,10 @@ maplist_multi(Includes, Nthreads, Predicate, L1, L2, L3) :-
     atom_concat(BASE, 'obj/lists.po', LISTS),
     multiprocessing_create(
         (
-            % use_module(library(lists)),
-            load_files([LISTS]),
+            (
+                (current_prolog_flag(dialect, sicstus), load_files([LISTS]));
+                (current_prolog_flag(dialect, swi    ), use_module(library(lists)))
+            ),
             Includes,
             maplist(Predicate, L1left, L2left, Ret),
             write(Ret),
