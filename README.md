@@ -294,15 +294,10 @@ It then goes on to check if the player successfully connected opposite sides of 
 ### Board evaluation
 
 The board is evaluated by the predicate `value(+GameState, +Player, -Value)`. It uses different methods, each one having a weight in the final value of the board for the player. 
-
 - The positions in the board have different values that increase conform its closer to the center.
-
 - Each position occupied adds two values to the total value.
-
 - A player's stack adjacent to another of his adds two values.
-
 - A higher stack values more, but as a stack gets higher, lower is the value added to it. A stack with height N adds N^0.8 to the total value.
-
 - A board in a game over state gives a maximum value for the winner.
 
 If the total value is positive, player 1 has the advantage, if negative, player 2 has the advantage, a 0 means the game is even between the players.
