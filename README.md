@@ -64,7 +64,10 @@ To run this game you need a running Prolog environment, preferably one of the te
 
 If you cloned this repository from GitHub, you should additionally run `git submodule update --init --recursive` to clone all submodules as well.
 
-After obtaining this project (or cloning it), you're set!
+After obtaining this project, if you are using SICStus Prolog you need to compile some files to use multiprocessing. To do that, run
+```sh
+make PROLOG=sicstus
+```
 
 ### Executing
 

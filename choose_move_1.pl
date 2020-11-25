@@ -112,11 +112,17 @@ choose_move_1(gamestate(Board, Turn), Turn, Level, N, Move, Value) :-
     list_create(Level, N, Levels),
     
     base_directory(BASE),
-    atom_concat(BASE, 'choose_move_1.pl', CHOOSE_MOVE_1),
+    (
+        (current_prolog_flag(dialect, sicstus), atom_concat(BASE, 'obj/choose_move_1.po', CHOOSE_MOVE_1));
+        (current_prolog_flag(dialect, swi    ), atom_concat(BASE, 'choose_move_1.pl', CHOOSE_MOVE_1))
+    ),
     (N =:= 1 -> Nthreads is 1 ; Nthreads is 12),
     maplist_multi(
         (
-            reconsult(CHOOSE_MOVE_1),
+            (
+                (current_prolog_flag(dialect, sicstus), load_files([CHOOSE_MOVE_1]));
+                (current_prolog_flag(dialect, swi    ), reconsult(CHOOSE_MOVE_1))
+            ),
             assert(base_directory(BASE))
         ),
         Nthreads,

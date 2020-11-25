@@ -2,7 +2,7 @@ name: Test Windows
 
 on:
   push:
-    branches: [ master , dev , parallel-fix ]
+    branches: [ master , dev , loads ]
   pull_request:
     branches: [ master, dev ]
 

@@ -15,9 +15,15 @@ maplist_multi(Includes, Nthreads, Predicate, L1, L2, L3) :-
     length(L1left, Si), append(L1left, L1right, L1),
     length(L2left, Si), append(L2left, L2right, L2),
     length(L3left, Si), append(L3left, L3right, L3),
+    
+    base_directory(BASE),
+    atom_concat(BASE, 'obj/lists.po', LISTS),
     multiprocessing_create(
         (
-            use_module(library(lists)),
+            (
+                (current_prolog_flag(dialect, sicstus), load_files([LISTS]));
+                (current_prolog_flag(dialect, swi    ), use_module(library(lists)))
+            ),
             Includes,
             maplist(Predicate, L1left, L2left, Ret),
             write(Ret),

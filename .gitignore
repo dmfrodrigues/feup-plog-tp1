@@ -1,3 +1,6 @@
 GLAISHER_EN.pdf
 *.zip
 img/*_print_simple.txt
+obj
+*.po
+*.sav
