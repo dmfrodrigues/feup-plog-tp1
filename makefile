@@ -82,28 +82,28 @@ test_maplist_multi:
 
 $(ODIR)/choose_move_common.po: choose_move_common.pl | $(ODIR)
 ifeq ($(PROLOG),sicstus)
-	echo "consult('build_choose_move_common_po.pl')." | $(PROLOG)
+	echo consult('build_choose_move_common_po.pl'). | $(PROLOG)
 else
 	exit 1
 endif
 
 $(ODIR)/choose_move_1.po: choose_move_1.pl | $(ODIR)
 ifeq ($(PROLOG),sicstus)
-	echo "consult('build_choose_move_1_po.pl')." | $(PROLOG)
+	echo consult('build_choose_move_1_po.pl'). | $(PROLOG)
 else
 	exit 1
 endif
 
 $(ODIR)/choose_move_2.po: choose_move_2.pl | $(ODIR)
 ifeq ($(PROLOG),sicstus)
-	echo "consult('build_choose_move_2_po.pl')." | $(PROLOG)
+	echo consult('build_choose_move_2_po.pl'). | $(PROLOG)
 else
 	exit 1
 endif
 
 $(ODIR)/lists.po: | $(ODIR)
 ifeq ($(PROLOG),sicstus)
-	echo "use_module(library(lists)), save_modules([lists], '$(ODIR)/lists')." | $(PROLOG)
+	echo use_module(library(lists)), save_modules([lists], '$(ODIR)/lists'). | $(PROLOG)
 else
 	exit 1
 endif
