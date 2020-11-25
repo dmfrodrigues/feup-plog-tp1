@@ -10,7 +10,10 @@
  * 
  * Asserts if list has no duplicates
  */
-no_duplicates(L1) :- sort(L1, L2), list_to_set(L2, L2).
+no_duplicates([]).
+no_duplicates([X|L]) :-
+    no_duplicates(L),
+    \+(member(X, L)).
 
 /**
  * canSplitStack(+Stack, +Substacks)
