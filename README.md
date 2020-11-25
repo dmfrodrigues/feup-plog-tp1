@@ -55,7 +55,6 @@ Made available under [GNU General Public License v3](LICENSE), copyrighted mater
 - [Conclusions](#conclusions)
   - [Features](#features)
   - [Challenges](#challenges)
-  - [Known issues](#known-issues)
 - [Bibliography](#bibliography)
 
 
@@ -381,12 +380,6 @@ This was a challenging project, due not only to the fact it uses Prolog which gr
 We initially set the objective of developing this project targeting not only the required Prolog environment SICStus, but also targeting a free Prolog environment (SWI). With that in mind, we developed the code in the most compatible way possible; it was thus with surprise that we were met with the fact that, running exactly the same code, the autonomous player was making different choices in SWI and SICStus. We did not formally investigate the cause of this issue, but we deduced it was caused by different precisions on calculating the value (which is a float), and that the two environments were accumulating errors in different directions such that the final answers were different.
 
  Also, was noted a difference in float point precision in the Prolog systems used. Due to this difference in accuracy in SWI and SICStus Prolog, and with the objective to make both give the same results for the autonomous player results, it was necessary to add a small error in the evaluation board, so both systems would match.
-
-### Known issues
-
-Autonomous players are a bit slow. In particular, autonomous players become increasingly slow as the game progresses although they tend to stabilize at around the tens of seconds per turn. However, they become extremely slow on the last 1-2 rounds before end game, or when stacks become particularly tall (generally above or around 20 pieces).
-
-On Computer vs Computer mode, only level 2 autonomous players are known to end the game (in about 50min); it is unknown if level 1 and level 3 autonomous players can end the game (as the game has not ended after at least 1h in both cases).
 
 ## Bibliography
 
