@@ -375,6 +375,8 @@ These two predicates are used to implement `choose_move(+GameState, +Turn, +Leve
 
 This was a challenging project, due not only to the fact it uses Prolog which greatly differs from imperative programming, but also because the [nature of this game](#computer-move) made it very distinct from other board games since in this game a turn has two actions and not one as usual.
 
+Also, was noted a difference in float point precision in the Prolog systems used. Due to this difference in accuracy in SWI and SICStus Prolog, and with the objective to make both give the same results for the autonomous player results, it was necessary to add a small error in the evaluation board, so both systems would match.
+
 ### Parallel programming
 
 Prolog programs can very much benefit from parallel programming; however, SICStus Prolog does not support parallel programming out-of-the-box. Nevertheless, one can possibly implement some predicates to perform parallel programming by using the `process` library to create and manage processes.
