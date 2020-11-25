@@ -71,7 +71,7 @@ to clone all submodules as well.
 After obtaining this project, if you are using SICStus Prolog you need to compile some files to use multiprocessing. To do that, run
 ```sh
 make PROLOG=sicstus
-make -f makefile-win PROLOG=sicstus     # If you're in Windows
+make -f makefile-win.mk PROLOG=sicstus  # If you're in Windows
 ```
 
 ### Executing
