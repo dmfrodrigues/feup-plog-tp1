@@ -9,10 +9,13 @@
  *
  * To be used in best_N_moves.
  */
-get_move_value_pair(gamestate(Board, Player), Move, V-Move) :-
+get_move_value_pair(gamestate(Board, Player), Move, V-Move) :- 
+    Move = playermove(P, PI-PJ, Substacks, Dir,  NewPosI-NewPosJ),
     move(Board, Move, NewBoard),
     value(gamestate(NewBoard, Player), Player, V1),
-    (Player =:= 1 -> V is -V1 ; V is V1).
+    length(Substacks, SubLen),
+    V2 is V1 + (P + PI + PJ + + Dir + SubLen + NewPosI + NewPosJ)/10000000,
+    (Player =:= 1 -> V is -V2 ; V is V2).
 
 /**
  * best_N_moves(+gamestate(Board, Turn), +Level, +ListOfMoves, +N, -ListOfBestMoves)
