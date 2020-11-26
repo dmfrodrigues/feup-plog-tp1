@@ -53,8 +53,8 @@ Made available under [GNU General Public License v3](LICENSE), copyrighted mater
     - [Classical approach](#classical-approach)
     - [Practical approach](#practical-approach)
 - [Conclusions](#conclusions)
-  - [Features](#features)
   - [Challenges](#challenges)
+  - [Features](#features)
 - [Bibliography](#bibliography)
 
 
@@ -116,8 +116,8 @@ These are the situations where colors should be correctly rendered (the Windows 
  Developed by Breno Pimentel & Diogo Rodrigues, in SICStus/SWI Prolog
 ```
 
-The game we implemented is called [Glaisher](https://nestorgames.com/#glaisher_detail) (the rules are available [here](https://nestorgames.com/rulebooks/GLAISHER_EN.pdf)), named after [Glaisher's theorem](https://en.wikipedia.org/wiki/Glaisher%27s_theorem).
-It is played on a hexagonal board ([hex map](https://en.wikipedia.org/wiki/Hex_map)) with a side of 5 hexagonal cells (hexes). Each player has a color, usually red for Player 1 and yellow for Player 2.
+The game we implemented is called [Glaisher](https://nestorgames.com/#glaisher_detail), after [Glaisher's theorem](https://en.wikipedia.org/wiki/Glaisher%27s_theorem) (the rules are available [here](https://nestorgames.com/rulebooks/GLAISHER_EN.pdf)).
+It is played on a hexagonal board ([hex map](https://en.wikipedia.org/wiki/Hex_map)) with a side of 5 hexagonal cells (hexes). It is player by two players, Player 1 (red) and Player 2 (yellow).
 There are 75 double-sided pieces painted red on one side and yellow on the other.
 
 ### Preparation
@@ -132,15 +132,12 @@ The rest of the pieces are kept in a shared reserve.
 Players take turns in doing two consecutive, mandatory actions:
 1. **Separate and move a stack:** a stack can be separated into many substacks (it can also be "separated" into a single substack), under the condition that all substacks must have different heights. After separating the stack, all substacks must move in the same direction, and each stack travels as many hexes as it is tall (e.g., a 2-substack must travel 2 hexes), including over adversary stacks.
     - If a substack moves to a hex with a taller opponent stack, the move is illegal.
-    - If a substack moves to a hex with a shorter or equal opponent stack, your stack captures the opponent stack.
+    - If a substack moves to a hex with a shorter or equal opponent stack, you capture the adversary stack and add the captured stack's pieces to your stack with your color facing up.
 2. **Place a new piece:** grab a new piece from the reserve, and place it in any empty hex with your color facing up (thus creating a 1-stack).
 
 The objective is to connect any pair of opposite sides of the board with a contiguous chain of stacks with your color. A player can also lose when he has no legal moves in item 1.
 
 ## Game logic
-
-Firstly, some brief notes on how to work with this game.
-- Every option/command must be ended with a period `.` (e.g., `[4, 2].`).
 
 ### Game state representation
 
@@ -148,7 +145,7 @@ The board is internally represented as a list of lists that can be queried using
 
 <img src="img/gamestate-representation.svg" width="460">
 
-The cells adjacent to `(I, J)` are:
+Cell `(I, J)` is adjacent to cells:
 - `(I-1, J)` (below left)
 - `(I+1, J)` (above right)
 - `(I, J-1)` (left)
@@ -160,13 +157,11 @@ Some positions are not valid (e.g. `(1, 6)`), which can be checked by calling `b
 
 The game state is internally represented by pseudo-structure `gamestate(Board, Turn)`, where `Board` is the game board and `Turn` is the turn of the current player. `Turn` is 1 for player 1, and 2 for player 2.
 
-Although the physical board game comes with 75 pieces, the game play is not limited in any way by the lack of pieces since it is assumed there is always the required number of pieces.
-Thus, we will not keep the number of pieces in reserve.
+Although the physical board game comes with 75 pieces, the game play is not limited in any way by the number of pieces.
+Thus, we will not track the number of pieces in reserve.
 
 #### Initial state <!-- omit in toc -->
-The initial state is represented with each player with three 6-stacks.
 
-Initial state in Prolog:
 ```prolog
 gamestate(
     [ % Board
@@ -187,9 +182,9 @@ gamestate(
 This state can be obtained by consulting `sample-states/initial_state.pl` (from the root of the project), and calling `initial_state(GameState).`.
 
 #### Intermediate state <!-- omit in toc -->
+
 When both players still have valid moves.
 
-Example of an intermediate state in Prolog:
 ```prolog
 gamestate(
     [ % Board
@@ -210,9 +205,9 @@ gamestate(
 This state can be obtained by consulting `sample-states/intermediate_state.pl` (from the root of the project), and calling `intermediate_state(GameState).`.
 
 #### Final state <!-- omit in toc -->
-As stated in the Game play section, when a player connects any two opposite sides of the game board or if a player cannot separate and move any stacks, it is a final state.
 
-Example of a final state in Prolog:
+As per the [game play section](#game-play), a state is final when a player connects any two opposite sides of the board,  or if a player has no valid moves.
+
 ```prolog
 gamestate(
     [ % Board
@@ -241,7 +236,7 @@ On entering the game, you can choose to play the game (`1.`), see the instructio
 
 If you select `2.` or `3.` you are prompted about the difficulty level of the autonomous player (from 1 to 3). Then the game starts; the game state is shown at the beginning of each turn, and human players are prompted to introduce the information necessary to make up a complete move. If the move is invalid the player is reprompted. A player can press `q.` to quit a game.
 
-The following states were obtained by running `make svg`, which runs the PROLOG programs to print each state in a computer-friendly way, parses it using a python script and renders as an SVG image.
+The following states were obtained by running `make svg`, which runs the PROLOG programs to print each state in a computer-friendly way, parses it using a python script and saves them as SVG images.
 
 #### Initial state <!-- omit in toc -->
 
@@ -265,9 +260,9 @@ Obtained by running `make img/final_print_simple.svg`; can alternatively be disp
 
 A move `playermove(Player, Pos, Substacks, Direction, NewPos)` is valid iff:
 1. `Pos` is the position of a stack controlled by `Player`
-2. `Substacks` is a list of distinct numbers, all with same sign (non-zero) and adding up to the height of the stack at `Pos`
+2. `Substacks` is a list of non-zero distinct numbers, all with same sign and adding up to the height of the stack at `Pos`
 3. `Direction` describes a valid direction (below)
-4. By moving the substacks according to the rules (one cell for each piece in the substack in the mentioned `Direction`), no piece falls outside the board nor does it land on top of an adversary stack taller than the moving substack
+4. By moving the substacks according to the rules, no piece falls outside the board nor does it land on top of an adversary stack taller than the moving substack
 5. `NewPos` is the position to place the new 1-stack, which is empty as of the time all the previous actions were executed
 
 Directions:
@@ -280,39 +275,38 @@ A player can perform a move by calling `move(+GameState, ?Playermove, -NewGameSt
 
 `move` can also sequentially return all valid moves, as all required predicates were implemented to expect grounded values, or otherwise generate all valid values for those parameters (for instance, `between(+L,+R,?X)` evaluates if `X` is between `L` and `R` if `X` is grounded, or otherwise returns all possible values for `X`).
 
-A player can get his list of valid moves by evaluating predicate `valid_moves(+GameState, +Player, -ListOfMoves)`, which uses `findall` over predicate `move(+GameState, ?Playermove, -NewGameState)`. Since `move` does not return repeated moves we don't have to worry about using `setof` for instance.
+A player can get his list of valid moves by evaluating predicate `valid_moves(+GameState, +Player, -ListOfMoves)`, which uses `findall` over predicate `move(+GameState, ?Playermove, -NewGameState)`. Since `move` does not return repeated moves we don't have to worry about using `setof`.
 
 ### End game
 
-`game_over(+GameState, -Winner)` analyses the provided game state, and returns the winner if there is one, or fails if the game is not yet over. It calls the helper predicate `game_over_(+GameState, +Winner)` to ground Winner to each of the two possible values.
+`game_over(+GameState, -Winner)` analyses the provided game state, and returns the winner if there is one, or fails if the state is not final. It calls the helper predicate `game_over_(+GameState, +Winner)` to ground Winner to each of the two possible values.
 
 It firstly evaluates if the player has any valid moves left, by using predicate `has_valid_moves(+Board, +Player)` (finds the first valid move).
 
-It then goes on to check if the player successfully connected opposite sides of the board with a bridge of his/her color, by using a Depth-First Search algorithm `dfs(+Board, +Player, +Stack, +Visited, -Ret)` which takes as arguments the Board, the Player presumed to have won, the DFS stack so far (is initialized with all cells of a board side), the Visited nodes (starts empty) and stops when one of the nodes in Ret is visited (initialized with the cells of the opposite side).
+It then goes on to check if the player successfully connected opposite sides of the board with a bridge of his/her color, by using a Depth-First Search algorithm `dfs(+Board, +Player, +Start, -End)` which takes as arguments the Board, the Player presumed to have won, the starting nodes (initialized with all cells of a board side) and the End nodes (initialized with all cells of the opposite board side) and stops when one of the nodes in End is visited.
 
 ### Board evaluation
 
-The board is evaluated by the predicate `value(+GameState, +Player, -Value)`. It uses different methods, each one having a weight in the final value of the board for the player. 
-- The positions in the board have different values that increase conform its closer to the center.
-- Each position occupied adds two values to the total value.
-- A player's stack adjacent to another of his adds two values.
-- A higher stack values more, but as a stack gets higher, lower is the value added to it. A stack with height N adds N^0.8 to the total value.
-- A board in a game over state gives a maximum value for the winner.
+Predicate `value(+GameState, +Player, -Value)` evaluates a board by using different methods, each one having an impact in the final value. 
+- Each position has different values that increase from the sides to the center.
+- The mere fact a player controls a cell adds two points to the value.
+- A pair of adjacent stacks of the same player grant him/her two more points.
+- A higher stack is worth more points, but as a stack gets taller each piece is worth less since it becomes harder to move that stack. A stack with height N adds N^0.8 to the value.
+- If it is a final state, its value is maximum for the player that won.
 
-If the total value is positive, player 1 has the advantage, if negative, player 2 has the advantage, a 0 means the game is even between the players.
+If the total value is positive, player 1 has the advantage; if negative, player 2 has the advantage; 0 means the game is even.
 
 ### Computer move
 
-Say that an autonomous player with level 0 evaluates the best move he can take, level 1 evaluates the best move he can take taking into consideration the best move his adversary can make, level 2 evaluates the best move he can take taking into consideration the best move his adversary can make and his own best move in the next round, and so on.
+Consider the following facts about an autonomous player:
+- Level 0: evaluates the best move he can make
+- Level 1: takes into consideration the best move his adversary can make (one round)
+- Level 2: takes into consideration the best move his adversary can make and his own best move in the next round.
+- Level 3: takes into consideration the best move his adversary can make, his own best move in the next round and his adversary's best move in the next round (two rounds).
 
-`choose_move` was implemented using predicate `maplist_multi`, which uses `multiprocessing_create` to create new processes that run in parallel, in order to decrease running time. To use multiprocessing you should start your Prolog environment with argument `parallel` (e.g., `sicstus -l game.pl -- color parallel`), otherwise a regular `maplist` will be used. All programs that use `choose_move` should have defined dynamic predicate `base_directory`, since `choose_move` launches multiple processes and as such it must know the repository's base directory so it can import files correctly. `base_directory` is most usually initialized with
+And so on.
 
-```prolog
-:-
-    current_working_directory(CWD),
-    BASE = CWD,
-    assert(base_directory(BASE)).
-```
+`choose_move` was implemented using predicate `maplist_multi`, which uses `multiprocessing_create` to create new processes running in parallel, to decrease running time. To use multiprocessing you should start your Prolog environment with argument `parallel` (e.g., `sicstus -l game.pl -- color parallel`), otherwise a regular `maplist` will be used. All programs that use `choose_move` should have defined dynamic predicate `base_directory`, since `choose_move` launches multiple processes and as such it must know the repository's base directory so it can import files correctly.
 
 These are the situations under which multiprocessing currently works:
 
@@ -323,35 +317,29 @@ These are the situations under which multiprocessing currently works:
 
 #### Classical approach
 
-In most games, a move is simply just that: moving one piece according to the game's rules. This usually implies the number of possible moves is approximately equal to the number of player pieces in the board (estimated from the board size) times the number of possible moves for a piece (usually restricted by game rules).
+In most games, a move consists of moving one piece according to the rules. This usually implies the number of possible moves is approximately the number of player pieces in the board (estimated from board size) times the number of possible moves for a piece (usually restricted by game rules).
 
-In this game, however, a move consists of two actions: splitting a stack and moving the substacks, and placing a new piece. Each of these actions are similar to the *single move* in most games, meaning that, given a fixed game board, the number of moves in Glaisher is approximately the square of the number of moves in other games.
+In this game, however, a move consists of two actions: splitting a stack and moving the substacks, and placing a new piece. Each of these actions is similar to the *single move* in most games, meaning the number of moves in Glaisher is approximately square the number of moves in other games.
 
-This obviously implies Glaisher allows many more moves than other games, thus leading to additional complications in terms of autonomous player runtime, given the following reference values:
-- Evaluating the initial board takes 1.5ms
+This implies Glaisher allows many more moves than other games, leading to complications in terms of autonomous player runtime, given the following reference values:
+- Evaluating the initial board takes 3.5ms
 - Player 1 has 1290 possible moves in the initial board
-- Thus a level 1 autonomous player would take at least 1.9s to choose a move
+- Thus a level 1 autonomous player would take at least 4.5s to choose a move
 
-That is for level 0, because for level 2, even if we were to use a greedy strategy, for each possible move let B1 be the board it generates, we would have to:
-- Evaluate all possible adversary moves in B1, and choose the best move, originating board B2
-- Evaluate all possible player moves in B2, and choose the best move
-
-This amounts to evaluating approximately 1290*(1290+1290) = 3.3e6 boards, which would take approx. 1h23min to compute.
-
-We are thus required to reduce the complexity of the level 2 autonomous player computations, because from this point on time complexity is linear; as a matter of fact, a level L autonomous player would require approximately 1290*(L\*1290) computations.
+That is for level 0, because for level 1, even if we were to use a greedy strategy, for each possible move let B1 be the board it generates, we would have to evaluate all possible adversary moves in B1, and choose the best move. This amounts to evaluating approximately 1290*1290 = 1.6e6 boards, which would take approx. 1h40min to compute.
 
 #### Practical approach
 
-We have decided to discard some states to speed up `choose_move` using a greedy strategy, which to the best of our knowledge discards a significant portion of states while having little impact on the quality of the final result (i.e., chooses the states that we consider can originate the best outcomes in the future).
+We decided to discard some states to speed up `choose_move` using a greedy strategy, which to the best of our knowledge discards a significant portion of states while having little impact on the quality of the final result (i.e., chooses the states that we consider can originate the best outcomes in the future).
 
-We have thus use the following strategy to discard some states:
+We have thus used the following strategy to discard some states:
 1. Get all moves that differ in the first action, and choose as second action the first valid move
 2. Evaluate those moves
 3. Choose the N best moves
 4. Expand those N moves into all possible moves by varying the second action
 5. Choose the best move
 
-The number of evaluations is very roughly the number of possibilities for the first action (A1), plus N times the number of possibilities for the second action (A2). Assume a third of the board cells (20) have stacks, and the others (41) are empty. A2 can be estimated to be on the same order of magnitude of the number of empty board cells: A2=41. As for A1, assume the average stack height is 6, and that a 6-stack can move in 6 directions and be partitioned in 4 ways (ignoring the fact some of those moves fall out of the board and are thus invalid), we have that A1=20\*6\*4=480. Thus the upper bound of the number of evaluations is estimated to be A1+N\*A2=480+41\*N for level 0. In practice A1 will be quite smaller. Now we can tune N to find a decent value that does not cause much computation delay but gives the best possible answer. The general complexity formula for level L is approximately A1+N\*A2\*L\*(A1+A2).
+The number of evaluations is very roughly the number of possibilities for the first action (A1), plus N times the number of possibilities for the second action (A2). Assume a third of the board cells (20) have stacks, and the others (41) are empty. A2 can be estimated to be on the same order of magnitude of the number of empty board cells: A2=41. As for A1, assume the average stack height is 6, and that a 6-stack can move in 6 directions and be partitioned in 4 ways (ignoring the fact some of those moves fall out of the board and are thus invalid), we have A1=20\*6\*4=480. Thus the upper bound of the number of evaluations is estimated to be A1+N\*A2=480+41\*N for level 0. In practice A1 will be quite smaller. Now we can tune N to find a decent value that does not cause much computation delay but gives the best possible answer. The general complexity formula for level L is approximately A1+N\*A2\*L\*(A1+A2).
 
 Using these ideas, we implemented `choose_move_1(+GameState, +Turn, +Level, +N, -Move, -Value)`.
 
@@ -361,25 +349,27 @@ These two predicates are used to implement `choose_move(+GameState, +Turn, +Leve
 
 ## Conclusions
 
-### Features
-
-#### Precompilation <!-- omit in toc -->
-
-<!-- TODO -->
-
-#### Parallel programming <!-- omit in toc -->
-
-SICStus Prolog does not support parallel programming out-of-the-box. However, as this project would very much benefit from parallel programming, we implemented a simple multiprocessing interface using the `process` library. This interface is kept under submodule [prolog-multiprocessing](https://github.com/dmfrodrigues/prolog-multiprocessing), kept public and as a separate GitHub repository for the benefit of future students that might benefit from this simple contribution.
-
 ### Challenges
 
 This was a challenging project, due not only to the fact it uses Prolog which greatly differs from imperative programming, but also because the [nature of this game](#computer-move) made it very distinct from other board games since in this game a turn has two actions and not one as usual.
 
 #### Floating-point arithmetics <!-- omit in toc -->
 
-We initially set the objective of developing this project targeting not only the required Prolog environment SICStus, but also targeting a free Prolog environment (SWI). With that in mind, we developed the code in the most compatible way possible; it was thus with surprise that we were met with the fact that, running exactly the same code, the autonomous player was making different choices in SWI and SICStus. We did not formally investigate the cause of this issue, but we deduced it was caused by different precisions on calculating the value (which is a float), and that the two environments were accumulating errors in different directions such that the final answers were different.
+We initially set the objective of developing this project targeting not only the required Prolog environment SICStus, but also targeting a free Prolog environment (SWI). With that in mind, we developed the code in the most compatible way possible; it was thus with surprise that we were met with the fact that, running exactly the same code, the autonomous player was making different choices in SWI and SICStus. We did not formally investigate the cause of this issue, but we deduced it was caused by different precisions on calculating board values (which are floats), and that the two environments were accumulating errors in different directions such that the final answers were different.
 
- Also, was noted a difference in float point precision in the Prolog systems used. Due to this difference in accuracy in SWI and SICStus Prolog, and with the objective to make both give the same results for the autonomous player results, it was necessary to add a small error in the evaluation board, so both systems would match.
+To force both environments to give the same answer, we artificially added a small error to the value depending on the move that originated that board, so both systems would accumulate small errors in a similar way instead of each environment accumulating errors their own way.
+
+### Features
+
+#### Precompilation <!-- omit in toc -->
+
+When using SICStus and multiprocessing, we deduced a considerable amount of time spent creating the threads was being used to load and compile the program. As such, we decided to precompile the predicates being used in the new processes. Performance did not considerably improve as expected, but total execution time of `choose_move` was shortened by 0.5s on average.
+
+#### Parallel programming <!-- omit in toc -->
+
+SICStus Prolog does not support parallel programming out-of-the-box. However, as this project would very much benefit from parallel programming, a simple multiprocessing interface was implemented using the `process` library. This interface is kept under submodule [prolog-multiprocessing](https://github.com/dmfrodrigues/prolog-multiprocessing), a separate public GitHub repository. 
+
+Indeed, performance improved by between two to four times using 8 processes.
 
 ## Bibliography
 
