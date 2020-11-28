@@ -13,6 +13,8 @@
     board_update(Board16, 5-2,-3, Board17), board_update(Board17, 5-3,-1, Board18), board_update(Board18, 5-4,-3, Board19),
     board_update(Board19, 6-3,-1, Board20), board_update(Board20, 6-5, 2, Board21),
     board_update(Board21, 7-3,-1, Board22), board_update(Board22, 7-7, 1, Board23),
-    display_game_simple(gamestate(Board23, 1)),
+    GameState = gamestate(Board23, 1),
+    gamestate2json(GameState, JSON),
+    json_write(user_output, JSON, [width(10)]),
     halt(0).
 :- halt(1).

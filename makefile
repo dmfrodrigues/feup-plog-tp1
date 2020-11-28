@@ -123,10 +123,10 @@ $(ODIR):
 
 svg: img/initial_print_simple.svg img/intermediate_print_simple.svg img/final_print_simple.svg
 
-img/%_print_simple.svg: img/%_print_simple.txt
+img/%_print_simple.svg: img/%_print_simple.json
 	cd $(@D) && cat $(<F) | python3 printsimple2svg.py > $(@F)
 
-img/%_print_simple.txt: img/%_print_simple.pl
+img/%_print_simple.json: img/%_print_simple.pl
 	cd $(@D) && $(PROLOG) -q -l $(<F) > $(@F)
 
 clean:

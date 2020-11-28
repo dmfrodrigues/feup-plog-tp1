@@ -2,33 +2,16 @@
 # Distributed under the terms of the GNU General Public License, version 3
 
 from sys import stdin
+import json
 
 CHAR_WIDTH =12
 CHAR_HEIGHT=24
 CHAR_Y0    =19
 RECT_HEIGHT=24
 
-everything = stdin.read().split("\n")
-
-P = int(everything[0])
-
-Board = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0]
-]
-for i in range(1,(len(everything)-1)):
-    elements = everything[i].split(" ")
-    I = int(elements[0])
-    J = int(elements[1])
-    N = int(elements[2])
-    Board[I][J] = N
+data = json.load(stdin)
+P = data['turn']
+Board = data['board']
 
 print(
 "<?xml version='1.0' standalone='yes'?>\n"\

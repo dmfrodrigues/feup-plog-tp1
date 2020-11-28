@@ -5,6 +5,7 @@
     reconsult('../board_create.pl'),
     reconsult('../print_simple.pl'),
     initial(GameState),
-    display_game_simple(GameState),
+    gamestate2json(GameState, JSON),
+    json_write(user_output, JSON, [width(10)]),
     halt(0).
 :- halt(1).
