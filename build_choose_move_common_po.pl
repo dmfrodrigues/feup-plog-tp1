@@ -2,7 +2,7 @@
 % Distributed under the terms of the GNU General Public License, version 3
 
 :-
-    compile(['choose_move_common.pl']),
+    compile(['src/choose_move_common.pl']),
     save_predicates(
         [
             get_move_value_pair/3,

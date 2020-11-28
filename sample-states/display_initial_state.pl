@@ -3,7 +3,7 @@
 
 :-
     reconsult('initial_state.pl'),
-    reconsult('../print.pl'),
+    reconsult('../src/print.pl'),
     initial_state(GameState),
     display_game(GameState),
     halt(0).

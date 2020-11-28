@@ -9,7 +9,7 @@ get_value_recursive(InitialBoard,InitialTurn,N) :-
     get_value_recursive(InitialBoard, InitialTurn, N1).
 
 :-
-    reconsult('../../value.pl'),
+    reconsult('../../src/value.pl'),
     reconsult('../../sample-states/initial_state.pl'),
     initial_state(gamestate(InitialBoard,InitialTurn)),
     statistics(walltime, _),

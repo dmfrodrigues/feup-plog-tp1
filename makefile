@@ -7,6 +7,7 @@ CLASS=T2
 GROUP=Glaisher4
 ZIPNAME=PLOG_TP1_RI_$(CLASS)_$(GROUP)
 
+SDIR=./src
 ODIR=./obj
 
 PROLOG_CMD=$(PROLOG) -f --noinfo -q
@@ -83,21 +84,21 @@ test_choose_move:
 test_maplist_multi:
 	$(PROLOG_CMD) -l tests/test_maplist_multi/1.pl -- color $(PARALLEL_CMD)
 
-$(ODIR)/choose_move_common.po: choose_move_common.pl | $(ODIR)
+$(ODIR)/choose_move_common.po: $(SDIR)/choose_move_common.pl | $(ODIR)
 ifeq ($(PROLOG),sicstus)
 	echo "consult('build_choose_move_common_po.pl')." | $(PROLOG)
 else
 	exit 1
 endif
 
-$(ODIR)/choose_move_1.po: choose_move_1.pl | $(ODIR)
+$(ODIR)/choose_move_1.po: $(SDIR)/choose_move_1.pl | $(ODIR)
 ifeq ($(PROLOG),sicstus)
 	echo "consult('build_choose_move_1_po.pl')." | $(PROLOG)
 else
 	exit 1
 endif
 
-$(ODIR)/choose_move_2.po: choose_move_2.pl | $(ODIR)
+$(ODIR)/choose_move_2.po: $(SDIR)/choose_move_2.pl | $(ODIR)
 ifeq ($(PROLOG),sicstus)
 	echo "consult('build_choose_move_2_po.pl')." | $(PROLOG)
 else
@@ -110,13 +111,6 @@ ifeq ($(PROLOG),sicstus)
 else
 	exit 1
 endif
-
-# $(ODIR)/%.sav: %.pl
-# ifeq ($(PROLOG),sicstus)
-# 	echo "consult('$<'), save_program('$(ODIR)/$@'). halt." | $(PROLOG)
-# else
-# 	exit 1
-# endif
 
 $(ODIR):
 	mkdir -p $(ODIR)

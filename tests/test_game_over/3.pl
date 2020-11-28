@@ -2,7 +2,7 @@
 % Distributed under the terms of the GNU General Public License, version 3
 
 :-
-    reconsult('../../game_over.pl'),
+    reconsult('../../src/game_over.pl'),
     reconsult('../../sample-states/final_state.pl'),
     final_state(GameState),
     game_over(GameState, 1),

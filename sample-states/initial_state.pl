@@ -2,7 +2,7 @@
 % Distributed under the terms of the GNU General Public License, version 3
 
 :-
-    reconsult('../board_create.pl').
+    reconsult('../src/board_create.pl').
 
 /**
  * initial_state(-GameState)

@@ -2,7 +2,7 @@
 % Distributed under the terms of the GNU General Public License, version 3
 
 :-
-   reconsult('prolog-multiprocessing/multiprocessing.pl'). 
+   reconsult('../prolog-multiprocessing/multiprocessing.pl'). 
 
 :- use_module(library(system)).
 is_parallel :- current_prolog_flag(argv, Arguments), member(parallel, Arguments).

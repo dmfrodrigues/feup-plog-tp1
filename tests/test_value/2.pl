@@ -2,7 +2,7 @@
 % Distributed under the terms of the GNU General Public License, version 3
 
 :-
-    reconsult('../../value.pl'),
+    reconsult('../../src/value.pl'),
     reconsult('../../sample-states/intermediate_state.pl'),
     intermediate_state(GameState),
     value(GameState, 1, V),

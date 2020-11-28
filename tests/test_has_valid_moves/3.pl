@@ -2,7 +2,7 @@
 % Distributed under the terms of the GNU General Public License, version 3
 
 :-
-    reconsult('../../game_over.pl'),
+    reconsult('../../src/game_over.pl'),
     reconsult('../../sample-states/initial_state.pl'),
     initial_state(gamestate(InitialBoard,_InitialTurn)),
     move(InitialBoard, playermove(1, 7-3, [6], 2, 8-8), NewBoard),

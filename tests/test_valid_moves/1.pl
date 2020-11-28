@@ -2,7 +2,7 @@
 % Distributed under the terms of the GNU General Public License, version 3
 
 :-
-    reconsult('../../valid_moves.pl'),
+    reconsult('../../src/valid_moves.pl'),
     reconsult('../../sample-states/initial_state.pl'),
     initial_state(gamestate(InitialBoard,InitialTurn)),
     valid_moves(gamestate(InitialBoard,InitialTurn),InitialTurn,ListOfMoves),

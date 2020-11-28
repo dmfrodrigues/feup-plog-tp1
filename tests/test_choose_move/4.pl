@@ -2,7 +2,7 @@
 % Distributed under the terms of the GNU General Public License, version 3
 
 :-
-    reconsult('../../choose_move.pl'),
+    reconsult('../../src/choose_move.pl'),
     reconsult('../../sample-states/initial_state.pl'),
     current_working_directory(CWD),
     BASE = CWD,

@@ -2,7 +2,7 @@
 % Distributed under the terms of the GNU General Public License, version 3
 
 :-
-    reconsult('../../value.pl'),
+    reconsult('../../src/value.pl'),
     Player = 1,
     Board = [
         [0,-1,0,0,1,nan,nan,nan,nan],

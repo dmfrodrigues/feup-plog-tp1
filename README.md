@@ -85,10 +85,10 @@ This program can be executed as per the project guidelines.
 To run the program using colored text, run `sicstus`/`swipl` with argument `color`:
 
 ```sh
-sicstus -l game.pl            # Run with sicstus, without color
-sicstus -l game.pl -- color   # Run with sicstus, with color
-swipl   -l game.pl            # Run with swipl, without color
-swipl   -l game.pl -- color   # Run with swipl, with color
+sicstus -l src/game.pl            # Run with sicstus, without color
+sicstus -l src/game.pl -- color   # Run with sicstus, with color
+swipl   -l src/game.pl            # Run with swipl, without color
+swipl   -l src/game.pl -- color   # Run with swipl, with color
 ```
 
 Under **Windows**, when using any console you are advised to use one of the following fonts, which have been confirmed to correctly render all characters:
@@ -306,7 +306,7 @@ Consider the following facts about an autonomous player:
 
 And so on.
 
-`choose_move` was implemented using predicate `maplist_multi`, which uses `multiprocessing_create` to create new processes running in parallel, to decrease running time. To use multiprocessing you should start your Prolog environment with argument `parallel` (e.g., `sicstus -l game.pl -- color parallel`), otherwise a regular `maplist` will be used. All programs that use `choose_move` should have defined dynamic predicate `base_directory`, since `choose_move` launches multiple processes and as such it must know the repository's base directory so it can import files correctly.
+`choose_move` was implemented using predicate `maplist_multi`, which uses `multiprocessing_create` to create new processes running in parallel, to decrease running time. To use multiprocessing you should start your Prolog environment with argument `parallel` (e.g., `sicstus -l src/game.pl -- color parallel`), otherwise a regular `maplist` will be used. All programs that use `choose_move` should have defined dynamic predicate `base_directory`, since `choose_move` launches multiple processes and as such it must know the repository's base directory so it can import files correctly.
 
 These are the situations under which multiprocessing currently works:
 

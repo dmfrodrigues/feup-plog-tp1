@@ -34,7 +34,7 @@ best_N_moves(gamestate(Board, Turn), ListOfMoves, N, ListOfBestMoves) :-
             base_directory(BASE),
             (
                 (current_prolog_flag(dialect, sicstus), atom_concat(BASE, 'obj/choose_move_common.po', CHOOSE_MOVE_COMMON));
-                (current_prolog_flag(dialect, swi    ), atom_concat(BASE, 'choose_move_common.pl', CHOOSE_MOVE_COMMON))
+                (current_prolog_flag(dialect, swi    ), atom_concat(BASE, 'src/choose_move_common.pl', CHOOSE_MOVE_COMMON))
             ),
             maplist_multi(
                 (

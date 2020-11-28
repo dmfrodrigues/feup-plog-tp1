@@ -2,9 +2,9 @@
 % Distributed under the terms of the GNU General Public License, version 3
 
 :-
-    reconsult('../../move.pl'),
+    reconsult('../../src/move.pl'),
     reconsult('../../sample-states/initial_state.pl'),
-    reconsult('../../print.pl'),
+    reconsult('../../src/print.pl'),
     initial_state(gamestate(InitialBoard,InitialTurn)),
     display_game(gamestate(InitialBoard,InitialTurn)),
     move(InitialBoard,playermove(1,0-1,[1,2,3],5,0-1),NewBoard),

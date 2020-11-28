@@ -2,8 +2,8 @@
 % Distributed under the terms of the GNU General Public License, version 3
 
 :-
-    reconsult('../../maplist_multi.pl'),
-    reconsult('../../utils.pl'),
+    reconsult('../../src/maplist_multi.pl'),
+    reconsult('../../src/utils.pl'),
     reconsult('print_me.pl'),
 
     current_working_directory(CWD),
