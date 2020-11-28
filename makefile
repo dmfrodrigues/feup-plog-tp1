@@ -25,7 +25,7 @@ zip: $(ZIPNAME).zip
 $(ZIPNAME).zip:
 	rm -rf $(ZIPNAME)
 	mkdir -p $(ZIPNAME)
-	cp -r img sample-states board_create.pl board.pl game.pl print.pl utils.pl README.md LICENSE $(ZIPNAME)
+	cp -r img prolog-multiprocessing sample-states src tests build_choose_move_1_po.pl build_choose_move_2_po.pl build_choose_move_common_po.pl LICENSE makefile makefile-win.mk README.md $(ZIPNAME)
 	cd $(ZIPNAME) && zip ../$@ -r .
 	rm -rf $(ZIPNAME)
 
