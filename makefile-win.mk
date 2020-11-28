@@ -19,15 +19,6 @@ endif
 
 all: $(ODIR)/lists.po $(ODIR)/choose_move_1.po $(ODIR)/choose_move_2.po $(ODIR)/choose_move_common.po
 
-zip: $(ZIPNAME).zip
-
-$(ZIPNAME).zip:
-	rm -rf $(ZIPNAME)
-	mkdir -p $(ZIPNAME)
-	cp -r img sample-states board_create.pl board.pl game.pl print.pl utils.pl README.md LICENSE $(ZIPNAME)
-	cd $(ZIPNAME) && zip ../$@ -r .
-	rm -rf $(ZIPNAME)
-
 test: test_samples test_game_over test_move test_has_valid_moves test_value test_valid_moves test_maplist_multi test_choose_move
 
 test_samples:
@@ -111,23 +102,8 @@ else
 	exit 1
 endif
 
-# $(ODIR)/%.sav: %.pl
-# ifeq ($(PROLOG),sicstus)
-# 	echo "consult('$<'), save_program('$(ODIR)/$@'). halt." | $(PROLOG)
-# else
-# 	exit 1
-# endif
-
 $(ODIR):
 	mkdir $(ODIR)
-
-svg: img/initial_print_simple.svg img/intermediate_print_simple.svg img/final_print_simple.svg
-
-img/%_print_simple.svg: img/%_print_simple.txt
-	cd $(@D) && cat $(<F) | python3 printsimple2svg.py > $(@F)
-
-img/%_print_simple.txt: img/%_print_simple.pl
-	cd $(@D) && $(PROLOG) -q -l $(<F) > $(@F)
 
 clean:
 	del /f *.zip
