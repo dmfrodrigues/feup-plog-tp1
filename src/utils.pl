@@ -59,7 +59,6 @@ between(L, R, I) :- L < R, L1 is L+1, between(L1, R, I).
  * If List is grounded, R is returned;
  * If R is grounded, lists are successively returned, with different elements
  */
-% list_sum(L, R) :- ground(L), sumlist(L, R).
 list_sum(L, R) :- list_sum_(R, 0, L).
 
 /**
