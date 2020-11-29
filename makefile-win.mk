@@ -7,7 +7,6 @@ CLASS=T2
 GROUP=Glaisher4
 ZIPNAME=PLOG_TP1_FINAL_$(CLASS)_$(GROUP)
 
-SDIR=./src
 ODIR=./obj
 
 PROLOG_CMD=$(PROLOG) -f --noinfo -q
@@ -19,15 +18,6 @@ else
 endif
 
 all: $(ODIR)/lists.po $(ODIR)/choose_move_1.po $(ODIR)/choose_move_2.po $(ODIR)/choose_move_common.po
-
-zip: $(ZIPNAME).zip
-
-$(ZIPNAME).zip:
-	rm -rf $(ZIPNAME)
-	mkdir -p $(ZIPNAME)
-	cp -r img prolog-multiprocessing sample-states src tests build_choose_move_1_po.pl build_choose_move_2_po.pl build_choose_move_common_po.pl LICENSE makefile makefile-win.mk README.md $(ZIPNAME)
-	cd $(ZIPNAME) && zip ../$@ -r .
-	rm -rf $(ZIPNAME)
 
 test: test_samples test_game_over test_move test_has_valid_moves test_value test_valid_moves test_maplist_multi test_choose_move
 
@@ -84,45 +74,37 @@ test_choose_move:
 test_maplist_multi:
 	$(PROLOG_CMD) -l tests/test_maplist_multi/1.pl -- color $(PARALLEL_CMD)
 
-$(ODIR)/choose_move_common.po: $(SDIR)/choose_move_common.pl | $(ODIR)
+$(ODIR)/choose_move_common.po: choose_move_common.pl | $(ODIR)
 ifeq ($(PROLOG),sicstus)
-	echo "consult('build_choose_move_common_po.pl')." | $(PROLOG)
+	echo consult('build_choose_move_common_po.pl'). | $(PROLOG)
 else
 	exit 1
 endif
 
-$(ODIR)/choose_move_1.po: $(SDIR)/choose_move_1.pl | $(ODIR)
+$(ODIR)/choose_move_1.po: choose_move_1.pl | $(ODIR)
 ifeq ($(PROLOG),sicstus)
-	echo "consult('build_choose_move_1_po.pl')." | $(PROLOG)
+	echo consult('build_choose_move_1_po.pl'). | $(PROLOG)
 else
 	exit 1
 endif
 
-$(ODIR)/choose_move_2.po: $(SDIR)/choose_move_2.pl | $(ODIR)
+$(ODIR)/choose_move_2.po: choose_move_2.pl | $(ODIR)
 ifeq ($(PROLOG),sicstus)
-	echo "consult('build_choose_move_2_po.pl')." | $(PROLOG)
+	echo consult('build_choose_move_2_po.pl'). | $(PROLOG)
 else
 	exit 1
 endif
 
 $(ODIR)/lists.po: | $(ODIR)
 ifeq ($(PROLOG),sicstus)
-	echo "use_module(library(lists)), save_modules([lists], '$(ODIR)/lists')." | $(PROLOG)
+	echo use_module(library(lists)), save_modules([lists], '$(ODIR)/lists'). | $(PROLOG)
 else
 	exit 1
 endif
 
 $(ODIR):
-	mkdir -p $(ODIR)
-
-svg: img/initial_print_simple.svg img/intermediate_print_simple.svg img/final_print_simple.svg
-
-img/%_print_simple.svg: img/%_print_simple.json
-	cd $(@D) && cat $(<F) | python3 printsimple2svg.py > $(@F)
-
-img/%_print_simple.json: img/%_print_simple.pl
-	cd $(@D) && $(PROLOG) -q -l $(<F) > $(@F)
+	mkdir $(ODIR)
 
 clean:
-	rm -f *.zip *.sav *.po
-	rm -rf $(ODIR)
+	del /f *.zip
+	rmdir $(ODIR) /s /q

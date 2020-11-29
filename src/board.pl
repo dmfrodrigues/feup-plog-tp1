@@ -1,9 +1,20 @@
-:- use_module(library(lists)).
+% (C) 2020 Diogo Rodrigues, Breno Pimentel
+% Distributed under the terms of the GNU General Public License, version 3
+
+:-
+    use_module(library(lists)).
+
+:-
+    reconsult('utils.pl').
 
 /**
- * board(+Board, +I, +J, -N).
+ * gamestate(Board, Turn)
+ */
+
+/**
+ * board(+Board, +Pos, -N).
  *
- * Returns number N of pieces in cell (I, J).
+ * Returns number N of pieces in cell Pos=(I, J).
  *
  *                      j=0 j=1 j=2 j=3 j=4 j=5 j=6 j=7 j=8
  *                       /   /   /   /   /   /   /   /   /
@@ -44,29 +55,29 @@
  * |     8 |XXX|XXX|XXX|XXX|   |   |   |   |   |
  *
  */
-board(Board, I, J, N) :-
-    board_is_valid_position(Board, I, J),
+board(Board, I-J, N) :-
+    ground(Board),
+    board_is_valid_position(I-J),
     I1 is I+1, nth1(I1, Board, Row),
     J1 is J+1, nth1(J1, Row, N).
     
 
 /**
- * board_is_valid_position(+Board, +I, +J)
+ * board_is_valid_position(+Pos)
  * 
- * Checks if (I, J) is a valid board position
+ * Checks if Pos(I, J) is a valid board position
  */
-board_is_valid_position(_, I, J) :-
-    (I =< 4, 0   =< J, J =< 4+I);
-    (4  < I, I-4 =< J, J =< 8  ).
+board_is_valid_position(I-J) :- between(0, 4, I), R is I+4, between(0, R, J).
+board_is_valid_position(I-J) :- between(5, 8, I), L is I-4, between(L, 8, J).
 
 /**
- * board_update(+Board, +I, +J, +N, -NewBoard)
+ * board_update(+Board, +Pos, +N, -NewBoard)
  * 
  * Updates the value of Board in cell (I,J) to value N,
  * and returns the new board in NewBoard.
  */
-board_update(Board, I, J, N, NewBoard) :-
-    board_is_valid_position(Board, I, J),
+board_update(Board, I-J, N, NewBoard) :-
+    board_is_valid_position(I-J),
     board_update_recursive(Board, I, J, N, NewBoard).
 
 /**
@@ -82,20 +93,44 @@ board_update_recursive([[X|Row]|Board], 0, J, N, [[X|NewRow]|Board   ]) :- J1 is
 board_update_recursive([   Row |Board], I, J, N, [      Row |NewBoard]) :- I1 is I-1, board_update_recursive(Board, I1, J, N, NewBoard), !.                 % Searching the right row
 
 /**
- * turn(-T)
+ * next_player(+Player, -NextPlayer)
  * 
- * Returns the player that is playing the current turn:
- * 1 for player 1, 2 for player 2
+ * Get next player.
  */
-:- dynamic turn/1.
+next_player(Player, NextPlayer) :- NextPlayer is (Player mod 2)+1.
 
-start_turn :-
-    turn(T),
-    format("Turn ~d\n", [T]).
+/**
+ * end_turn(+GameState, -NewGameState)
+ * 
+ * Ends current player's turn
+ */
+end_turn(gamestate(Board, P), gamestate(Board, P1)) :-
+    next_player(P, P1).
 
-end_turn :-
-    turn(P),
-    format("Player ~d ended turn\n", [P]),
-    (P =:= 1 -> P1 is 2 ; P1 is 1),
-    retract(turn(_)),
-    assert(turn(P1)).
+/**
+ * isControlledByPlayer(+Board, +Player, +U)
+ * 
+ * Finds if cell U is controlled by Player.
+ */
+isControlledByPlayer(Board, 1, U) :- board(Board, U, N), N > 0.
+isControlledByPlayer(Board, 2, U) :- board(Board, U, N), N < 0.
+
+/**
+ * isAdj(+U, ?V)
+ * 
+ * True when U and V are adjacent
+ */
+isAdj(Ui-Uj, Vi-Vj) :- board_is_valid_position(Ui-Uj), Vi is Ui+1, Vj is Uj+1, board_is_valid_position(Vi-Vj). % Direction 6
+isAdj(Ui-Uj, Vi-Vj) :- board_is_valid_position(Ui-Uj), Vi is Ui  , Vj is Uj+1, board_is_valid_position(Vi-Vj). % Direction 5
+isAdj(Ui-Uj, Vi-Vj) :- board_is_valid_position(Ui-Uj), Vi is Ui+1, Vj is Uj  , board_is_valid_position(Vi-Vj). % Direction 1
+isAdj(Ui-Uj, Vi-Vj) :- board_is_valid_position(Ui-Uj), Vi is Ui  , Vj is Uj-1, board_is_valid_position(Vi-Vj). % Direction 2
+isAdj(Ui-Uj, Vi-Vj) :- board_is_valid_position(Ui-Uj), Vi is Ui-1, Vj is Uj  , board_is_valid_position(Vi-Vj). % Direction 4
+isAdj(Ui-Uj, Vi-Vj) :- board_is_valid_position(Ui-Uj), Vi is Ui-1, Vj is Uj-1, board_is_valid_position(Vi-Vj). % Direction 3
+
+/**
+ * new_piece(+Player, -Piece)
+ * 
+ * Get new piece placed by player Player.
+ */
+new_piece(1, 1).
+new_piece(2, -1).

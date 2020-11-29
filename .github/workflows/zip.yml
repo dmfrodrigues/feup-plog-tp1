@@ -1,13 +1,13 @@
-name: Test
+name: Zip
 
 on:
   push:
-    branches: [ master , dev , loads ]
+    branches: [ master , dev ]
   pull_request:
     branches: [ master, dev ]
 
 jobs:
-  test:
+  zip:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
@@ -27,28 +27,17 @@ jobs:
         git submodule sync --recursive
         git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
 
-    - name: Test
-      run: make test
-
-  test-parallel:
-    runs-on: ubuntu-20.04
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Install swi-prolog
-      run: |
-        sudo apt-add-repository ppa:swi-prolog/stable
-        sudo apt update
-        sudo apt install swi-prolog
-
-    - name: Checkout submodules
-      shell: bash
-      run: |
-        # If your submodules are configured to use SSH instead of HTTPS please uncomment the following line
-        # git config --global url."https://github.com/".insteadOf "git@github.com:"
-        auth_header="$(git config --local --get http.https://github.com/.extraheader)"
-        git submodule sync --recursive
-        git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
+    - name: Remove git folder from prolog-multiprocessing
+      run: rm -rf prolog-multiprocessing/.git
 
     - name: Test
       run: make test PARALLEL=1
+
+    - name: Zip
+      run: make zip
+
+    - name: Upload zip
+      uses: actions/upload-artifact@v2
+      with:
+        name: PLOG_TP1_FINAL_T2_Glaisher4.zip
+        path: PLOG_TP1_FINAL_T2_Glaisher4.zip
