@@ -12,9 +12,9 @@ Distributed under the terms of the GNU General Public License, version 3
 ![Zip](https://github.com/dmfrodrigues/feup-plog-tp1/workflows/Zip/badge.svg)
 
 - **Project name:** Glaisher
-- **Short description:** Board game implemented in PROLOG
-- **Environment:** SICStus PROLOG
-- **Tools:** PROLOG
+- **Short description:** Board game implemented in Prolog
+- **Environment:** SICStus Prolog
+- **Tools:** Prolog
 - **Institution:** [FEUP](https://sigarra.up.pt/feup/en/web_page.Inicial)
 - **Course:** [PLOG](https://sigarra.up.pt/feup/en/UCURR_GERAL.FICHA_UC_VIEW?pv_ocorrencia_id=459482) (Logic Programming) <!-- - **Project grade:** ??.?/20.0 -->
 - **TP class:** 3MIEIC02
@@ -62,9 +62,13 @@ Made available under [GNU General Public License v3](LICENSE), copyrighted mater
 
 ### Installing
 
+#### Requisites <!-- omit in toc -->
+
 To run this game you need a running Prolog environment, preferably one of the tested environments:
 - [SICStus Prolog](https://sicstus.sics.se/)
 - [SWI-Prolog](https://www.swi-prolog.org/)
+
+#### Cloning <!-- omit in toc -->
 
 If you cloned this repository from GitHub, you should additionally run
 ```sh
@@ -72,10 +76,12 @@ git submodule update --init --recursive
 ```
 to clone all submodules as well.
 
+#### Compiling <!-- omit in toc -->
+
 After obtaining this project, if you are using SICStus Prolog you need to compile some files to use multiprocessing. To do that, run
 ```sh
-make PROLOG=sicstus
-make -f makefile-win.mk PROLOG=sicstus  # If you're in Windows
+make Prolog=sicstus                     # If you're using a Linux distro
+make -f makefile-win.mk Prolog=sicstus  # If you're using Windows
 ```
 
 ### Executing
@@ -105,6 +111,15 @@ These are the situations where colors should be correctly rendered (the Windows 
 | SICStus                 | :x:                | :x:                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | SWI                     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
+The game can additionally be run using multiprocessing (check section on [computer move](#computer-move)):
+
+```sh
+sicstus -l src/game.pl -- parallel          # Run with sicstus, without color and using multiprocessing
+sicstus -l src/game.pl -- color parallel    # Run with sicstus, with color and using multiprocessing
+swipl   -l src/game.pl -- parallel          # Run with swipl, without color and using multiprocessing
+swipl   -l src/game.pl -- color parallel    # Run with swipl, with color and using multiprocessing
+```
+
 ## The game
 
 ```txt
@@ -117,7 +132,8 @@ These are the situations where colors should be correctly rendered (the Windows 
 ```
 
 The game we implemented is called [Glaisher](https://nestorgames.com/#glaisher_detail), after [Glaisher's theorem](https://en.wikipedia.org/wiki/Glaisher%27s_theorem) (the rules are available [here](https://nestorgames.com/rulebooks/GLAISHER_EN.pdf)).
-It is played on a hexagonal board ([hex map](https://en.wikipedia.org/wiki/Hex_map)) with a side of 5 hexagonal cells (hexes). It is player by two players, Player 1 (red) and Player 2 (yellow).
+It is played on a hexagonal board made of hexagonal cells (hexes), with a side of 5 hexes.
+It is player by two players, Player 1 (red) and Player 2 (yellow).
 There are 75 double-sided pieces painted red on one side and yellow on the other.
 
 ### Preparation
@@ -132,10 +148,10 @@ The rest of the pieces are kept in a shared reserve.
 Players take turns in doing two consecutive, mandatory actions:
 1. **Separate and move a stack:** a stack can be separated into many substacks (it can also be "separated" into a single substack), under the condition that all substacks must have different heights. After separating the stack, all substacks must move in the same direction, and each stack travels as many hexes as it is tall (e.g., a 2-substack must travel 2 hexes), including over adversary stacks.
     - If a substack moves to a hex with a taller opponent stack, the move is illegal.
-    - If a substack moves to a hex with a shorter or equal opponent stack, you capture the adversary stack and add the captured stack's pieces to your stack with your color facing up.
-2. **Place a new piece:** grab a new piece from the reserve, and place it in any empty hex with your color facing up (thus creating a 1-stack).
+    - If a substack moves to a hex with a shorter or equal opponent stack, you capture the adversary stack (turn the whole opponent stack upside down to have your color facing up, and put your moving substack on top of the captured stack).
+2. **Place a new piece:** grab a new piece from the reserve, and place it with your color facing up in any empty hex (thus creating a 1-stack).
 
-The objective is to connect any pair of opposite sides of the board with a contiguous chain of stacks with your color. A player can also lose when he has no legal moves in item 1.
+The objective is to connect any pair of opposite sides of the board with a contiguous chain of stacks with your color. A player also loses when he has no legal moves in item 1, making his/her opponent the winner.
 
 ## Game logic
 
@@ -229,14 +245,14 @@ This state can be obtained by consulting `sample-states/final_state.pl` (from th
 
 ### Game state visualization
 
-On entering the game, you can choose to play the game (`1.`), see the instructions (`2.`) or quit (`0.`). We highly recommend reading the instructions, as they specify the correct input formats. If you choose to play the game, you are prompted to choose one of three game modes, or quit (`0.`):
+On entering the game using the `play.` predicate (after consulting `game.pl`, obviously), you can choose to play the game (`1.`), see the instructions (`2.`) or quit (`0.`). We highly recommend reading the instructions, as they specify the correct input formats. If you choose to play the game, you are prompted to choose one of three game modes, or quit (`0.`):
 - Human vs Human (`1.`)
 - Human vs Computer (`2.`)
 - Computer vs Computer (`3.`)
 
-If you select `2.` or `3.` you are prompted about the difficulty level of the autonomous player (from 1 to 3). Then the game starts; the game state is shown at the beginning of each turn, and human players are prompted to introduce the information necessary to make up a complete move. If the move is invalid the player is reprompted. A player can press `q.` to quit a game.
+If you select `2.` or `3.` you are prompted about the difficulty level of the autonomous player (from 1 to 3). Then the game starts; the game state is shown at the beginning of each turn (the round number is also tracked), and human players are prompted to introduce the information necessary to make up a complete move. If the move is invalid the player is reprompted. A player can press `q.` to quit a game.
 
-The following states were obtained by running `make svg`, which runs the PROLOG programs to print each state in a computer-friendly way, parses it using a python script and saves them as SVG images.
+The following states were obtained by running `make svg`, which runs the Prolog programs to print each state in JSON format, parse them using a python script and save them as SVG images.
 
 #### Initial state <!-- omit in toc -->
 
@@ -281,13 +297,13 @@ A player can get his list of valid moves by evaluating predicate `valid_moves(+G
 
 `game_over(+GameState, -Winner)` analyses the provided game state, and returns the winner if there is one, or fails if the state is not final. It calls the helper predicate `game_over_(+GameState, +Winner)` to ground Winner to each of the two possible values.
 
-It firstly evaluates if the player has any valid moves left, by using predicate `has_valid_moves(+Board, +Player)` (finds the first valid move).
+It firstly evaluates if the player has any valid moves left, by using predicate `has_valid_moves(+Board, +Player)` (finds the first valid move, or fails if there is not any).
 
-It then goes on to check if the player successfully connected opposite sides of the board with a bridge of his/her color, by using a Depth-First Search algorithm `dfs(+Board, +Player, +Start, -End)` which takes as arguments the Board, the Player presumed to have won, the starting nodes (initialized with all cells of a board side) and the End nodes (initialized with all cells of the opposite board side) and stops when one of the nodes in End is visited.
+It then goes on to check if the player successfully connected opposite sides of the board with a bridge of his/her color, by using a Depth-First Search algorithm `dfs(+Board, +Player, +Start, -End)` which takes as arguments the `Board`, the `Player` presumed to have won, the `Start` nodes (initialized with all cells of a board side) and the End nodes (initialized with all cells of the opposite board side) and stops when one of the nodes in `End` is visited.
 
 ### Board evaluation
 
-Predicate `value(+GameState, +Player, -Value)` evaluates a board by using different methods, each one having an impact in the final value. 
+Predicate `value(+GameState, +Player, -Value)` evaluates a board by applying several methods, each one having an impact in the final value.
 - Each position has different values that increase from the sides to the center.
 - The mere fact a player controls a cell adds two points to the value.
 - A pair of adjacent stacks of the same player grant him/her two more points.
@@ -333,7 +349,7 @@ That is for level 0, because for level 1, even if we were to use a greedy strate
 We decided to discard some states to speed up `choose_move` using a greedy strategy, which to the best of our knowledge discards a significant portion of states while having little impact on the quality of the final result (i.e., chooses the states that we consider can originate the best outcomes in the future).
 
 We have thus used the following strategy to discard some states:
-1. Get all moves that differ in the first action, and choose as second action the first valid move
+1. Get all moves that differ in the first action, and choose as second action the first valid option
 2. Evaluate those moves
 3. Choose the N best moves
 4. Expand those N moves into all possible moves by varying the second action
@@ -349,27 +365,29 @@ These two predicates are used to implement `choose_move(+GameState, +Turn, +Leve
 
 ## Conclusions
 
+The board game Glaisher was successfully implemented in the Prolog language (SICStus Prolog 4.6). The game also allows the game to be played Player vs Player, Player vs Computer and Computer vs Computer, since an autonomous player was implemented with several difficulty levels (limited to three levels of difficulty for the player to choose).
+
 ### Challenges
 
 This was a challenging project, due not only to the fact it uses Prolog which greatly differs from imperative programming, but also because the [nature of this game](#computer-move) made it very distinct from other board games since in this game a turn has two actions and not one as usual.
 
 #### Floating-point arithmetics <!-- omit in toc -->
 
-We initially set the objective of developing this project targeting not only the required Prolog environment SICStus, but also targeting a free Prolog environment (SWI). With that in mind, we developed the code in the most compatible way possible; it was thus with surprise that we were met with the fact that, running exactly the same code, the autonomous player was making different choices in SWI and SICStus. We did not formally investigate the cause of this issue, but we deduced it was caused by different precisions on calculating board values (which are floats), and that the two environments were accumulating errors in different directions such that the final answers were different.
+We set the objective of developing this project targeting SICStus Prolog as required per the project guidelines, but also targeting the free SWI Prolog environment. We developed the code in the most environment-agnostic way possible; it was thus with surprise that we discovered the autonomous player was making different choices in SWI and SICStus. We deduced it was caused by different precisions on calculating board values (floats), and that the two environments were accumulating errors in different ways such that almost-equal values were sorted differently.
 
-To force both environments to give the same answer, we artificially added a small error to the value depending on the move that originated that board, so both systems would accumulate small errors in a similar way instead of each environment accumulating errors their own way.
+To force both environments to give the same answer, we artificially added a small error to the value depending on the move that originated that board, so both systems would accumulate small errors in a similar way. Although the current choices are different from the original SICStus or SWI, at least now SICStus and SWI are effectively making the same choices so the autonomous player is consistent across environments.
 
 ### Features
 
 #### Precompilation <!-- omit in toc -->
 
-When using SICStus and multiprocessing, we deduced a considerable amount of time spent creating the threads was being used to load and compile the program. As such, we decided to precompile the predicates being used in the new processes. Performance did not considerably improve as expected, but total execution time of `choose_move` was shortened by 0.5s on average.
+When using SICStus and multiprocessing, we deduced a considerable amount of time spent creating the threads was used to load/compile the program. As such, we decided to precompile predicates used in the new processes. Performance increase was not as significant as expected, but total execution time of `choose_move` was shortened by 0.5s on average.
 
 #### Parallel programming <!-- omit in toc -->
 
-SICStus Prolog does not support parallel programming out-of-the-box. However, as this project would very much benefit from parallel programming, a simple multiprocessing interface was implemented using the `process` library. This interface is kept under submodule [prolog-multiprocessing](https://github.com/dmfrodrigues/prolog-multiprocessing), a separate public GitHub repository. 
+SICStus Prolog does not support parallel programming out-of-the-box. However, as this project would very much benefit from parallel programming, a simple multiprocessing interface was implemented under submodule [prolog-multiprocessing](https://github.com/dmfrodrigues/prolog-multiprocessing), a separate public GitHub repository.
 
-Indeed, performance improved by between two to four times using 8 processes.
+Indeed, performance improved by between two to four times using 8 processes. Currently our project uses a hardcoded number of processes equal to 8.
 
 ## Bibliography
 
