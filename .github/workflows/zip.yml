@@ -24,11 +24,14 @@ jobs:
     - name: Remove git folder from prolog-multiprocessing
       run: rm -rf prolog-multiprocessing/.git
 
+    - name: Test
+      run: make test PARALLEL=1
+
     - name: Zip
       run: make zip
 
     - name: Upload zip
       uses: actions/upload-artifact@v2
       with:
-        name: PLOG_TP1_RI_T2_Glaisher4.zip
-        path: PLOG_TP1_RI_T2_Glaisher4.zip
+        name: PLOG_TP1_FINAL_T2_Glaisher4.zip
+        path: PLOG_TP1_FINAL_T2_Glaisher4.zip
