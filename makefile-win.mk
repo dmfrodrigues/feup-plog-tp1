@@ -7,7 +7,8 @@ CLASS=T2
 GROUP=Glaisher4
 ZIPNAME=PLOG_TP1_FINAL_$(CLASS)_$(GROUP)
 
-ODIR=./obj
+SDIR=.\src
+ODIR=.\obj
 
 PROLOG_CMD=$(PROLOG) -f --noinfo -q
 
@@ -17,7 +18,7 @@ else
 	PARALLEL_CMD=parallel
 endif
 
-all: $(ODIR)/lists.po $(ODIR)/choose_move_1.po $(ODIR)/choose_move_2.po $(ODIR)/choose_move_common.po
+all: $(ODIR)\lists.po $(ODIR)\choose_move_1.po $(ODIR)\choose_move_2.po $(ODIR)\choose_move_common.po
 
 test: test_samples test_game_over test_move test_has_valid_moves test_value test_valid_moves test_maplist_multi test_choose_move
 
@@ -74,30 +75,30 @@ test_choose_move:
 test_maplist_multi:
 	$(PROLOG_CMD) -l tests/test_maplist_multi/1.pl -- color $(PARALLEL_CMD)
 
-$(ODIR)/choose_move_common.po: choose_move_common.pl | $(ODIR)
+$(ODIR)\choose_move_common.po: $(SDIR)\choose_move_common.pl | $(ODIR)
 ifeq ($(PROLOG),sicstus)
 	echo consult('build_choose_move_common_po.pl'). | $(PROLOG)
 else
 	exit 1
 endif
 
-$(ODIR)/choose_move_1.po: choose_move_1.pl | $(ODIR)
+$(ODIR)\choose_move_1.po: $(SDIR)\choose_move_1.pl | $(ODIR)
 ifeq ($(PROLOG),sicstus)
 	echo consult('build_choose_move_1_po.pl'). | $(PROLOG)
 else
 	exit 1
 endif
 
-$(ODIR)/choose_move_2.po: choose_move_2.pl | $(ODIR)
+$(ODIR)\choose_move_2.po: $(SDIR)\choose_move_2.pl | $(ODIR)
 ifeq ($(PROLOG),sicstus)
 	echo consult('build_choose_move_2_po.pl'). | $(PROLOG)
 else
 	exit 1
 endif
 
-$(ODIR)/lists.po: | $(ODIR)
+$(ODIR)\lists.po: | $(ODIR)
 ifeq ($(PROLOG),sicstus)
-	echo use_module(library(lists)), save_modules([lists], '$(ODIR)/lists'). | $(PROLOG)
+	echo use_module(library(lists)), save_modules([lists], './obj/lists'). | $(PROLOG)
 else
 	exit 1
 endif
