@@ -98,7 +98,7 @@ endif
 
 $(ODIR)\lists.po: | $(ODIR)
 ifeq ($(PROLOG),sicstus)
-	echo use_module(library(lists)), save_modules([lists], '$(ODIR)/lists'). | $(PROLOG)
+	echo use_module(library(lists)), save_modules([lists], './obj/lists'). | $(PROLOG)
 else
 	exit 1
 endif
