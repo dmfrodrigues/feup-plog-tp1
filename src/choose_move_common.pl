@@ -5,6 +5,15 @@
     reconsult('utils.pl'),
     reconsult('value.pl').
 
+:-
+    ((current_predicate(base_directory/1), base_directory(_)) -> true ; 
+        (
+            current_working_directory(CWD),
+            BASE = CWD,
+            assert(base_directory(BASE))
+        )
+    ).
+
 /**
  * get_move_value_pair(+gamestate(Board, Player), +Move, -(V-Move))
  * 
@@ -31,7 +40,7 @@ best_N_moves(gamestate(Board, Turn), ListOfMoves, N, ListOfBestMoves) :-
     list_create(gamestate(Board,Turn), L, GameStates),
     (L >= 512 -> 
         (
-            base_directory(BASE),
+            (base_directory(BASE) -> true ; (format(user_error, "Failed to get BASE~n", []), fail)),
             (
                 (current_prolog_flag(dialect, sicstus), atom_concat(BASE, 'obj/choose_move_common.po', CHOOSE_MOVE_COMMON));
                 (current_prolog_flag(dialect, swi    ), atom_concat(BASE, 'src/choose_move_common.pl', CHOOSE_MOVE_COMMON))

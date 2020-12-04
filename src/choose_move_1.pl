@@ -5,6 +5,15 @@
     reconsult('utils.pl'),
     reconsult('choose_move_common.pl').
 
+:-
+    ((current_predicate(base_directory/1), base_directory(_)) -> true ; 
+        (
+            current_working_directory(CWD),
+            BASE = CWD,
+            assert(base_directory(BASE))
+        )
+    ).
+
 /**
  * valid_move_from_action1(+Board, +playermove_action1(Turn, Pos, Substacks, Dir), -playermove(Turn, Pos, Substacks, Dir, NewPos))
  * 
@@ -114,7 +123,7 @@ choose_move_1(gamestate(Board, Turn), Turn, Level, N, Move, Value) :-
     list_create(gamestate(Board, Turn), N, GameStates),
     list_create(Level, N, Levels),
     
-    base_directory(BASE),
+    (base_directory(BASE) -> true ; (format(user_error, "Failed to load BASE", []), fail)),
     (
         (current_prolog_flag(dialect, sicstus), atom_concat(BASE, 'obj/choose_move_1.po', CHOOSE_MOVE_1));
         (current_prolog_flag(dialect, swi    ), atom_concat(BASE, 'src/choose_move_1.pl', CHOOSE_MOVE_1))

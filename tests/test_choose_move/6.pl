@@ -3,9 +3,6 @@
 
 :-
     reconsult('../../src/choose_move.pl'),
-    current_working_directory(CWD),
-    BASE = CWD,
-    assert(base_directory(BASE)),
 
     InitialTurn = 2,
     InitialBoard = [

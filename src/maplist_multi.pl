@@ -7,6 +7,15 @@
 :- use_module(library(system)).
 is_parallel :- current_prolog_flag(argv, Arguments), member(parallel, Arguments).
 
+:-
+    ((current_predicate(base_directory/1), base_directory(_)) -> true ; 
+        (
+            current_working_directory(CWD),
+            BASE = CWD,
+            assert(base_directory(BASE))
+        )
+    ).
+
 % maplist_multi/5
 maplist_multi(_, 1, Predicate, L1, L2, L3) :- 
     !,

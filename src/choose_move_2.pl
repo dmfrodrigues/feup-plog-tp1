@@ -5,6 +5,15 @@
     reconsult('utils.pl'),
     reconsult('choose_move_common.pl').
 
+:-
+    ((current_predicate(base_directory/1), base_directory(_)) -> true ; 
+        (
+            current_working_directory(CWD),
+            BASE = CWD,
+            assert(base_directory(BASE))
+        )
+    ).
+
 /**
  * valid_move_from_action2(+Board, +playermove_action2(NewPos), -playermove(Turn, Pos, Substacks, Dir, NewPos))
  * 

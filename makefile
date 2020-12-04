@@ -80,6 +80,7 @@ test_choose_move:
 	$(PROLOG_CMD) -l tests/test_choose_move/4.pl -- color $(PARALLEL_CMD)
 	$(PROLOG_CMD) -l tests/test_choose_move/5.pl -- color $(PARALLEL_CMD)
 	$(PROLOG_CMD) -l tests/test_choose_move/6.pl -- color $(PARALLEL_CMD)
+	$(PROLOG_CMD) -l tests/test_choose_move/7.pl -- color $(PARALLEL_CMD)
 
 test_maplist_multi:
 	$(PROLOG_CMD) -l tests/test_maplist_multi/1.pl -- color $(PARALLEL_CMD)

@@ -5,9 +5,6 @@
 	use_module(library(lists)),
 	use_module(library(system)).
 
-:-
-	reconsult('maplist_multi.pl').
-
 /**
  * list_create(+X, +N, -List)
  * 
@@ -136,4 +133,8 @@ current_working_directory(CWD) :-
 	current_prolog_flag(dialect, swi),
 	working_directory(CWD, CWD).
 
+:- multifile base_directory/1.
 :- dynamic base_directory/1.
+
+:-
+	reconsult('maplist_multi.pl').

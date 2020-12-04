@@ -13,11 +13,6 @@
     gamestate_dynamic/1,
     round_dynamic/1.
 
-:-
-    current_working_directory(CWD),
-    BASE = CWD,
-    assert(base_directory(BASE)).
-
 /**
  * play()
  * 
