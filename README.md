@@ -10,6 +10,7 @@ Distributed under the terms of the GNU General Public License, version 3
 ![Test](https://github.com/dmfrodrigues/feup-plog-tp1/workflows/Test/badge.svg)
 ![Test Windows](https://github.com/dmfrodrigues/feup-plog-tp1/workflows/Test%20Windows/badge.svg)
 ![Zip](https://github.com/dmfrodrigues/feup-plog-tp1/workflows/Zip/badge.svg)
+![Test server](https://github.com/dmfrodrigues/feup-plog-tp1/workflows/Test%20server/badge.svg)
 
 - **Project name:** Glaisher
 - **Short description:** Board game implemented in Prolog
