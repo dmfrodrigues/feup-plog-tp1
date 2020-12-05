@@ -7,15 +7,15 @@ handle_request(json([command=Command,args=Args]), json([response=Reply]), '200 O
 handle_request(_, '', '400 Bad Request').
 
 % COMMANDS
-:-reconsult('feup-plog-tp1/src/move.pl').
-:-reconsult('feup-plog-tp1/src/choose_move.pl').
-:-reconsult('feup-plog-tp1/src/value.pl').
-:-reconsult('feup-plog-tp1/src/game_over.pl').
+:-reconsult('src/move.pl').
+:-reconsult('src/choose_move.pl').
+:-reconsult('src/value.pl').
+:-reconsult('src/game_over.pl').
 
 :-
 	retract(base_directory(_)),
 	current_working_directory(CWD),
-	atom_concat(CWD, 'feup-plog-tp1/', BASE),
+	BASE = CWD,
 	assert(base_directory(BASE)).
 
 handle_command(hello, json([]), hello).
