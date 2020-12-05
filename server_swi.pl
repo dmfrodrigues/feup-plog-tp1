@@ -1,3 +1,13 @@
+:- use_module(library(http/thread_httpd)).
+:- use_module(library(http/http_dispatch)).
+
+:- http_handler(/, server, []).
+
+server(Request) :-
+    format('Content-Type: text/html~n~n', []),
+    format('Hello from Prolog').
+
+/*
 :- use_module(library(http/http_server)).
 :- use_module(library(lists)).
 :- use_module(library(codesio)).
@@ -22,3 +32,4 @@ server(Request) :-
 
 :-
     thread_get_message(_).
+*/

@@ -40,17 +40,6 @@
 %
 % curl -d '{"command": "game_over", "args": { "gamestate": { "board": [ [ -1,  0, -1,  0,  1,"nan","nan","nan","nan"],[  0,  0, -1,  0,  0,  0,"nan","nan","nan"],[  0,  0,  0, -6,  0,  3,  1,"nan","nan"],[  0,  0,  2,  3,  5,  1,  0,  0,"nan"],[  1,  2,  1,  0, -3,  0,  0,  0,  0],["nan",  0, -3, -1, -3,  0,  0,  0,  0],["nan","nan",  0, -1,  0,  2,  0,  0,  0],["nan","nan","nan", -1,  0,  0,  0,  1,  0],["nan","nan","nan","nan",  0,  0,  0,  0,  0]],"turn":1}}}' -H "Content-Type: application/json" -X POST "localhost:8081"
 
-/*
 :-
 	(current_prolog_flag(dialect, sicstus), reconsult('server_sicstus.pl'));
 	(current_prolog_flag(dialect, swi    ), reconsult('server_swi.pl')).
-*/
-
-:- use_module(library(http/thread_httpd)).
-:- use_module(library(http/http_dispatch)).
-
-:- http_handler(/, root_handler, []).
-
-root_handler(_):-
-    format('Content-Type: text/html~n~n', []),
-    format('Hello from Prolog').
