@@ -1,13 +1,13 @@
-name: Zip
+name: Test server
 
 on:
   push:
-    branches: [ master , dev ]
+    branches: [ master , dev , loads ]
   pull_request:
     branches: [ master, dev ]
 
 jobs:
-  zip:
+  test-server-local:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
@@ -27,18 +27,16 @@ jobs:
         git submodule sync --recursive
         git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
 
-    - name: Remove git folder from prolog-multiprocessing
-      run: rm -rf prolog-multiprocessing/.git
+    - name: Test
+      timeout-minutes: 10
+      run: make test_server_local PARALLEL=1
+  test-server-heroku:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
 
     - name: Test
       timeout-minutes: 10
-      run: make test PARALLEL=1
-
-    - name: Zip
-      run: make zip
-
-    - name: Upload zip
-      uses: actions/upload-artifact@v2
-      with:
-        name: PLOG_TP1_FINAL_T2_Glaisher4.zip
-        path: PLOG_TP1_FINAL_T2_Glaisher4.zip
+      run: |
+        sleep 60
+        make test_server_heroku

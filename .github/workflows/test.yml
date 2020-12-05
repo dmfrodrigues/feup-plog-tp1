@@ -28,6 +28,7 @@ jobs:
         git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
 
     - name: Test
+      timeout-minutes: 10
       run: make test
 
   test-parallel:
@@ -51,4 +52,5 @@ jobs:
         git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
 
     - name: Test
+      timeout-minutes: 10
       run: make test PARALLEL=1
