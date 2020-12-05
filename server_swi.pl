@@ -1,20 +1,12 @@
 :- use_module(library(http/thread_httpd)).
 :- use_module(library(http/http_dispatch)).
-
-:- http_handler(/, server, []).
-
-server(Request) :-
-    format('Content-Type: text/html~n~n', []),
-    format('Hello from Prolog').
-
-/*
 :- use_module(library(http/http_server)).
 :- use_module(library(lists)).
 :- use_module(library(codesio)).
 :- use_module(library(http/http_json)).
 :- use_module(library(http/json)).
 
-:- http_handler(root(.), server, [method(post)]).
+:- http_handler(/, server, [method(post)]).
 
 server(Request) :-
     http_read_json(Request, JSON),
@@ -27,9 +19,7 @@ server(Request) :-
 :-
 	reconsult('server_common.pl').
 
-:- 
-    http_server([port(8081)]).
-
+/*
 :-
     thread_get_message(_).
 */
