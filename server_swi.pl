@@ -1,6 +1,6 @@
 :- use_module(library(http/http_server)).
 % :- use_module(library(codesio)).
-% :- use_module(library(http/http_json)).
+:- use_module(library(http/http_json)).
 :- use_module(library(http/json)).
 
 :- http_handler(/, server, [method(post)]).
