@@ -31,6 +31,7 @@ jobs:
       run: rm -rf prolog-multiprocessing/.git
 
     - name: Test
+      timeout-minutes: 10
       run: make test PARALLEL=1
 
     - name: Zip
