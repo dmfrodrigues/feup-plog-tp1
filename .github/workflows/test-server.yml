@@ -28,7 +28,7 @@ jobs:
         git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
 
     - name: Test
-      run: make test_server PARALLEL=1
+      run: make test_server_local PARALLEL=1
   test-server-heroku:
     runs-on: ubuntu-20.04
     steps:
