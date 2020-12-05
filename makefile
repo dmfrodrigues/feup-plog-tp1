@@ -91,10 +91,7 @@ test_server_local:
 	(swipl -l server.pl -g "http_server([port(8081)])" -g "thread_get_message(_)" -- $(PARALLEL_CMD))&
 	sleep 2
 	make test_server TEST_URL="localhost:8081"
-	ps a
-	ps a | grep "swipl -l server.pl" | grep -v "grep"
-	ps a | grep "swipl -l server.pl" | grep -v "grep" | awk '{print $$1;}'
-	kill -9 $$(ps a | grep "swipl -l server.pl" | grep -v "grep" | awk '{print $$1;}')
+	kill -9 $$(pgrep "swipl")
 
 test_server_heroku:
 	make test_server TEST_URL="https://feup-plog-tp1-staging.herokuapp.com/"
