@@ -2,7 +2,6 @@
 % Distributed under the terms of the GNU General Public License, version 3
 
 :-
-    reconsult('../../src/maplist_multi.pl'),
     reconsult('../../src/utils.pl'),
     reconsult('print_me.pl'),
 
