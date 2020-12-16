@@ -13,7 +13,7 @@ server(Request) :-
     cors_enable(
         Request,
         [
-            methods([post])
+            methods([options, post])
         ]
     ),
     format('~n').                           % 200 with empty body
