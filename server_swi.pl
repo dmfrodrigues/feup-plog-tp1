@@ -6,10 +6,10 @@
 :- http_handler(/, server, [method(post)]).
 
 server(Request) :-
+    format(current_output, 'Access-Control-Allow-Origin: *~n', []),
     http_read_json(Request, JSON),
     handle_request(JSON, Response, Status),
     format(current_output, 'Status: ~s~n', [Status]),
-    format(current_output, 'Access-Control-Allow-Origin: *~n', []),
     format(current_output, 'Content-Type: application/json~n~n', []),
     json_write(current_output, Response, [width(60)]).
 
