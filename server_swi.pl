@@ -3,6 +3,8 @@
 :- use_module(library(http/http_json)).
 :- use_module(library(http/json)).
 
+:- set_seting(http:cors, [*]);
+
 :- http_handler(/, server, [method(post)]).
 
 % Handle preflight OPTIONS request
@@ -18,6 +20,7 @@ server(Request) :-
 
 server(Request) :-
     format(current_output, 'Access-Control-Allow-Origin: *~n', []),
+    % cors_enable,
     http_read_json(Request, JSON),
     handle_request(JSON, Response, Status),
     format(current_output, 'Status: ~s~n', [Status]),
