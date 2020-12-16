@@ -1,9 +1,7 @@
-:- use_module(library(http/http_server)).
-% :- use_module(library(codesio)).
 :- use_module(library(http/http_json)).
 :- use_module(library(http/json)).
 
-:- set_seting(http:cors, [*]);
+% :- set_seting(http:cors, [*]);
 
 :- http_handler(/, server, [method(post)]).
 

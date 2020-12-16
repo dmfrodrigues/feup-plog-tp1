@@ -1,11 +1,12 @@
 % (C) 2020 Diogo Rodrigues, Breno Pimentel
 % Distributed under the terms of the GNU General Public License, version 3
 
-:-
-   reconsult('../prolog-multiprocessing/multiprocessing.pl'). 
-
 :- use_module(library(system)).
 is_parallel :- current_prolog_flag(argv, Arguments), member(parallel, Arguments).
+
+:-  is_parallel -> 
+        reconsult('../prolog-multiprocessing/multiprocessing.pl');
+        true.  
 
 :-
     ((current_predicate(base_directory/1), base_directory(_)) -> true ; 
