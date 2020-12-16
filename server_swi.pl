@@ -1,9 +1,10 @@
-:- use_module(library(http/http_server)).
+:- use_module(library(http/http_cors)).
 :- use_module(library(http/http_json)).
 :- use_module(library(http/json)).
 
-% :- set_seting(http:cors, [*]);
+:- set_setting(http:cors, [*]).
 
+:- current_predicate(http_handler/3) -> true ; use_module(library(http/http_server)).
 :- http_handler(/, server, [method(post)]).
 
 % Handle preflight OPTIONS request
