@@ -5,19 +5,16 @@
 :- set_setting(http:cors, [*]).
 
 :- current_predicate(http_handler/3) -> true ; use_module(library(http/http_server)).
-:- http_handler(/, server, [method(post)]).
+:- http_handler(/, server, [methods([post, options])]).
 
 % Handle preflight OPTIONS request
-% server(Request) :-
-%     option(method(options), Request), !,
-%     format(current_output, 'Access-Control-Allow-Origin: *~n', []),
-%     format(current_output, 'Access-Control-Allow-Methods: POST, OPTIONS~n', []),
-%     format('~n').                           % 200 with empty body
+server(Request) :-
+    option(method(options), Request), !,
+    cors_enable(Request, [methods([post, options])]),
+    format('~n').
 
 server(Request) :-
-    format(current_output, 'Access-Control-Allow-Origin: *~n', []),
-    format(current_output, 'Access-Control-Allow-Methods: POST, OPTIONS~n', []),
-    % cors_enable,
+    cors_enable,
     http_read_json(Request, JSON),
     handle_request(JSON, Response, Status),
     format(current_output, 'Status: ~s~n', [Status]),
