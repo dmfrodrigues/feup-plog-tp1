@@ -1,3 +1,4 @@
+:- use_module(library(http/http_server)).
 :- use_module(library(http/http_json)).
 :- use_module(library(http/json)).
 
