@@ -5,6 +5,17 @@
 
 :- http_handler(/, server, [method(post)]).
 
+% Handle preflight OPTIONS request
+server(Request) :-
+    option(method(options), Request), !,
+    cors_enable(
+        Request,
+        [
+            methods([post])
+        ]
+    ),
+    format('~n').                           % 200 with empty body
+
 server(Request) :-
     format(current_output, 'Access-Control-Allow-Origin: *~n', []),
     http_read_json(Request, JSON),
