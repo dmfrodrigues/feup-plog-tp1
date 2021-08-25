@@ -17,7 +17,8 @@ Distributed under the terms of the GNU General Public License, version 3
 - **Environment:** SICStus Prolog
 - **Tools:** Prolog
 - **Institution:** [FEUP](https://sigarra.up.pt/feup/en/web_page.Inicial)
-- **Course:** [PLOG](https://sigarra.up.pt/feup/en/UCURR_GERAL.FICHA_UC_VIEW?pv_ocorrencia_id=459482) (Logic Programming) <!-- - **Project grade:** ??.?/20.0 -->
+- **Course:** [PLOG](https://sigarra.up.pt/feup/en/UCURR_GERAL.FICHA_UC_VIEW?pv_ocorrencia_id=459482) (Logic Programming)
+- **Project grade:** 18.8/20.0
 - **TP class:** 3MIEIC02
 - **Group:** Glaisher_4
 - **Group members:** 
