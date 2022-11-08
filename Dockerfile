@@ -1,10 +1,4 @@
-FROM ubuntu:20.04
-
-RUN apt update
-RUN apt install -y software-properties-common
-RUN apt-add-repository ppa:swi-prolog/stable
-RUN apt update
-RUN apt install -y swi-prolog
+FROM swipl
 
 COPY . /app
 WORKDIR /app
